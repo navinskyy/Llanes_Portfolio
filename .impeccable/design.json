@@ -1,0 +1,521 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-17T16:18:12.514Z",
+  "title": "Design System: Navin Byron Llanes, Portfolio",
+  "extensions": {
+    "colorMeta": {
+      "accent": {
+        "role": "primary",
+        "displayName": "Signal Orange",
+        "canonical": "oklch(65.1% 0.200 34.6)",
+        "tonalRamp": [
+          "oklch(15% 0.120 34.6)",
+          "oklch(25% 0.160 34.6)",
+          "oklch(35% 0.200 34.6)",
+          "oklch(48% 0.200 34.6)",
+          "oklch(60% 0.200 34.6)",
+          "oklch(72% 0.172 34.6)",
+          "oklch(84% 0.124 34.6)",
+          "oklch(95% 0.080 34.6)"
+        ],
+        "nightValue": "#ff6a45"
+      },
+      "lip-accent": {
+        "role": "primary",
+        "displayName": "Orange Lip",
+        "canonical": "oklch(52.1% 0.168 34.5)",
+        "tonalRamp": [
+          "oklch(15% 0.101 34.5)",
+          "oklch(25% 0.134 34.5)",
+          "oklch(35% 0.168 34.5)",
+          "oklch(48% 0.168 34.5)",
+          "oklch(60% 0.168 34.5)",
+          "oklch(72% 0.144 34.5)",
+          "oklch(84% 0.104 34.5)",
+          "oklch(95% 0.067 34.5)"
+        ]
+      },
+      "accent-on-mod": {
+        "role": "primary",
+        "displayName": "Orange on Slate",
+        "canonical": "oklch(77.0% 0.139 36.7)",
+        "tonalRamp": [
+          "oklch(15% 0.083 36.7)",
+          "oklch(25% 0.111 36.7)",
+          "oklch(35% 0.139 36.7)",
+          "oklch(48% 0.139 36.7)",
+          "oklch(60% 0.139 36.7)",
+          "oklch(72% 0.120 36.7)",
+          "oklch(84% 0.086 36.7)",
+          "oklch(95% 0.056 36.7)"
+        ],
+        "nightValue": "#ff9273"
+      },
+      "alpha": {
+        "role": "neutral",
+        "displayName": "Alpha Plastic",
+        "canonical": "oklch(92.7% 0.006 255.5)",
+        "tonalRamp": [
+          "oklch(15% 0.004 255.5)",
+          "oklch(25% 0.005 255.5)",
+          "oklch(35% 0.006 255.5)",
+          "oklch(48% 0.006 255.5)",
+          "oklch(60% 0.006 255.5)",
+          "oklch(72% 0.005 255.5)",
+          "oklch(84% 0.004 255.5)",
+          "oklch(95% 0.003 255.5)"
+        ],
+        "nightValue": "#171b21"
+      },
+      "alpha-2": {
+        "role": "neutral",
+        "displayName": "Raised Alpha",
+        "canonical": "oklch(96.3% 0.003 247.9)",
+        "tonalRamp": [
+          "oklch(15% 0.002 247.9)",
+          "oklch(25% 0.003 247.9)",
+          "oklch(35% 0.003 247.9)",
+          "oklch(48% 0.003 247.9)",
+          "oklch(60% 0.003 247.9)",
+          "oklch(72% 0.003 247.9)",
+          "oklch(84% 0.002 247.9)",
+          "oklch(95% 0.001 247.9)"
+        ],
+        "nightValue": "#1d222a"
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Sheet White",
+        "canonical": "oklch(98.2% 0.002 247.8)",
+        "tonalRamp": [
+          "oklch(15% 0.001 247.8)",
+          "oklch(25% 0.001 247.8)",
+          "oklch(35% 0.002 247.8)",
+          "oklch(48% 0.002 247.8)",
+          "oklch(60% 0.002 247.8)",
+          "oklch(72% 0.001 247.8)",
+          "oklch(84% 0.001 247.8)",
+          "oklch(95% 0.001 247.8)"
+        ],
+        "nightValue": "#222831"
+      },
+      "modifier": {
+        "role": "neutral",
+        "displayName": "Slate Modifier",
+        "canonical": "oklch(35.1% 0.023 261.2)",
+        "tonalRamp": [
+          "oklch(15% 0.014 261.2)",
+          "oklch(25% 0.018 261.2)",
+          "oklch(35% 0.023 261.2)",
+          "oklch(48% 0.023 261.2)",
+          "oklch(60% 0.023 261.2)",
+          "oklch(72% 0.020 261.2)",
+          "oklch(84% 0.014 261.2)",
+          "oklch(95% 0.009 261.2)"
+        ],
+        "nightValue": "#2e3540"
+      },
+      "modifier-2": {
+        "role": "neutral",
+        "displayName": "Slate Hover",
+        "canonical": "oklch(43.7% 0.025 261.7)",
+        "tonalRamp": [
+          "oklch(15% 0.015 261.7)",
+          "oklch(25% 0.020 261.7)",
+          "oklch(35% 0.025 261.7)",
+          "oklch(48% 0.025 261.7)",
+          "oklch(60% 0.025 261.7)",
+          "oklch(72% 0.022 261.7)",
+          "oklch(84% 0.016 261.7)",
+          "oklch(95% 0.010 261.7)"
+        ],
+        "nightValue": "#3a4250"
+      },
+      "lip-modifier": {
+        "role": "neutral",
+        "displayName": "Modifier Lip",
+        "canonical": "oklch(25.0% 0.017 259.8)",
+        "tonalRamp": [
+          "oklch(15% 0.010 259.8)",
+          "oklch(25% 0.014 259.8)",
+          "oklch(35% 0.017 259.8)",
+          "oklch(48% 0.017 259.8)",
+          "oklch(60% 0.017 259.8)",
+          "oklch(72% 0.015 259.8)",
+          "oklch(84% 0.010 259.8)",
+          "oklch(95% 0.007 259.8)"
+        ]
+      },
+      "legend": {
+        "role": "neutral",
+        "displayName": "Legend Black",
+        "canonical": "oklch(20.4% 0.011 260.7)",
+        "tonalRamp": [
+          "oklch(15% 0.007 260.7)",
+          "oklch(25% 0.009 260.7)",
+          "oklch(35% 0.011 260.7)",
+          "oklch(48% 0.011 260.7)",
+          "oklch(60% 0.011 260.7)",
+          "oklch(72% 0.009 260.7)",
+          "oklch(84% 0.007 260.7)",
+          "oklch(95% 0.004 260.7)"
+        ],
+        "nightValue": "#e8ebef"
+      },
+      "legend-muted": {
+        "role": "neutral",
+        "displayName": "Muted Legend",
+        "canonical": "oklch(44.7% 0.024 257.5)",
+        "tonalRamp": [
+          "oklch(15% 0.015 257.5)",
+          "oklch(25% 0.019 257.5)",
+          "oklch(35% 0.024 257.5)",
+          "oklch(48% 0.024 257.5)",
+          "oklch(60% 0.024 257.5)",
+          "oklch(72% 0.021 257.5)",
+          "oklch(84% 0.015 257.5)",
+          "oklch(95% 0.010 257.5)"
+        ],
+        "nightValue": "#a3acb8"
+      },
+      "legend-on-mod": {
+        "role": "neutral",
+        "displayName": "Legend on Slate",
+        "canonical": "oklch(95.4% 0.005 258.3)",
+        "tonalRamp": [
+          "oklch(15% 0.003 258.3)",
+          "oklch(25% 0.004 258.3)",
+          "oklch(35% 0.005 258.3)",
+          "oklch(48% 0.005 258.3)",
+          "oklch(60% 0.005 258.3)",
+          "oklch(72% 0.004 258.3)",
+          "oklch(84% 0.003 258.3)",
+          "oklch(95% 0.002 258.3)"
+        ],
+        "nightValue": "#e8ebef"
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(83.7% 0.011 256.7)",
+        "tonalRamp": [
+          "oklch(15% 0.007 256.7)",
+          "oklch(25% 0.009 256.7)",
+          "oklch(35% 0.011 256.7)",
+          "oklch(48% 0.011 256.7)",
+          "oklch(60% 0.011 256.7)",
+          "oklch(72% 0.010 256.7)",
+          "oklch(84% 0.007 256.7)",
+          "oklch(95% 0.004 256.7)"
+        ],
+        "nightValue": "#343c48"
+      },
+      "cap-lip": {
+        "role": "neutral",
+        "displayName": "Cap Lip",
+        "canonical": "oklch(80.0% 0.013 259.8)",
+        "tonalRamp": [
+          "oklch(15% 0.008 259.8)",
+          "oklch(25% 0.010 259.8)",
+          "oklch(35% 0.013 259.8)",
+          "oklch(48% 0.013 259.8)",
+          "oklch(60% 0.013 259.8)",
+          "oklch(72% 0.011 259.8)",
+          "oklch(84% 0.008 259.8)",
+          "oklch(95% 0.005 259.8)"
+        ],
+        "nightValue": "#0e1115"
+      },
+      "wrong": {
+        "role": "error",
+        "displayName": "Mistype Red",
+        "canonical": "oklch(53.8% 0.184 31.8)",
+        "tonalRamp": [
+          "oklch(15% 0.111 31.8)",
+          "oklch(25% 0.147 31.8)",
+          "oklch(35% 0.184 31.8)",
+          "oklch(48% 0.184 31.8)",
+          "oklch(60% 0.184 31.8)",
+          "oklch(72% 0.158 31.8)",
+          "oklch(84% 0.114 31.8)",
+          "oklch(95% 0.074 31.8)"
+        ],
+        "nightValue": "#ff7a66"
+      },
+      "accent-ink": {
+        "role": "neutral",
+        "displayName": "Accent Ink",
+        "canonical": "oklch(20.4% 0.011 260.7)",
+        "tonalRamp": [
+          "oklch(15% 0.007 260.7)",
+          "oklch(25% 0.009 260.7)",
+          "oklch(35% 0.011 260.7)",
+          "oklch(48% 0.011 260.7)",
+          "oklch(60% 0.011 260.7)",
+          "oklch(72% 0.009 260.7)",
+          "oklch(84% 0.007 260.7)",
+          "oklch(95% 0.004 260.7)"
+        ],
+        "nightValue": "#14171c"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The home name NAVIN only; types in as keystrokes."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Inner page titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Project names, dialog titles, the hero surname."
+      },
+      "title-sm": {
+        "displayName": "Title small",
+        "purpose": "Section titles and experience role titles."
+      },
+      "body-lg": {
+        "displayName": "Body large",
+        "purpose": "Hero bio, max 60ch."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Prose, max 66ch."
+      },
+      "body-sm": {
+        "displayName": "Body small",
+        "purpose": "Metadata, hints, categories, printed legends."
+      },
+      "action": {
+        "displayName": "Action legend",
+        "purpose": "Bold legends on action keys."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Cap legends and spec-field labels."
+      },
+      "data": {
+        "displayName": "Data",
+        "purpose": "Measured quantities, counts, dates; tabular figures."
+      }
+    },
+    "shadows": [
+      {
+        "name": "cap-rest",
+        "value": "inset 0 -4px 0 var(--cap-lip), 0 2px 3px rgb(20 23 28 / 0.12), 0 6px 12px -6px rgb(20 23 28 / 0.25)",
+        "purpose": "Every keycap at rest: a lip plus a soft, offset ambient shadow."
+      },
+      {
+        "name": "cap-down",
+        "value": "inset 0 -1px 0 var(--cap-lip), 0 1px 1px rgb(20 23 28 / 0.12)",
+        "purpose": "A cap that is pressed, active or struck by a shortcut."
+      },
+      {
+        "name": "portrait-frame",
+        "value": "inset 0 -6px 0 #1d222a, 0 18px 40px -18px rgb(20 23 28 / 0.45)",
+        "purpose": "The hero portrait slate frame only."
+      },
+      {
+        "name": "dialog-lift",
+        "value": "0 16px 28px -10px rgb(0 0 0 / 0.3)",
+        "purpose": "Modal panels, over a rgb(10 12 15 / 0.55) backdrop."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Cap press, arrow nudge, word-track scroll."
+      },
+      {
+        "name": "t-fast",
+        "value": "120ms",
+        "purpose": "Cap press and release."
+      },
+      {
+        "name": "t-base",
+        "value": "220ms",
+        "purpose": "Background and color transitions."
+      },
+      {
+        "name": "t-slow",
+        "value": "420ms",
+        "purpose": "Certificate image hover scale."
+      },
+      {
+        "name": "shortcut-press",
+        "value": "140ms",
+        "purpose": "A physical key press echoed on the on-screen cap (.is-down)."
+      },
+      {
+        "name": "intro-type",
+        "value": "380ms outExpo, 85ms stagger per letter; the rest at 620ms, 60ms stagger",
+        "purpose": "The home name types in as keystrokes."
+      },
+      {
+        "name": "reveal",
+        "value": "560ms outExpo, y 16px to 0, stagger min(70ms, 420ms / n)",
+        "purpose": "List rows settle in on scroll."
+      },
+      {
+        "name": "view-transition",
+        "value": "260ms",
+        "purpose": "Root crossfade between pages."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "board-hero",
+        "value": "900px"
+      },
+      {
+        "name": "projects-stack",
+        "value": "760px"
+      },
+      {
+        "name": "experience",
+        "value": "700px"
+      },
+      {
+        "name": "typing-dialog",
+        "value": "600px"
+      },
+      {
+        "name": "board-compact",
+        "value": "520px"
+      },
+      {
+        "name": "hero-actions-full",
+        "value": "420px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Race Key (accent cap)",
+      "kind": "button",
+      "refersTo": "cap-accent",
+      "description": "The one orange key per context; the primary action.",
+      "html": "<button class=\"ds-cap ds-cap-accent\" type=\"button\"><kbd class=\"ds-kbd\">T</kbd><span>Race my <span class=\"ds-num\">92 wpm</span></span></button>",
+      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--accent,#f0532d);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-cap-accent{--cap-lip:#b53718;background:var(--accent,#f0532d);border-color:var(--accent,#f0532d);color:var(--accent-ink,#14171c);font-family:'Public Sans',system-ui,sans-serif;font-weight:700;font-size:.875rem;letter-spacing:0;min-height:52px;padding-inline:24px;font-size:1rem}.ds-cap-accent:hover{background:color-mix(in oklab,var(--accent,#f0532d) 88%,white)}.ds-cap-accent:active{box-shadow:inset 0 -1px 0 #b53718,0 1px 1px rgb(20 23 28/.12)}.ds-kbd{font-family:Michroma,Arial,sans-serif;font-size:.75rem;padding:2px 7px;border:1px solid rgb(0 0 0/.25);border-radius:5px}.ds-num{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}"
+    },
+    {
+      "name": "Modifier Key (slate cap)",
+      "kind": "button",
+      "refersTo": "cap-mod",
+      "description": "Secondary action on a slate modifier key.",
+      "html": "<a class=\"ds-cap ds-cap-mod\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"2.5\" y=\"4.5\" width=\"19\" height=\"15\" rx=\"2.5\"/><path d=\"M3 6.5l9 6 9-6\"/></svg><span>Email me</span></a>",
+      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--accent,#f0532d);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-cap-mod{--cap-lip:#1d222a;background:var(--modifier,#343b47);border-color:var(--modifier,#343b47);color:var(--legend-on-mod,#eef0f3);font-family:'Public Sans',system-ui,sans-serif;font-weight:700;font-size:.875rem;letter-spacing:0;min-height:52px;padding-inline:24px;font-size:1rem}.ds-cap-mod:hover{background:var(--modifier-2,#4a5260)}.ds-cap-mod:active{box-shadow:inset 0 -1px 0 #1d222a,0 1px 1px rgb(20 23 28/.12)}"
+    },
+    {
+      "name": "Square Cap",
+      "kind": "button",
+      "refersTo": "cap-square",
+      "description": "Icon-only alpha cap: theme, close, copy, socials.",
+      "html": "<button class=\"ds-cap ds-cap-square\" type=\"button\" aria-label=\"Switch colorway\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z\"/></svg></button>",
+      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--accent,#f0532d);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-cap-square{justify-content:center;min-width:44px;padding-inline:12px}"
+    },
+    {
+      "name": "Section Keys",
+      "kind": "nav",
+      "refersTo": "section-key",
+      "description": "Board navigation: letter legend top-left, label beneath; the current page turns slate.",
+      "html": "<nav class=\"ds-keys\"><a class=\"ds-cap ds-key\" href=\"#\" aria-current=\"page\"><kbd class=\"ds-key-letter\">P</kbd><span class=\"ds-key-label\">Projects</span></a><a class=\"ds-cap ds-key\" href=\"#\"><kbd class=\"ds-key-letter\">E</kbd><span class=\"ds-key-label\">Experience</span></a><a class=\"ds-cap ds-key\" href=\"#\"><kbd class=\"ds-key-letter\">S</kbd><span class=\"ds-key-label\">Stack</span></a></nav>",
+      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--accent,#f0532d);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-keys{display:flex;gap:8px}.ds-key{flex-direction:column;align-items:flex-start;gap:0;min-width:7.5rem;padding-block:4px 8px;line-height:1.3}.ds-key-letter{font-family:Michroma,Arial,sans-serif;font-size:.875rem;color:var(--legend,#14171c)}.ds-key-label{font-family:'Public Sans',system-ui,sans-serif;font-size:.875rem;font-weight:600;letter-spacing:0}.ds-key[aria-current=page]{--cap-lip:#1d222a;background:var(--modifier,#343b47);border-color:var(--modifier,#343b47);color:var(--legend-on-mod,#eef0f3)}.ds-key[aria-current=page] .ds-key-letter{color:var(--accent-on-mod,#ff9273)}"
+    },
+    {
+      "name": "Sheet Panel",
+      "kind": "card",
+      "refersTo": "sheet",
+      "description": "Flat printed panel with a hairline frame, holding a group of printed legends.",
+      "html": "<section class=\"ds-sheet\"><h3 class=\"ds-sheet-title\">Front end <span class=\"ds-count\">04</span></h3><ul class=\"ds-legends\"><li>Astro</li><li>TypeScript</li><li>CSS</li><li>Figma</li></ul></section>",
+      "css": ".ds-sheet{display:grid;gap:16px;padding:24px;background:var(--panel,#f8f9fa);border:1px solid var(--rule,#c5cad1);border-radius:14px;color:var(--legend,#14171c)}.ds-sheet-title{font-family:Michroma,Arial,sans-serif;font-weight:400;font-size:1rem;display:flex;gap:12px;align-items:baseline;margin:0}.ds-count{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:.875rem;color:var(--legend-muted,#4c5562)}.ds-legends{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}.ds-legends li{padding:8px 12px;border:1px solid var(--rule,#c5cad1);border-radius:6px;background:var(--alpha,#e4e7eb);font-family:'Public Sans',system-ui,sans-serif;font-size:.875rem;font-weight:600}"
+    },
+    {
+      "name": "Spec Fields (stat strip)",
+      "kind": "custom",
+      "refersTo": "spec-field",
+      "description": "Michroma labels over mono tabular values, divided by hairlines.",
+      "html": "<dl class=\"ds-stats\"><div><dt>wpm</dt><dd>92</dd></div><div><dt>accuracy</dt><dd>98<small>%</small></dd></div><div><dt>time left</dt><dd>30<small>s</small></dd></div></dl>",
+      "css": ".ds-stats{display:grid;grid-template-columns:repeat(3,1fr);margin:0;border:1px solid var(--rule,#c5cad1);border-radius:10px;overflow:hidden;background:var(--panel,#f8f9fa)}.ds-stats>div{padding:12px 16px;border-left:1px solid var(--rule,#c5cad1)}.ds-stats>div:first-child{border-left:0}.ds-stats dt{font-family:Michroma,Arial,sans-serif;font-size:.75rem;color:var(--legend-muted,#4c5562)}.ds-stats dd{margin:0;font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:1.5rem;font-weight:600;line-height:1.3;color:var(--legend,#14171c)}.ds-stats small{font-size:.875rem;font-weight:400;color:var(--legend-muted,#4c5562)}"
+    },
+    {
+      "name": "Email Field",
+      "kind": "input",
+      "refersTo": "spec-field",
+      "description": "Alpha well with the address and a copy cap inside.",
+      "html": "<div class=\"ds-field\"><span class=\"ds-field-text\">name@example.com</span><button class=\"ds-cap ds-cap-square\" type=\"button\" aria-label=\"Copy\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg></button></div>",
+      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--accent,#f0532d);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-cap-square{justify-content:center;min-width:44px;padding-inline:12px}.ds-field{display:flex;align-items:center;gap:8px;padding:8px 8px 8px 16px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha,#e4e7eb)}.ds-field-text{flex:1;min-width:0;font-family:'Public Sans',system-ui,sans-serif;font-size:.875rem;color:var(--legend,#14171c);user-select:all}"
+    },
+    {
+      "name": "Index Row",
+      "kind": "custom",
+      "refersTo": "cap",
+      "description": "Home section index: a ruled link row whose keycap depresses on hover.",
+      "html": "<a class=\"ds-row\" href=\"#\"><kbd class=\"ds-row-key\">P</kbd><span class=\"ds-row-label\">Projects</span><span class=\"ds-row-count\">04 <span>projects</span></span><svg class=\"ds-row-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 17 17 7M8 7h9v9\"/></svg></a>",
+      "css": ".ds-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto 20px;align-items:center;gap:24px;padding-block:24px;border-block:1px solid var(--rule,#c5cad1);color:var(--legend,#14171c);text-decoration:none;transition:background-color 220ms ease}.ds-row:hover{background:var(--alpha-2,#f1f3f5)}.ds-row:focus-visible{outline:2px solid var(--accent,#f0532d);outline-offset:3px}.ds-row-key{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.875rem;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1)}.ds-row:hover .ds-row-key{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-row-label{font-family:Michroma,Arial,sans-serif}.ds-row-count{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:1.1875rem;font-weight:600}.ds-row-count span{font-size:.875rem;font-weight:400;color:var(--legend-muted,#4c5562)}.ds-row-arrow{width:20px;height:20px;color:var(--legend-muted,#4c5562);transition:transform 220ms cubic-bezier(.16,1,.3,1),color 220ms ease}.ds-row:hover .ds-row-arrow{color:var(--accent,#f0532d);transform:translate(2px,-2px)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Keycap Kit Sheet",
+    "overview": "The site is a keycap set laid out on its printed kit sheet, colorway NAVIN/92. Everything you can press is a sculpted keycap: a 1px hairline-bordered cap that sits on a bottom lip and drops 3px when struck, by mouse or by the matching physical key. Everything you read is printed flat on the sheet: hairline-ruled rows, flat panels, and spec fields in which a wide mechanical legend labels a value. The ground is a pale, cool grey plastic; slate modifier keys carry weight; one signal-orange key carries the primary action.\n\nDensity is moderate and calm. Content runs on a 1240px board with fluid gutters, prose is held to a 60–66ch measure, and lists are ruled rows rather than card grids. Motion is mechanical and short. Keys depress in 120ms. The home name types in letter by letter as keystrokes (85ms stagger, outExpo), and list rows settle upward on scroll. With reduced motion, everything is visible and still.\n\nThere are two colorways, Day (light, the default) and Night (dark, which follows the OS until the visitor picks one). A visible \"Colorway NAVIN/92\" legend with swatch chips in the footer switches between them. Both colorways share one structure; only the plastic changes.",
+    "keyCharacteristics": [
+      "Pressable things are lipped keycaps. Readable things are printed flat.",
+      "One orange key per context. Slate marks the current position.",
+      "A wide mechanical legend face (Michroma) for keys, labels and display. A workhorse sans (Public Sans) for prose and action legends. Mono (JetBrains Mono, tabular) for measured data.",
+      "Hairline 1px rules in `rule` grey frame every panel, field and list row.",
+      "Physical keyboard shortcuts (H, P, E, S, C, T) press the on-screen cap."
+    ],
+    "rules": [
+      {
+        "name": "The One Orange Key Rule",
+        "body": "Within any one context (the hero, the board, a dialog), orange fills exactly one key, and that key is the primary action. Every other use of orange is a thin signal: a ring, caret, period or arrow tint. Orange never fills a panel, a row or a heading background.",
+        "section": "colors"
+      },
+      {
+        "name": "The Slate Means Here Rule",
+        "body": "The current page is shown by turning its section key slate (`modifier`) with an orange-on-slate letter. Orange is not used for the current page.",
+        "section": "colors"
+      },
+      {
+        "name": "The Measured-in-Mono Rule",
+        "body": "Mono with tabular figures is for quantities and dates (wpm, %, s, counts, issue dates, phone digits). Prose, names and labels are never set in mono.",
+        "section": "typography"
+      },
+      {
+        "name": "The Single-Weight Legend Rule",
+        "body": "Michroma ships at 400 only. Hierarchy in the legend face comes from size and color, never from bold or synthetic weight. There is no `text-transform` anywhere. Uppercase comes from the content itself (NAVIN, key letters).",
+        "section": "typography"
+      },
+      {
+        "name": "The Actions-Are-Keys Rule",
+        "body": "The lipped cap shadow marks something you can press, plus the decorative virtual keyboard in the race. Content items such as skills, tags, figures and certificate plates are printed flat with a hairline and never get a lip.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Flat Sheet Rule",
+        "body": "A panel that does not float (one that is not a dialog) carries no shadow. It is separated by a 1px `rule` hairline and a tonal step.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** make every action a keycap (`cap`, `cap--mod`, `cap--accent`, `cap--square`) with the cap-at-rest lip, 44px minimum, and the 3px press at 120ms.",
+      "**Do** give each context exactly one orange key, and make it the primary action.",
+      "**Do** mark the current location with a slate key and an orange-on-slate letter.",
+      "**Do** print content flat on panel or ruled rows with 1px `rule` hairlines. Separate with tonal steps (alpha, alpha-2, panel), not shadows.",
+      "**Do** set quantities, dates and counts in JetBrains Mono with tabular figures, and pad counts to two digits.",
+      "**Do** use Michroma at 400 for display, headings and small spec labels. Use Public Sans 700 for legends on action keys.",
+      "**Do** define both colorways for any new color, and keep the footer swatches in step with the tokens."
+    ],
+    "donts": [
+      "**Don't** put the lipped cap shadow on non-interactive content: tags, skills, figures and plates stay flat.",
+      "**Don't** fill a second element with orange in the same context, and don't use orange as a panel or section background.",
+      "**Don't** bold Michroma or apply `text-transform`. It ships at one weight.",
+      "**Don't** set prose, names or labels in mono.",
+      "**Don't** add shadows to static panels. Only caps, the portrait frame and dialogs carry depth.",
+      "**Don't** use white legends on the orange key. Its legend is `accent-ink`."
+    ]
+  }
+}

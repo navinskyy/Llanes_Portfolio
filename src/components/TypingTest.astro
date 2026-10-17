@@ -1,0 +1,269 @@
+---
+import Icon from './Icon.astro';
+import { typingBenchmark } from '../data/site';
+
+const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
+---
+
+<dialog id="typing-dialog" class="dlg tt" data-dialog aria-labelledby="tt-title" aria-describedby="tt-help">
+  <div class="tt-card sheet" data-panel>
+    <button class="cap cap--square dlg-close" type="button" data-close aria-label="Close typing test">
+      <Icon name="close" />
+    </button>
+    <h2 id="tt-title">Race Navin</h2>
+    <p id="tt-help" class="dlg-sub">
+      Type the words for {typingBenchmark.durationSeconds} seconds. The timer starts on your first key. Beat{' '}
+      <span class="tabular">{typingBenchmark.wpm} wpm</span> at <span class="tabular">{typingBenchmark.accuracy}%</span> accuracy to win.
+    </p>
+
+    <dl class="tt-stats" aria-live="off">
+      <div><dt>wpm</dt><dd class="tabular" id="tt-wpm">0</dd></div>
+      <div><dt>accuracy</dt><dd class="tabular"><span id="tt-acc">100</span><small>%</small></dd></div>
+      <div><dt>time left</dt><dd class="tabular"><span id="tt-time">{typingBenchmark.durationSeconds}</span><small>s</small></dd></div>
+    </dl>
+
+    <div class="tt-viewport" aria-hidden="true">
+      <div class="tt-track" id="tt-track"></div>
+    </div>
+
+    <label class="visually-hidden" for="tt-input">Type the words shown</label>
+    <input class="tt-input" id="tt-input" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" />
+
+    <div class="tt-keyboard" aria-hidden="true">
+      {
+        rows.map((row) => (
+          <div class="kb-row">
+            {row.map((k) => (
+              <span class="kb-key" data-key={k}>{k}</span>
+            ))}
+          </div>
+        ))
+      }
+      <div class="kb-row"><span class="kb-key kb-space" data-key=" ">space</span></div>
+    </div>
+
+    <p class="tt-foot"><kbd>tab</kbd> restart <kbd>esc</kbd> close</p>
+  </div>
+</dialog>
+
+<dialog id="result-dialog" class="dlg result" data-dialog aria-labelledby="result-title" aria-describedby="result-sub">
+  <div class="dlg-panel sheet" data-panel>
+    <button class="cap cap--square dlg-close" type="button" data-close aria-label="Close result">
+      <Icon name="close" />
+    </button>
+    <h2 id="result-title">Result</h2>
+    <p class="dlg-sub" id="result-sub"></p>
+    <dl class="result-stats">
+      <div><dt>your wpm</dt><dd class="tabular" id="result-wpm">0</dd></div>
+      <div><dt>accuracy</dt><dd class="tabular"><span id="result-acc">0</span><small>%</small></dd></div>
+      <div><dt>navin</dt><dd class="tabular">{typingBenchmark.wpm}<small> / {typingBenchmark.accuracy}%</small></dd></div>
+    </dl>
+    <button class="cap cap--accent retry" id="result-retry" type="button"><Icon name="retry" />Try again</button>
+  </div>
+</dialog>
+
+<style>
+  .tt-card {
+    position: relative;
+    width: min(760px, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    overflow-y: auto;
+    padding: var(--s-8) var(--s-6) var(--s-6);
+    box-shadow: 0 16px 28px -10px rgb(0 0 0 / 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-6);
+  }
+  .tt-card .dlg-sub {
+    max-width: 52ch;
+  }
+  .tt-stats,
+  .result-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-cap);
+    overflow: hidden;
+  }
+  .tt-stats > div,
+  .result-stats > div {
+    padding: var(--s-3) var(--s-4);
+    border-left: 1px solid var(--rule);
+  }
+  .tt-stats > div:first-child,
+  .result-stats > div:first-child {
+    border-left: 0;
+  }
+  dt {
+    font-family: var(--ff-legend);
+    font-size: var(--fs-xs);
+    color: var(--legend-muted);
+  }
+  dd {
+    font-size: var(--fs-xl);
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  dd small {
+    font-size: var(--fs-sm);
+    color: var(--legend-muted);
+    font-weight: 400;
+  }
+
+  .tt-viewport {
+    overflow: hidden;
+    height: 96px;
+  }
+  .tt-track {
+    font-family: var(--ff-data);
+    font-size: 1.375rem;
+    line-height: 48px;
+    color: var(--legend-muted);
+    transition: transform 320ms var(--ease-out);
+  }
+  .tt-track :global(.word) {
+    display: inline-block;
+    margin-right: 0.6em;
+  }
+  .tt-track :global(.char) {
+    position: relative;
+  }
+  .tt-track :global(.char.is-correct) {
+    color: var(--legend);
+  }
+  .tt-track :global(.char.is-incorrect) {
+    color: var(--wrong);
+    text-decoration: underline;
+  }
+  .tt-track :global(.word.is-correct) {
+    opacity: 0.45;
+  }
+  .tt-track :global(.word.is-wrong) {
+    color: var(--wrong);
+    opacity: 0.7;
+    text-decoration: line-through;
+  }
+  .tt-track :global(.char.is-caret)::before {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 0.15em;
+    bottom: 0.15em;
+    width: 2px;
+    background: var(--accent);
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  .tt-input {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+
+  .tt-keyboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .kb-row {
+    display: flex;
+    gap: var(--s-2);
+  }
+  .kb-key {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    background: var(--alpha-2);
+    box-shadow: var(--cap-rest);
+    font-family: var(--ff-legend);
+    font-size: var(--fs-xs);
+    color: var(--legend-muted);
+    transition:
+      transform var(--t-fast) var(--ease-out),
+      box-shadow var(--t-fast) var(--ease-out);
+  }
+  .kb-key.is-next {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--accent-ink);
+    --cap-lip: #b53718;
+  }
+  .kb-key.is-pressed {
+    transform: translateY(3px);
+    box-shadow: var(--cap-down);
+  }
+  .kb-space {
+    width: 280px;
+  }
+  .tt-foot {
+    font-size: var(--fs-sm);
+    color: var(--legend-muted);
+    display: flex;
+    gap: var(--s-2);
+    align-items: center;
+    justify-content: center;
+  }
+  kbd {
+    font-family: var(--ff-data);
+    font-size: var(--fs-xs);
+    padding: 1px 6px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--alpha);
+  }
+  .tt-foot kbd + kbd {
+    margin-left: var(--s-4);
+  }
+
+  /* Outcome reads in the title itself: a win is set in the accent. */
+  .result[data-outcome='won'] :global(#result-title) {
+    color: var(--accent);
+  }
+  :global([data-theme='light']) .result[data-outcome='won'] :global(#result-title) {
+    color: #b53718;
+  }
+  .result-stats {
+    margin-block: var(--s-6);
+  }
+  .result-stats dd {
+    font-size: var(--fs-lg);
+  }
+  .retry {
+    width: 100%;
+    justify-content: center;
+    font-family: var(--ff-body);
+    font-weight: 700;
+    font-size: var(--fs-sm);
+    letter-spacing: 0;
+  }
+
+  @media (max-width: 600px) {
+    .tt-card {
+      padding-inline: var(--s-4);
+      gap: var(--s-4);
+    }
+    .tt-track {
+      font-size: 1.0625rem;
+    }
+    .kb-row {
+      gap: 4px;
+    }
+    .kb-key {
+      width: 28px;
+      height: 34px;
+    }
+    .kb-space {
+      width: 160px;
+    }
+  }
+</style>

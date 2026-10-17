@@ -1,0 +1,22 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+npm-debug.log*
+
+# Impeccable local session files
+.impeccable/questions/
+.impeccable/review/
+
+# Local AI tooling (Impeccable skill install, includes a platform binary)
+.claude/
+.impeccable/update.log

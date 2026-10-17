@@ -1,0 +1,160 @@
+---
+import Icon from './Icon.astro';
+import { person, socials } from '../data/site';
+
+const colorways = [
+  { id: 'light', name: 'Day', swatches: ['#e4e7eb', '#343b47', '#f0532d'] },
+  { id: 'dark', name: 'Night', swatches: ['#171b21', '#2e3540', '#ff6a45'] },
+];
+---
+
+<footer class="foot">
+  <div class="foot-inner">
+    <div class="contact">
+      <p class="sign">{person.fullName}</p>
+      <ul class="meta" role="list">
+        <li><Icon name="pin" /><span>{person.location}</span></li>
+        <li><Icon name="mail" /><a href={`mailto:${person.email}`}>{person.email}</a></li>
+        <li><Icon name="phone" /><a href={person.phoneHref} class="tabular">{person.phone}</a></li>
+      </ul>
+      <ul class="social" role="list">
+        {
+          socials.map((s) => (
+            <li>
+              <a href={s.href} target="_blank" rel="noopener noreferrer">
+                {s.label}
+                <span class="visually-hidden"> (opens in a new tab)</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <fieldset class="colorway">
+      <legend>Colorway <span class="way-id">NAVIN/92</span></legend>
+      <div class="ways">
+        {
+          colorways.map((c) => (
+            <button type="button" class="way" data-set-theme={c.id} aria-pressed="false">
+              <span class="chips" aria-hidden="true">
+                {c.swatches.map((hex) => (
+                  <span class="chip" style={`background:${hex}`} />
+                ))}
+              </span>
+              <span class="way-name">{c.name}</span>
+            </button>
+          ))
+        }
+      </div>
+    </fieldset>
+  </div>
+</footer>
+
+<style>
+  .foot {
+    border-top: 1px solid var(--rule);
+    background: var(--alpha-2);
+  }
+  .foot-inner {
+    max-width: 1240px;
+    margin-inline: auto;
+    padding: var(--s-12) var(--gutter);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-8);
+  }
+  .sign {
+    font-family: var(--ff-legend);
+    font-size: var(--fs-sm);
+  }
+  .meta,
+  .social {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--s-4);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-6);
+    font-size: var(--fs-sm);
+    color: var(--legend-muted);
+  }
+  .meta li {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .meta :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+  .meta a,
+  .social a {
+    text-decoration: none;
+    color: var(--legend);
+  }
+  .meta a:hover,
+  .social a:hover {
+    text-decoration: underline;
+  }
+  .social {
+    margin-top: var(--s-3);
+    font-weight: 600;
+  }
+  .social a {
+    display: inline-block;
+    padding-block: var(--s-2);
+  }
+
+  .colorway {
+    border: 0;
+    padding: 0;
+  }
+  .colorway legend {
+    font-family: var(--ff-legend);
+    font-size: var(--fs-xs);
+    color: var(--legend-muted);
+    padding: 0;
+  }
+  .way-id {
+    color: var(--legend);
+    margin-left: var(--s-2);
+  }
+  .ways {
+    display: flex;
+    gap: var(--s-2);
+    margin-top: var(--s-3);
+  }
+  .way {
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    min-height: 44px;
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-cap);
+    background: transparent;
+    cursor: pointer;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+  }
+  .way[aria-pressed='true'] {
+    border-color: var(--legend);
+    background: var(--panel);
+  }
+  .chips {
+    display: flex;
+  }
+  .chip {
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    border: 1px solid rgb(0 0 0 / 0.15);
+    margin-left: -4px;
+  }
+  .chip:first-child {
+    margin-left: 0;
+  }
+</style>

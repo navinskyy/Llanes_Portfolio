@@ -1,0 +1,349 @@
+---
+import { Picture } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import portrait from '../assets/photos/navin.jpg';
+import { person, socials, sections, projects, experience, stack, honors, certificates, typingBenchmark } from '../data/site';
+
+const counts: Record<string, { n: number; unit: string; sample: string }> = {
+  P: { n: projects.length, unit: 'projects', sample: projects.map((p) => p.name).slice(0, 3).join(' · ') },
+  E: { n: experience.length, unit: 'roles', sample: [...new Set(experience.map((r) => r.org))].slice(0, 2).join(' · ') },
+  S: { n: stack.reduce((a, g) => a + g.items.length, 0), unit: 'tools', sample: stack.map((g) => g.group).join(' · ') },
+  C: { n: honors.length + certificates.length, unit: 'certificates', sample: "Dean's List · seminars 2023–2026" },
+};
+---
+
+<Base>
+  <section class="hero" data-intro-root aria-labelledby="hero-name">
+    <div class="hero-text">
+      <h1 id="hero-name" class="name" aria-label={person.name}>
+        {[...person.name.toUpperCase()].map((ch) => <span data-intro-letter aria-hidden="true">{ch}</span>)}<span
+          class="name-dot"
+          data-intro-letter
+          aria-hidden="true">.</span
+        >
+      </h1>
+      <p class="surname" data-intro>{person.lastNames}</p>
+      <p class="role" data-intro>
+        {person.role} · <span class="school">{person.school}</span>
+      </p>
+      <p class="bio" data-intro>{person.bio}</p>
+
+      <div class="actions" data-intro>
+        <button class="cap cap--accent action-race" type="button" data-open="typing">
+          <kbd aria-hidden="true">T</kbd>
+          <span>Race my <span class="tabular">{typingBenchmark.wpm} wpm</span></span>
+        </button>
+        <a class="cap cap--mod action-email" href={`mailto:${person.email}`} data-open="email">
+          <Icon name="mail" />
+          <span>Email me</span>
+        </a>
+        <ul class="socials" role="list">
+          {
+            socials.map((s) => (
+              <li>
+                <a class="cap cap--square" href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.label} (opens in a new tab)`}>
+                  <Icon name={s.icon} />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <ul class="contact" role="list" data-intro>
+        <li><Icon name="phone" /><a class="tabular" href={person.phoneHref}>{person.phone}</a></li>
+        <li><Icon name="pin" /><span>{person.location}</span></li>
+      </ul>
+    </div>
+
+    <figure class="portrait" data-intro>
+      <Picture
+        src={portrait}
+        formats={['avif', 'webp']}
+        widths={[360, 560, 840]}
+        sizes="(max-width: 900px) min(100vw - 2rem, 420px), 420px"
+        alt="Portrait of Navin Byron Llanes"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </figure>
+  </section>
+
+  <section class="index" aria-labelledby="index-title">
+    <div class="index-head">
+      <h2 id="index-title" class="index-title">On the board</h2>
+      <p class="index-hint">Press a letter on your keyboard to jump there, or <kbd>T</kbd> to race.</p>
+    </div>
+    <ul class="index-list" role="list" data-reveal-group>
+      {
+        sections.map((s) => (
+          <li data-reveal>
+            <a class="index-row" href={s.href}>
+              <kbd class="index-key" aria-hidden="true">{s.key}</kbd>
+              <span class="index-label">{s.label}</span>
+              <span class="index-sample">{counts[s.key].sample}</span>
+              <span class="index-count tabular">
+                {String(counts[s.key].n).padStart(2, '0')} <span>{counts[s.key].unit}</span>
+              </span>
+              <Icon name="arrow" class="index-arrow" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+</Base>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+    gap: var(--s-16);
+    align-items: center;
+    padding-block: var(--s-16) var(--s-24);
+  }
+  .name {
+    font-family: var(--ff-legend);
+    font-weight: 400;
+    font-size: var(--fs-display);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    display: flex;
+  }
+  .name span {
+    display: inline-block;
+  }
+  .name-dot {
+    color: var(--accent);
+  }
+  .surname {
+    margin-top: var(--s-3);
+    font-family: var(--ff-legend);
+    font-size: var(--fs-xl);
+    color: var(--legend-muted);
+  }
+  .role {
+    margin-top: var(--s-6);
+    font-weight: 600;
+  }
+  .school {
+    font-weight: 400;
+    color: var(--legend-muted);
+  }
+  .bio {
+    margin-top: var(--s-4);
+    max-width: 60ch;
+    font-size: var(--fs-lg);
+    line-height: 1.65;
+  }
+
+  .actions {
+    margin-top: var(--s-8);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-3);
+  }
+  .action-race,
+  .action-email {
+    min-height: 52px;
+    padding-inline: var(--s-6);
+    font-family: var(--ff-body);
+    font-weight: 700;
+    font-size: var(--fs-md);
+    letter-spacing: 0;
+  }
+  .action-race kbd {
+    font-family: var(--ff-legend);
+    font-size: var(--fs-xs);
+    padding: 2px 7px;
+    border: 1px solid rgb(0 0 0 / 0.25);
+    border-radius: 5px;
+  }
+  .socials {
+    display: flex;
+    gap: var(--s-2);
+    list-style: none;
+    padding: 0;
+  }
+  .contact {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--s-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-6);
+    color: var(--legend-muted);
+    font-size: var(--fs-sm);
+  }
+  .contact li {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .contact :global(svg) {
+    width: 16px;
+    height: 16px;
+  }
+  .contact a {
+    color: var(--legend);
+    text-decoration: none;
+  }
+  .contact a:hover {
+    text-decoration: underline;
+  }
+
+  .portrait {
+    padding: var(--s-3) var(--s-3) var(--s-4);
+    background: var(--modifier);
+    border-radius: calc(var(--r-panel) + 4px);
+    box-shadow: inset 0 -6px 0 #1d222a, 0 18px 40px -18px rgb(var(--cap-shadow) / 0.45);
+  }
+  .portrait :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 62%;
+    border-radius: var(--r-panel);
+  }
+
+  .index {
+    border-top: 1px solid var(--rule);
+    padding-top: var(--s-12);
+  }
+  .index-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-2) var(--s-6);
+  }
+  .index-hint {
+    font-size: var(--fs-sm);
+    color: var(--legend-muted);
+  }
+  .index-hint kbd {
+    font-family: var(--ff-legend);
+    font-size: var(--fs-xs);
+    padding: 1px 6px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--alpha-2);
+    color: var(--legend);
+  }
+  @media (hover: none) {
+    .index-hint {
+      display: none;
+    }
+  }
+  .index-title {
+    font-family: var(--ff-legend);
+    font-weight: 400;
+    font-size: var(--fs-lg);
+  }
+  .index-list {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--s-6);
+    border-top: 1px solid var(--rule);
+  }
+  .index-row {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 12rem) minmax(0, 1fr) auto 20px;
+    align-items: center;
+    gap: var(--s-6);
+    padding-block: var(--s-6);
+    border-bottom: 1px solid var(--rule);
+    text-decoration: none;
+    transition: background-color var(--t-base) ease;
+  }
+  .index-row:hover {
+    background: var(--alpha-2);
+  }
+  .index-key {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--rule);
+    border-radius: var(--r-cap);
+    background: var(--alpha-2);
+    box-shadow: var(--cap-rest);
+    font-family: var(--ff-legend);
+    font-size: var(--fs-sm);
+    transition: transform var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out);
+  }
+  .index-row:hover .index-key {
+    transform: translateY(3px);
+    box-shadow: var(--cap-down);
+  }
+  .index-label {
+    font-family: var(--ff-legend);
+    font-size: var(--fs-md);
+  }
+  .index-sample {
+    color: var(--legend-muted);
+    font-size: var(--fs-sm);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .index-count {
+    font-size: var(--fs-lg);
+    font-weight: 600;
+  }
+  .index-count span {
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    color: var(--legend-muted);
+  }
+  .index-row :global(.index-arrow) {
+    width: 20px;
+    height: 20px;
+    color: var(--legend-muted);
+    transition: transform var(--t-base) var(--ease-out), color var(--t-base) ease;
+  }
+  .index-row:hover :global(.index-arrow) {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      gap: var(--s-8);
+      padding-block: var(--s-6) var(--s-16);
+    }
+    .actions {
+      margin-top: var(--s-6);
+    }
+    .portrait {
+      width: 100%;
+    }
+    .portrait :global(img) {
+      aspect-ratio: 16 / 10;
+      object-position: 50% 58%;
+    }
+    .bio {
+      font-size: var(--fs-md);
+    }
+    .index-row {
+      grid-template-columns: 44px minmax(0, 1fr) auto;
+      gap: var(--s-4);
+    }
+    .index-sample,
+    .index-row :global(.index-arrow) {
+      display: none;
+    }
+  }
+  @media (max-width: 420px) {
+    .action-race,
+    .action-email {
+      flex: 1 1 100%;
+      justify-content: center;
+    }
+  }
+</style>

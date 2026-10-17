@@ -1,0 +1,262 @@
+/* ==========================================================================
+   Colorway "NAVIN/92" — design tokens
+   Alpha = page ground, Modifier = keys and chrome, Accent = the race key and
+   the active state only. Light is the default for daytime recruiter screens;
+   dark follows the OS unless the visitor picks a theme.
+   ========================================================================== */
+:root {
+  /* colour */
+  --alpha: #e4e7eb;
+  --alpha-2: #f1f3f5;
+  --panel: #f8f9fa;
+  --modifier: #343b47;
+  --modifier-2: #4a5260;
+  --legend: #14171c;
+  --legend-muted: #4c5562;
+  --legend-on-mod: #eef0f3;
+  --rule: #c5cad1;
+  --accent: #f0532d;
+  --accent-ink: #14171c;
+  --accent-soft: #f0532d1f;
+  --accent-on-mod: #ff9273; /* accent legend on slate keys, 5.2:1 */
+  --wrong: #c2321b;
+  --cap-lip: #b9bec6;
+  --cap-shadow: 20 23 28;
+
+  /* type */
+  --ff-legend: var(--font-legend), 'Arial', sans-serif;
+  --ff-body: var(--font-body), system-ui, sans-serif;
+  --ff-data: var(--font-data), ui-monospace, monospace;
+  --fs-xs: 0.75rem;   /* 12 */
+  --fs-sm: 0.875rem;  /* 14 */
+  --fs-md: 1rem;      /* 16 */
+  --fs-lg: 1.1875rem; /* 19 */
+  --fs-xl: 1.5rem;    /* 24 */
+  --fs-2xl: clamp(1.75rem, 1.2rem + 2vw, 2.5rem);
+  --fs-display: clamp(3rem, 1rem + 8vw, 6rem);
+
+  /* space: 4px unit */
+  --u: 0.25rem;
+  --s-1: calc(var(--u) * 1);
+  --s-2: calc(var(--u) * 2);
+  --s-3: calc(var(--u) * 3);
+  --s-4: calc(var(--u) * 4);
+  --s-6: calc(var(--u) * 6);
+  --s-8: calc(var(--u) * 8);
+  --s-12: calc(var(--u) * 12);
+  --s-16: calc(var(--u) * 16);
+  --s-24: calc(var(--u) * 24);
+  --gutter: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+  --measure: 66ch;
+
+  /* shape */
+  --r-cap: 10px;
+  --r-panel: 14px;
+  --r-sm: 6px;
+
+  /* depth: keycaps sit on a lip with an offset soft shadow */
+  --cap-rest: inset 0 -4px 0 var(--cap-lip), 0 2px 3px rgb(var(--cap-shadow) / 0.12), 0 6px 12px -6px rgb(var(--cap-shadow) / 0.25);
+  --cap-down: inset 0 -1px 0 var(--cap-lip), 0 1px 1px rgb(var(--cap-shadow) / 0.12);
+
+  /* motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-fast: 120ms;
+  --t-base: 220ms;
+  --t-slow: 420ms;
+
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  --alpha: #171b21;
+  --alpha-2: #1d222a;
+  --panel: #222831;
+  --modifier: #2e3540;
+  --modifier-2: #3a4250;
+  --legend: #e8ebef;
+  --legend-muted: #a3acb8;
+  --legend-on-mod: #e8ebef;
+  --rule: #343c48;
+  --accent: #ff6a45;
+  --accent-ink: #14171c;
+  --accent-soft: #ff6a4524;
+  --wrong: #ff7a66;
+  --cap-lip: #0e1115;
+  --cap-shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+/* ---------- reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: var(--modifier-2) var(--alpha);
+}
+body {
+  min-height: 100dvh;
+  background: var(--alpha);
+  color: var(--legend);
+  font-family: var(--ff-body);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  line-height: 1.15;
+}
+p {
+  text-wrap: pretty;
+}
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+.tabular {
+  font-family: var(--ff-data);
+  font-variant-numeric: tabular-nums;
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- keycap: actions only ---------- */
+.cap {
+  --cap-bg: var(--alpha-2);
+  --cap-fg: var(--legend);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-2);
+  min-height: 44px;
+  padding: var(--s-2) var(--s-4) calc(var(--s-2) + 3px);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-cap);
+  background: var(--cap-bg);
+  color: var(--cap-fg);
+  box-shadow: var(--cap-rest);
+  font-family: var(--ff-legend);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--t-fast) var(--ease-out),
+    box-shadow var(--t-fast) var(--ease-out),
+    background-color var(--t-base) ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.cap:hover {
+  background: var(--panel);
+}
+.cap:active,
+.cap.is-down {
+  transform: translateY(3px);
+  box-shadow: var(--cap-down);
+}
+.cap svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.cap--mod {
+  --cap-bg: var(--modifier);
+  --cap-fg: var(--legend-on-mod);
+  --cap-lip: #1d222a;
+  border-color: var(--modifier);
+}
+.cap--mod:hover {
+  background: var(--modifier-2);
+}
+.cap--accent {
+  --cap-bg: var(--accent);
+  --cap-fg: var(--accent-ink);
+  --cap-lip: #b53718;
+  border-color: var(--accent);
+}
+.cap--accent:hover {
+  background: color-mix(in oklab, var(--accent) 88%, white);
+}
+.cap--square {
+  justify-content: center;
+  min-width: 44px;
+  padding-inline: var(--s-3);
+}
+
+/* ---------- page furniture ---------- */
+.page-head {
+  padding-block: var(--s-12) var(--s-8);
+  max-width: var(--measure);
+}
+.page-head h1 {
+  font-family: var(--ff-legend);
+  font-weight: 400;
+  font-size: var(--fs-2xl);
+  letter-spacing: -0.01em;
+}
+.page-head p {
+  margin-top: var(--s-3);
+  color: var(--legend-muted);
+}
+
+.sheet {
+  background: var(--panel);
+  border: 1px solid var(--rule);
+  border-radius: var(--r-panel);
+}
+
+/* Elements revealed by script are visible unless <html class="motion-ok">
+   (set only when JS runs and reduced motion is off); motion.ts animates them in. */
+.motion-ok [data-intro-letter],
+.motion-ok [data-intro],
+.motion-ok [data-reveal]:not([data-revealed]) {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 260ms;
+}

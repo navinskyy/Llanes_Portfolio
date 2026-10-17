@@ -1,0 +1,79 @@
+---
+import Base from '../layouts/Base.astro';
+import { stack } from '../data/site';
+---
+
+<Base title="Stack" description="Languages, frameworks and tools Navin Byron Llanes works with, from HTML, CSS and React to Python, Java and MySQL.">
+  <header class="page-head">
+    <h1>Tools I work with</h1>
+    <p>Grouped by where they sit in a project.</p>
+  </header>
+
+  <div class="groups" data-reveal-group>
+    {
+      stack.map((g) => (
+        <section class="group" data-reveal aria-labelledby={`g-${g.group}`}>
+          <h2 id={`g-${g.group}`}>
+            {g.group} <span class="tabular count">{String(g.items.length).padStart(2, '0')}</span>
+          </h2>
+          <ul class="legends" role="list">
+            {g.items.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </section>
+      ))
+    }
+  </div>
+</Base>
+
+<style>
+  .groups {
+    display: grid;
+    gap: var(--s-4);
+  }
+  .group {
+    display: grid;
+    grid-template-columns: 15rem minmax(0, 1fr);
+    gap: var(--s-8);
+    padding: var(--s-6);
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-panel);
+  }
+  h2 {
+    font-family: var(--ff-legend);
+    font-weight: 400;
+    font-size: var(--fs-md);
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-3);
+  }
+  .count {
+    font-size: var(--fs-sm);
+    color: var(--legend-muted);
+  }
+  /* Printed legends: flat, not pressable — keycaps are reserved for actions. */
+  .legends {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+  .legends li {
+    padding: var(--s-2) var(--s-3);
+    border: 1px solid var(--rule);
+    border-radius: var(--r-sm);
+    background: var(--alpha);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+  }
+  @media (max-width: 760px) {
+    .group {
+      grid-template-columns: 1fr;
+      gap: var(--s-4);
+      padding: var(--s-4);
+    }
+  }
+</style>

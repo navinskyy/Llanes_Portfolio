@@ -1,0 +1,75 @@
+{
+  "title": "Choose the visual world for navin.",
+  "question": "Re-roll 1: the roll assigned Graduation Tarp. Keep it, take an alternate, or re-roll again.",
+  "options": [
+    {
+      "id": "assigned-r1",
+      "kind": "assigned",
+      "label": "Graduation Tarp",
+      "kicker": "THE ROLL",
+      "lineage": "Filipino printed vinyl tarpaulins for graduations and achievements",
+      "thesis": "The portfolio as the tarp hung outside the house: a public, proud announcement of who Navin is and what he has earned.",
+      "palette": ["#1537a8", "#ffc21a", "#ffffff", "#0d1640", "#e8382f"],
+      "materials": ["printed vinyl with grommeted corners and a faint weave", "full-height portrait cut-out on a saturated field"],
+      "viewport": "A royal-blue vinyl field edge to edge: Navin's portrait large on the left, NAVIN in heavy marigold display caps, then BS Computer Science · Lyceum of the Philippines University – Manila as the credential line; the race button and email sit on the tarp's bottom band.",
+      "risk": "Tips into kitsch if rendered with clip-art gradients; it must be set like a confident print job, not a party flyer.",
+      "raised": [
+        {"from": "challenger-miura", "raise": "Folded and deployed are real states: the tarp arrives rolled and unfurls once, and sections open as panels from their crease."},
+        {"from": "challenger-scope", "raise": "Everything is measured against one grid unit, from grommet spacing to type size and gutters."},
+        {"from": "challenger-pickle", "raise": "Every entry carries a date band: experience, certificates and projects are banded with when, like printed achievement strips."},
+        {"from": "challenger-minihompy", "raise": "Honest small chrome: the race tally and the last result appear as plain counters on the tarp, never as decoration."}
+      ]
+    },
+    {
+      "id": "pick-r1",
+      "kind": "pick",
+      "label": "LRT Line Signage",
+      "kicker": "IMPECCABLE’S PICK",
+      "lineage": "Manila LRT/MRT station signage and line maps",
+      "thesis": "Navin's career as a transit line: every section is a station on one colored route.",
+      "palette": ["#ffffff", "#1d1d1b", "#7a3e9d", "#ffd200"],
+      "materials": ["enamel sign panels", "line-map strip with station dots"],
+      "viewport": "A wayfinding header panel reading NAVIN with station tiles for Projects, Experience, Stack and Certifications.",
+      "risk": "Familiar: wayfinding-as-portfolio is a well-worn move, and the typing race has no natural station."
+    },
+    {
+      "id": "challenger-crouwel",
+      "kind": "challenger",
+      "catalogId": "crouwel-grid-specimen",
+      "label": "Grid Specimen",
+      "verdict": "competitive",
+      "lineage": "Wim Crouwel gridded type specimens",
+      "thesis": "NAVIN built cell by cell on a visible construction grid; the page is the proof of craft.",
+      "palette": ["#ffffff", "#0a0a0a", "#c8d6f0", "#ff4b1f"],
+      "materials": ["visible construction-grid hairlines", "grid-built display letterforms"],
+      "viewport": "Enormous grid-constructed NAVIN across the top, a small neutral grotesk bio and project index below.",
+      "case": "Holds product clarity, because it shows front-end craft directly; weaker recruiter identification.",
+      "risk": "Can read as a type-design portfolio rather than a developer's.",
+      "hero": "https://impeccable.style/worlds/cards/crouwel-grid-specimen-hero.webp"
+    },
+    {
+      "id": "challenger-cdrom",
+      "kind": "challenger",
+      "catalogId": "digital-design-canon-cdrom-chrome-navigation",
+      "label": "CD-ROM Console",
+      "verdict": "competitive",
+      "lineage": "mid-90s multimedia CD-ROM interfaces",
+      "thesis": "A rendered console with embossed toggles; each section plays in the central window.",
+      "palette": ["#9aa3ad", "#2a8c8c", "#6b4fa0", "#f2f4f6"],
+      "materials": ["brushed bevelled panels", "embossed depressing toggles"],
+      "viewport": "Console frame with Projects/Experience/Stack/Certs/Race toggles around a window showing Navin's portrait.",
+      "case": "Holds clarity, since sections are unmistakable toggles; loses identification and long-text reading.",
+      "risk": "No free-flowing text is a poor fit for project descriptions.",
+      "hero": "https://impeccable.style/worlds/cards/digital-design-canon-cdrom-chrome-navigation-hero.webp"
+    },
+    {"id": "challenger-miura", "kind": "challenger", "catalogId": "paper-folds-pleats-deployable-miura-orbit-sheet", "label": "Miura Fold Sheet", "verdict": "declined", "lineage": "deployable Miura-fold sheets", "thesis": "The portfolio unfolds from a packet into a tessellated sail.", "palette": ["#ffffff", "#c9a227", "#8a8378", "#a9c4e0"], "materials": ["scored creases", "gold foil packet"], "viewport": "A gold packet that deploys into the page.", "case": "Fuses poorly: no tie between origami engineering and Navin.", "risk": "Heavy geometry for little content.", "kept": "Folded and deployed as real states."},
+    {"id": "challenger-scope", "kind": "challenger", "catalogId": "scientific-notation-oscilloscope-signal-bench", "label": "Oscilloscope Bench", "verdict": "declined", "lineage": "CRT oscilloscopes", "thesis": "Typing speed as a live phosphor trace.", "palette": ["#050805", "#39ff6a", "#ffb000"], "materials": ["phosphor glass", "etched graticule"], "viewport": "A graticule showing the race as a waveform.", "case": "Fuses poorly and lands in the dark-glow rut.", "risk": "Reads like a hardware demo.", "kept": "Everything measured against one graticule."},
+    {"id": "challenger-pickle", "kind": "challenger", "catalogId": "food-fermentation-culinary-theater-pickling-brine-calendar", "label": "Brine Calendar", "verdict": "declined", "lineage": "pickling calendars", "thesis": "Skills as jars maturing over time.", "palette": ["#f4efe2", "#e8735a", "#7a9a3a"], "materials": ["jar glass", "kraft labels"], "viewport": "A shelf of labeled jars.", "case": "Fuses poorly: no audience connection.", "risk": "Whimsical.", "kept": "Every label banded with dates."},
+    {"id": "challenger-minihompy", "kind": "challenger", "catalogId": "cyworld-minihompy-room", "label": "Minihompy Room", "verdict": "declined", "lineage": "Cyworld minihompy rooms", "thesis": "Identity as a furnished isometric room.", "palette": ["#ffd6e7", "#bfe3ff", "#fff6c7"], "materials": ["pastel wallpaper", "sticker furniture"], "viewport": "An isometric room with a visitor counter.", "case": "Fuses poorly for recruiters.", "risk": "Too playful for hiring.", "kept": "Honest small chrome: counters state real facts."}
+  ],
+  "reroll": {"registers": ["safer", "bolder"]},
+  "buildPath": {"value": "code"},
+  "canon": true,
+  "canonCard": {"kind": "canon", "label": "The category standard", "thesis": "A clean developer portfolio, executed impeccably.", "palette": ["#0b0d10", "#f5f5f5", "#3b82f6"], "materials": ["hero with photo", "project card grid"], "viewport": "Photo, name and tagline split hero; a grid of project cards below.", "risk": "Indistinguishable from other student portfolios by design."},
+  "steer": true
+}

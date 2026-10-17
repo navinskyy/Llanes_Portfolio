@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import { sections } from '../data/site';
+---
+
+<Base title="Page not found" description="This page does not exist.">
+  <header class="page-head">
+    <h1>No key mapped here.</h1>
+    <p>This page doesn't exist. Try one of these, or press a letter on your keyboard.</p>
+  </header>
+  <ul class="links" role="list">
+    <li><a class="cap" href="/"><kbd>H</kbd> Home</a></li>
+    {sections.map((s) => <li><a class="cap" href={s.href}><kbd>{s.key}</kbd> {s.label}</a></li>)}
+  </ul>
+</Base>
+
+<style>
+  .links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-3);
+  }
+  .links .cap {
+    font-family: var(--ff-body);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    letter-spacing: 0;
+  }
+  kbd {
+    font-family: var(--ff-legend);
+    font-size: var(--fs-xs);
+    color: var(--legend-muted);
+  }
+</style>

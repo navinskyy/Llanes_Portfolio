@@ -1,0 +1,131 @@
+---
+import { ClientRouter } from 'astro:transitions';
+import { Font, getImage } from 'astro:assets';
+import '../styles/global.css';
+import Board from '../components/Board.astro';
+import Footer from '../components/Footer.astro';
+import EmailDialog from '../components/EmailDialog.astro';
+import TypingTest from '../components/TypingTest.astro';
+import favicon from '../assets/favicon.png';
+import portrait from '../assets/photos/navin.jpg';
+import { person } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = `${person.fullName} — Computer Science student at ${person.school}, focused on front-end development and UI design.`,
+} = Astro.props;
+
+const fullTitle = title ? `${title} · ${person.fullName}` : `${person.fullName} — Front-end & UI`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+// The source favicon is a 1.3 MB PNG; ship small derived versions instead.
+const icon32 = await getImage({ src: favicon, width: 32, height: 32, format: 'png' });
+const icon180 = await getImage({ src: favicon, width: 180, height: 180, format: 'png' });
+const ogImage = await getImage({ src: portrait, width: 1200, format: 'jpg' });
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/png" sizes="32x32" href={icon32.src} />
+    <link rel="apple-touch-icon" href={icon180.src} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#e4e7eb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#171b21" media="(prefers-color-scheme: dark)" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={person.fullName} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <Font cssVariable="--font-legend" preload />
+    <Font cssVariable="--font-body" preload />
+    <Font cssVariable="--font-data" />
+
+    <!-- Apply the saved or OS theme before first paint, and carry it across client-side navigation. -->
+    <script is:inline>
+      (() => {
+        const pick = () => {
+          try {
+            const saved = localStorage.getItem('theme');
+            if (saved === 'light' || saved === 'dark') return saved;
+          } catch {}
+          return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        };
+        document.documentElement.dataset.theme = pick();
+        // Allow intro/reveal pre-hiding only when motion is welcome; if the
+        // motion bundle never boots, show everything after 3 s.
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !window.__motionReady) {
+          document.documentElement.classList.add('motion-ok');
+          setTimeout(() => {
+            if (!window.__motionReady) document.documentElement.classList.remove('motion-ok');
+          }, 3000);
+        }
+        if (!window.__themeSwapHooked) {
+          window.__themeSwapHooked = true;
+          document.addEventListener('astro:before-swap', (e) => {
+            const next = e.newDocument.documentElement;
+            next.dataset.theme = document.documentElement.dataset.theme;
+            next.classList.toggle('motion-ok', document.documentElement.classList.contains('motion-ok'));
+          });
+        }
+      })();
+    </script>
+
+    <ClientRouter />
+  </head>
+  <body>
+    <a class="skip-link cap cap--accent" href="#main">Skip to content</a>
+    <Board />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+    <EmailDialog />
+    <TypingTest />
+
+    <script>
+      import { boot } from '../scripts/main';
+      boot();
+    </script>
+  </body>
+</html>
+
+<style>
+  body {
+    display: flex;
+    flex-direction: column;
+  }
+  main {
+    flex: 1;
+    width: 100%;
+    max-width: 1240px;
+    margin-inline: auto;
+    padding: 0 var(--gutter) var(--s-24);
+  }
+  main:focus {
+    outline: none;
+  }
+  .skip-link {
+    position: fixed;
+    top: var(--s-3);
+    left: var(--s-3);
+    z-index: 50;
+    transform: translateY(-200%);
+  }
+  .skip-link:focus {
+    transform: none;
+  }
+</style>

@@ -1,0 +1,26 @@
+{
+  "name": "navin-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "lint:design": "impeccable detect src"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "animejs": "^4.5.0",
+    "astro": "^7.4.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "impeccable": "^4.6.0",
+    "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=22.22.0"
+  }
+}
