@@ -150,7 +150,7 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
     top: 0.15em;
     bottom: 0.15em;
     width: 2px;
-    background: var(--accent);
+    background: var(--focus);
     animation: blink 1s step-end infinite;
   }
   @keyframes blink {
@@ -196,7 +196,7 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
     background: var(--accent);
     border-color: var(--accent);
     color: var(--accent-ink);
-    --cap-lip: #b53718;
+    --cap-lip: var(--accent-lip);
   }
   .kb-key.is-pressed {
     transform: translateY(3px);
@@ -227,10 +227,7 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
 
   /* Outcome reads in the title itself: a win is set in the accent. */
   .result[data-outcome='won'] :global(#result-title) {
-    color: var(--accent);
-  }
-  :global([data-theme='light']) .result[data-outcome='won'] :global(#result-title) {
-    color: #b53718;
+    color: var(--accent-text);
   }
   .result-stats {
     margin-block: var(--s-6);

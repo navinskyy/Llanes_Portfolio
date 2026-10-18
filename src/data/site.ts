@@ -48,9 +48,19 @@ export interface Project {
   /** Highlighted figure, shown in a tabular field. */
   figure?: { value: string; label: string };
   url?: string;
+  /** Live deployment, shown as a separate "Live demo" key. */
+  demo?: string;
 }
 
 export const projects: Project[] = [
+  {
+    name: 'NursePrep',
+    category: 'Web app',
+    description:
+      'A personalized review platform for the Philippine Nurse Licensure Examination (PNLE), with adaptive quizzes, spaced-repetition flashcards, progress tracking and AI-powered explanations. Built with vanilla JavaScript, Vite and Firebase.',
+    url: 'https://github.com/navinskyy/NursePrep',
+    demo: 'https://nurse-prep-pi.vercel.app',
+  },
   {
     name: 'LIBR-AI-RY',
     category: 'AI website',

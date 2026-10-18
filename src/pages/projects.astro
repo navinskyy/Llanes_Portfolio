@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import { projects } from '../data/site';
 ---
 
-<Base title="Projects" description="Projects by Navin Byron Llanes: an AI library system, an IoT intrusion detection model, and mobile apps.">
+<Base title="Projects" description="Projects by Navin Byron Llanes: a PNLE nursing review platform, an AI library system, an IoT intrusion detection model, and mobile apps.">
   <header class="page-head">
     <h1>Things I've built</h1>
     <p>Projects with a public repository link straight to the code on GitHub.</p>
@@ -25,6 +25,13 @@ import { projects } from '../data/site';
                 <span class="tabular">{p.figure.value}</span>
                 <span class="figure-label">{p.figure.label}</span>
               </p>
+            )}
+            {p.demo && (
+              <a class="cap cap--mod repo" href={p.demo} target="_blank" rel="noopener noreferrer">
+                <Icon name="arrow" />
+                Live demo
+                <span class="visually-hidden"> of {p.name} (opens in a new tab)</span>
+              </a>
             )}
             {p.url ? (
               <a class="cap repo" href={p.url} target="_blank" rel="noopener noreferrer">
@@ -69,7 +76,7 @@ import { projects } from '../data/site';
   }
   .desc {
     margin-top: var(--s-4);
-    max-width: var(--measure);
+    max-width: 58ch;
   }
   .side {
     display: flex;

@@ -199,7 +199,7 @@ const counts: Record<string, { n: number; unit: string; sample: string }> = {
     padding: var(--s-3) var(--s-3) var(--s-4);
     background: var(--modifier);
     border-radius: calc(var(--r-panel) + 4px);
-    box-shadow: inset 0 -6px 0 #1d222a, 0 18px 40px -18px rgb(var(--cap-shadow) / 0.45);
+    box-shadow: inset 0 -6px 0 var(--mod-lip), 0 18px 40px -18px rgb(var(--cap-shadow) / 0.45);
   }
   .portrait :global(img) {
     width: 100%;
@@ -307,7 +307,7 @@ const counts: Record<string, { n: number; unit: string; sample: string }> = {
     transition: transform var(--t-base) var(--ease-out), color var(--t-base) ease;
   }
   .index-row:hover :global(.index-arrow) {
-    color: var(--accent);
+    color: var(--accent-text);
     transform: translate(2px, -2px);
   }
 

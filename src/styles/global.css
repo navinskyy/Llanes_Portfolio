@@ -1,7 +1,7 @@
 /* ==========================================================================
    Colorway "NAVIN/92" — design tokens
-   Alpha = page ground, Modifier = keys and chrome, Accent = the race key and
-   the active state only. Light is the default for daytime recruiter screens;
+   Alpha = page ground, Modifier = keys and chrome, Accent = gold, for the race
+   key, the primary key in each dialog, and the active state. Light is the default for daytime recruiter screens;
    dark follows the OS unless the visitor picks a theme.
    ========================================================================== */
 :root {
@@ -15,12 +15,15 @@
   --legend-muted: #4c5562;
   --legend-on-mod: #eef0f3;
   --rule: #c5cad1;
-  --accent: #f0532d;
-  --accent-ink: #14171c;
-  --accent-soft: #f0532d1f;
-  --accent-on-mod: #ff9273; /* accent legend on slate keys, 5.2:1 */
-  --wrong: #c2321b;
+  --accent: #e2b714;        /* gold fill: ink on it is 9.3:1 */
+  --accent-ink: #16181d;
+  --accent-lip: #a8850c;
+  --accent-text: #6f5205;   /* gold as text on light grounds, 5:1+ */
+  --accent-on-mod: #e2b714; /* gold legend on slate keys, 5.9:1 */
+  --focus: #8a6608;
+  --wrong: #6d4bb8;         /* typing errors: violet, kept apart from gold */
   --cap-lip: #b9bec6;
+  --mod-lip: #1d222a;
   --cap-shadow: 20 23 28;
 
   /* type */
@@ -77,11 +80,15 @@
   --legend-muted: #a3acb8;
   --legend-on-mod: #e8ebef;
   --rule: #343c48;
-  --accent: #ff6a45;
-  --accent-ink: #14171c;
-  --accent-soft: #ff6a4524;
-  --wrong: #ff7a66;
+  --accent: #e8c03a;
+  --accent-ink: #16181d;
+  --accent-lip: #9c7a0a;
+  --accent-text: #e8c03a;
+  --accent-on-mod: #e8c03a;
+  --focus: #e8c03a;
+  --wrong: #b9a3f0;
   --cap-lip: #0e1115;
+  --mod-lip: #0e1115;
   --cap-shadow: 0 0 0;
   color-scheme: dark;
 }
@@ -138,7 +145,7 @@ a {
   color: var(--accent-ink);
 }
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--focus);
   outline-offset: 3px;
   border-radius: var(--r-sm);
 }
@@ -196,7 +203,7 @@ a {
 .cap--mod {
   --cap-bg: var(--modifier);
   --cap-fg: var(--legend-on-mod);
-  --cap-lip: #1d222a;
+  --cap-lip: var(--mod-lip);
   border-color: var(--modifier);
 }
 .cap--mod:hover {
@@ -205,7 +212,7 @@ a {
 .cap--accent {
   --cap-bg: var(--accent);
   --cap-fg: var(--accent-ink);
-  --cap-lip: #b53718;
+  --cap-lip: var(--accent-lip);
   border-color: var(--accent);
 }
 .cap--accent:hover {
