@@ -32,14 +32,17 @@ export const socials = [
   { label: 'Instagram', href: 'https://www.instagram.com/_nabean/', icon: 'instagram' },
 ] as const;
 
-export type NavKey = 'P' | 'E' | 'S' | 'C';
-
-export const sections: { key: NavKey; label: string; href: string; title: string }[] = [
-  { key: 'P', label: 'Projects', href: '/projects/', title: "Things I've built" },
-  { key: 'E', label: 'Experience', href: '/experience/', title: "Where I've worked" },
-  { key: 'S', label: 'Stack', href: '/stack/', title: 'Tools I work with' },
-  { key: 'C', label: 'Certifications', href: '/certifications/', title: 'Certifications & seminars' },
+/** The site is one drawing set; each section is a numbered sheet. */
+export const sheets: { no: string; id: string; label: string }[] = [
+  { no: 'A-001', id: 'navin', label: 'Navin' },
+  { no: 'A-101', id: 'projects', label: 'Projects' },
+  { no: 'A-201', id: 'experience', label: 'Experience' },
+  { no: 'A-301', id: 'stack', label: 'Stack' },
+  { no: 'A-401', id: 'certificates', label: 'Certificates' },
+  { no: 'A-501', id: 'contact', label: 'Contact' },
 ];
+
+export const sheetNo = (id: string) => sheets.find((s) => s.id === id)?.no ?? '';
 
 export interface Project {
   name: string;

@@ -1,9 +1,9 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import { Font, getImage } from 'astro:assets';
+import 'lenis/dist/lenis.css';
 import '../styles/global.css';
-import Board from '../components/Board.astro';
-import Footer from '../components/Footer.astro';
+import SheetIndex from '../components/SheetIndex.astro';
+import TitleBlock from '../components/TitleBlock.astro';
 import EmailDialog from '../components/EmailDialog.astro';
 import TypingTest from '../components/TypingTest.astro';
 import favicon from '../assets/favicon.png';
@@ -13,12 +13,18 @@ import { person } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
+  /** Pages outside the one-page set link their index back to the home sheets. */
+  indexBase?: string;
 }
 
 const {
   title,
   description = `${person.fullName} — Computer Science student at ${person.school}, focused on front-end development and UI design.`,
+  indexBase,
 } = Astro.props;
+
+// Grid references along the frame edge, as on every sheet of a drawing set.
+const refs = ['A', 'B', 'C', 'D', 'E', 'F'];
 
 const fullTitle = title ? `${title} · ${person.fullName}` : `${person.fullName} — Front-end & UI`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -39,8 +45,8 @@ const ogImage = await getImage({ src: portrait, width: 1200, format: 'jpg' });
     <link rel="icon" type="image/png" sizes="32x32" href={icon32.src} />
     <link rel="apple-touch-icon" href={icon180.src} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#e4e7eb" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#171b21" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={person.fullName} />
@@ -50,49 +56,41 @@ const ogImage = await getImage({ src: portrait, width: 1200, format: 'jpg' });
     <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <Font cssVariable="--font-legend" preload />
-    <Font cssVariable="--font-body" preload />
-    <Font cssVariable="--font-data" />
+    <Font cssVariable="--font-sheet" preload />
+    <Font cssVariable="--font-note" />
 
-    <!-- Apply the saved or OS theme before first paint, and carry it across client-side navigation. -->
+    <!-- Apply the saved or OS theme before first paint. -->
     <script is:inline>
       (() => {
-        const pick = () => {
-          try {
-            const saved = localStorage.getItem('theme');
-            if (saved === 'light' || saved === 'dark') return saved;
-          } catch {}
-          return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        };
-        document.documentElement.dataset.theme = pick();
+        const root = document.documentElement;
+        try {
+          const saved = localStorage.getItem('theme');
+          root.dataset.theme = saved === 'light' || saved === 'dark' ? saved : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        } catch {
+          root.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
         // Allow intro/reveal pre-hiding only when motion is welcome; if the
         // motion bundle never boots, show everything after 3 s.
-        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !window.__motionReady) {
-          document.documentElement.classList.add('motion-ok');
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          root.classList.add('motion-ok');
           setTimeout(() => {
-            if (!window.__motionReady) document.documentElement.classList.remove('motion-ok');
+            if (!window.__motionReady) root.classList.remove('motion-ok');
           }, 3000);
-        }
-        if (!window.__themeSwapHooked) {
-          window.__themeSwapHooked = true;
-          document.addEventListener('astro:before-swap', (e) => {
-            const next = e.newDocument.documentElement;
-            next.dataset.theme = document.documentElement.dataset.theme;
-            next.classList.toggle('motion-ok', document.documentElement.classList.contains('motion-ok'));
-          });
         }
       })();
     </script>
-
-    <ClientRouter />
   </head>
   <body>
-    <a class="skip-link cap cap--accent" href="#main">Skip to content</a>
-    <Board />
+    <a class="skip-link btn btn--primary" href="#main">Skip to content</a>
+    <div class="frame" data-frame aria-hidden="true">
+      <ol class="refs refs--l">{refs.map((r) => <li>{r}</li>)}</ol>
+      <ol class="refs refs--r">{refs.map((r) => <li>{r}</li>)}</ol>
+    </div>
+    <SheetIndex base={indexBase} />
     <main id="main" tabindex="-1">
       <slot />
     </main>
-    <Footer />
+    <TitleBlock />
     <EmailDialog />
     <TypingTest />
 
@@ -104,16 +102,71 @@ const ogImage = await getImage({ src: portrait, width: 1200, format: 'jpg' });
 </html>
 
 <style>
-  body {
+  /* The viewport is the drawing sheet: one hairline border inset on all
+     sides, with the index along its top edge. */
+  .frame {
+    position: fixed;
+    z-index: 20;
+    inset: var(--frame);
+    border: var(--w-heavy) solid var(--line);
+    pointer-events: none;
+  }
+  /* Paper outside the frame masks content scrolling past the border. */
+  .frame::before {
+    content: '';
+    position: absolute;
+    inset: calc(var(--frame) * -1 - var(--w-heavy));
+    border: var(--frame) solid var(--paper);
+  }
+  /* Reference letters sit in the margin outside the border; each carries a
+     tick that crosses into the sheet. */
+  .refs {
+    position: absolute;
+    top: var(--bar);
+    bottom: 0;
+    width: var(--frame);
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    font-family: var(--ff-note);
+    font-size: 0.625rem;
+    font-weight: 600;
+    color: var(--ink-2);
+    text-align: center;
+  }
+  .refs--l {
+    left: calc(var(--frame) * -1 - var(--w-heavy));
+  }
+  .refs--r {
+    right: calc(var(--frame) * -1 - var(--w-heavy));
+  }
+  .refs li {
+    position: relative;
+    line-height: 1;
+  }
+  .refs li::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 8px;
+    height: 1px;
+    background: var(--line);
+  }
+  .refs--l li::after {
+    left: 100%;
+  }
+  .refs--r li::after {
+    right: 100%;
+  }
+  @media (max-width: 760px) {
+    .refs {
+      display: none;
+    }
   }
   main {
-    flex: 1;
-    width: 100%;
-    max-width: 1240px;
-    margin-inline: auto;
-    padding: 0 var(--gutter) var(--s-24);
+    padding: calc(var(--frame) + var(--bar)) calc(var(--frame) + var(--w-heavy)) var(--frame);
   }
   main:focus {
     outline: none;

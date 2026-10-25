@@ -10,33 +10,32 @@ export default defineConfig({
   site,
   trailingSlash: 'ignore',
   integrations: [sitemap()],
-  prefetch: { prefetchAll: true, defaultStrategy: 'hover' },
+  // The site is one long scroll; the old inner pages point at their sheet.
+  redirects: {
+    '/projects': '/#projects',
+    '/experience': '/#experience',
+    '/stack': '/#stack',
+    '/certifications': '/#certificates',
+  },
   // Fonts are downloaded at build time and self-hosted (no third-party requests at runtime).
   fonts: [
     {
       provider: fontProviders.google(),
-      name: 'Michroma',
-      cssVariable: '--font-legend',
-      weights: [400],
+      name: 'Archivo',
+      cssVariable: '--font-sheet',
+      weights: ['400 900'],
+      styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['Arial', 'sans-serif'],
     },
     {
       provider: fontProviders.google(),
-      name: 'Public Sans',
-      cssVariable: '--font-body',
+      name: 'Archivo Narrow',
+      cssVariable: '--font-note',
       weights: ['400 700'],
       styles: ['normal'],
       subsets: ['latin'],
-      fallbacks: ['system-ui', 'sans-serif'],
-    },
-    {
-      provider: fontProviders.google(),
-      name: 'JetBrains Mono',
-      cssVariable: '--font-data',
-      weights: [400, 600],
-      subsets: ['latin'],
-      fallbacks: ['ui-monospace', 'monospace'],
+      fallbacks: ['Arial Narrow', 'sans-serif'],
     },
   ],
 });

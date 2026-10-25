@@ -1,563 +1,538 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-18T05:53:46.181Z",
+  "generatedAt": "2026-10-25T16:26:36.977Z",
   "title": "Design System: Navin Byron Llanes, Portfolio",
   "extensions": {
     "colorMeta": {
-      "accent": {
-        "role": "primary",
-        "displayName": "Keycap Gold",
-        "canonical": "oklch(79.5% 0.159 91.3)",
-        "tonalRamp": [
-          "oklch(15% 0.096 91.3)",
-          "oklch(25% 0.128 91.3)",
-          "oklch(35% 0.159 91.3)",
-          "oklch(48% 0.159 91.3)",
-          "oklch(60% 0.159 91.3)",
-          "oklch(72% 0.137 91.3)",
-          "oklch(84% 0.099 91.3)",
-          "oklch(95% 0.064 91.3)"
-        ],
-        "nightValue": "#e8c03a"
-      },
-      "accent-lip": {
-        "role": "primary",
-        "displayName": "Gold Lip",
-        "canonical": "oklch(63.2% 0.127 89.6)",
-        "tonalRamp": [
-          "oklch(15% 0.076 89.6)",
-          "oklch(25% 0.101 89.6)",
-          "oklch(35% 0.127 89.6)",
-          "oklch(48% 0.127 89.6)",
-          "oklch(60% 0.127 89.6)",
-          "oklch(72% 0.109 89.6)",
-          "oklch(84% 0.078 89.6)",
-          "oklch(95% 0.051 89.6)"
-        ],
-        "nightValue": "#9c7a0a"
-      },
-      "accent-text": {
-        "role": "primary",
-        "displayName": "Gold Ink",
-        "canonical": "oklch(45.7% 0.092 84.2)",
-        "tonalRamp": [
-          "oklch(15% 0.055 84.2)",
-          "oklch(25% 0.073 84.2)",
-          "oklch(35% 0.092 84.2)",
-          "oklch(48% 0.092 84.2)",
-          "oklch(60% 0.092 84.2)",
-          "oklch(72% 0.079 84.2)",
-          "oklch(84% 0.057 84.2)",
-          "oklch(95% 0.037 84.2)"
-        ],
-        "nightValue": "#e8c03a"
-      },
-      "accent-on-mod": {
-        "role": "primary",
-        "displayName": "Gold on Slate",
-        "canonical": "oklch(79.5% 0.159 91.3)",
-        "tonalRamp": [
-          "oklch(15% 0.096 91.3)",
-          "oklch(25% 0.128 91.3)",
-          "oklch(35% 0.159 91.3)",
-          "oklch(48% 0.159 91.3)",
-          "oklch(60% 0.159 91.3)",
-          "oklch(72% 0.137 91.3)",
-          "oklch(84% 0.099 91.3)",
-          "oklch(95% 0.064 91.3)"
-        ],
-        "nightValue": "#e8c03a"
-      },
-      "focus": {
-        "role": "primary",
-        "displayName": "Focus Gold",
-        "canonical": "oklch(53.3% 0.107 83.6)",
-        "tonalRamp": [
-          "oklch(15% 0.064 83.6)",
-          "oklch(25% 0.086 83.6)",
-          "oklch(35% 0.107 83.6)",
-          "oklch(48% 0.107 83.6)",
-          "oklch(60% 0.107 83.6)",
-          "oklch(72% 0.092 83.6)",
-          "oklch(84% 0.066 83.6)",
-          "oklch(95% 0.043 83.6)"
-        ],
-        "nightValue": "#e8c03a"
-      },
-      "accent-ink": {
+      "paper": {
         "role": "neutral",
-        "displayName": "Accent Ink",
-        "canonical": "oklch(20.9% 0.010 268.2)",
+        "displayName": "Drafting Paper",
+        "canonical": "oklch(98.8% 0.001 106.4)",
         "tonalRamp": [
-          "oklch(15% 0.006 268.2)",
-          "oklch(25% 0.008 268.2)",
-          "oklch(35% 0.010 268.2)",
-          "oklch(48% 0.010 268.2)",
-          "oklch(60% 0.010 268.2)",
-          "oklch(72% 0.009 268.2)",
-          "oklch(84% 0.006 268.2)",
-          "oklch(95% 0.004 268.2)"
-        ],
-        "nightValue": "#16181d"
+          "oklch(15% 0.001 106.4)",
+          "oklch(25% 0.001 106.4)",
+          "oklch(35% 0.001 106.4)",
+          "oklch(48% 0.001 106.4)",
+          "oklch(60% 0.001 106.4)",
+          "oklch(72% 0.001 106.4)",
+          "oklch(84% 0.001 106.4)",
+          "oklch(95% 0.001 106.4)"
+        ]
       },
-      "wrong": {
-        "role": "secondary",
-        "displayName": "Mistype Violet",
-        "canonical": "oklch(50.6% 0.165 294.1)",
-        "tonalRamp": [
-          "oklch(15% 0.099 294.1)",
-          "oklch(25% 0.132 294.1)",
-          "oklch(35% 0.165 294.1)",
-          "oklch(48% 0.165 294.1)",
-          "oklch(60% 0.165 294.1)",
-          "oklch(72% 0.142 294.1)",
-          "oklch(84% 0.102 294.1)",
-          "oklch(95% 0.066 294.1)"
-        ],
-        "nightValue": "#b9a3f0"
-      },
-      "alpha": {
+      "paper-2": {
         "role": "neutral",
-        "displayName": "Alpha Plastic",
-        "canonical": "oklch(92.7% 0.006 255.5)",
+        "displayName": "Well Grey",
+        "canonical": "oklch(95.7% 0.002 145.6)",
         "tonalRamp": [
-          "oklch(15% 0.004 255.5)",
-          "oklch(25% 0.005 255.5)",
-          "oklch(35% 0.006 255.5)",
-          "oklch(48% 0.006 255.5)",
-          "oklch(60% 0.006 255.5)",
-          "oklch(72% 0.005 255.5)",
-          "oklch(84% 0.004 255.5)",
-          "oklch(95% 0.003 255.5)"
-        ],
-        "nightValue": "#171b21"
+          "oklch(15% 0.001 145.6)",
+          "oklch(25% 0.002 145.6)",
+          "oklch(35% 0.002 145.6)",
+          "oklch(48% 0.002 145.6)",
+          "oklch(60% 0.002 145.6)",
+          "oklch(72% 0.002 145.6)",
+          "oklch(84% 0.002 145.6)",
+          "oklch(95% 0.001 145.6)"
+        ]
       },
-      "alpha-2": {
+      "ink": {
         "role": "neutral",
-        "displayName": "Raised Alpha",
-        "canonical": "oklch(96.3% 0.003 247.9)",
+        "displayName": "Drawing Ink",
+        "canonical": "oklch(18.6% 0.003 248)",
+        "tonalRamp": [
+          "oklch(15% 0.002 248)",
+          "oklch(25% 0.003 248)",
+          "oklch(35% 0.003 248)",
+          "oklch(48% 0.003 248)",
+          "oklch(60% 0.003 248)",
+          "oklch(72% 0.003 248)",
+          "oklch(84% 0.003 248)",
+          "oklch(95% 0.002 248)"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Note Grey",
+        "canonical": "oklch(45.9% 0.008 255.5)",
+        "tonalRamp": [
+          "oklch(15% 0.005 255.5)",
+          "oklch(25% 0.008 255.5)",
+          "oklch(35% 0.008 255.5)",
+          "oklch(48% 0.008 255.5)",
+          "oklch(60% 0.008 255.5)",
+          "oklch(72% 0.008 255.5)",
+          "oklch(84% 0.008 255.5)",
+          "oklch(95% 0.005 255.5)"
+        ]
+      },
+      "hair": {
+        "role": "neutral",
+        "displayName": "Hairline Grey",
+        "canonical": "oklch(84.1% 0.004 247.9)",
         "tonalRamp": [
           "oklch(15% 0.002 247.9)",
-          "oklch(25% 0.003 247.9)",
-          "oklch(35% 0.003 247.9)",
-          "oklch(48% 0.003 247.9)",
-          "oklch(60% 0.003 247.9)",
-          "oklch(72% 0.003 247.9)",
-          "oklch(84% 0.002 247.9)",
-          "oklch(95% 0.001 247.9)"
-        ],
-        "nightValue": "#1d222a"
+          "oklch(25% 0.004 247.9)",
+          "oklch(35% 0.004 247.9)",
+          "oklch(48% 0.004 247.9)",
+          "oklch(60% 0.004 247.9)",
+          "oklch(72% 0.004 247.9)",
+          "oklch(84% 0.004 247.9)",
+          "oklch(95% 0.002 247.9)"
+        ]
       },
-      "panel": {
+      "blue": {
+        "role": "primary",
+        "displayName": "Blueprint Blue",
+        "canonical": "oklch(52.7% 0.263 267)",
+        "tonalRamp": [
+          "oklch(15% 0.120 267)",
+          "oklch(25% 0.200 267)",
+          "oklch(35% 0.200 267)",
+          "oklch(48% 0.200 267)",
+          "oklch(60% 0.200 267)",
+          "oklch(72% 0.200 267)",
+          "oklch(84% 0.200 267)",
+          "oklch(95% 0.120 267)"
+        ]
+      },
+      "blue-press": {
+        "role": "primary",
+        "displayName": "Pressed Blue",
+        "canonical": "oklch(45% 0.238 266.8)",
+        "tonalRamp": [
+          "oklch(15% 0.120 266.8)",
+          "oklch(25% 0.200 266.8)",
+          "oklch(35% 0.200 266.8)",
+          "oklch(48% 0.200 266.8)",
+          "oklch(60% 0.200 266.8)",
+          "oklch(72% 0.200 266.8)",
+          "oklch(84% 0.200 266.8)",
+          "oklch(95% 0.120 266.8)"
+        ]
+      },
+      "on-blue": {
+        "role": "primary",
+        "displayName": "On Blue",
+        "canonical": "oklch(100% 0 0)",
+        "tonalRamp": [
+          "oklch(15% 0.000 0)",
+          "oklch(25% 0.000 0)",
+          "oklch(35% 0.000 0)",
+          "oklch(48% 0.000 0)",
+          "oklch(60% 0.000 0)",
+          "oklch(72% 0.000 0)",
+          "oklch(84% 0.000 0)",
+          "oklch(95% 0.000 0)"
+        ]
+      },
+      "scrim": {
         "role": "neutral",
-        "displayName": "Sheet White",
-        "canonical": "oklch(98.2% 0.002 247.8)",
+        "displayName": "Scrim",
+        "canonical": "rgb(10 11 12 / 0.6)"
+      },
+      "night-paper": {
+        "role": "neutral",
+        "displayName": "Night Sheet",
+        "canonical": "oklch(18.5% 0.005 248.1)",
+        "tonalRamp": [
+          "oklch(15% 0.003 248.1)",
+          "oklch(25% 0.005 248.1)",
+          "oklch(35% 0.005 248.1)",
+          "oklch(48% 0.005 248.1)",
+          "oklch(60% 0.005 248.1)",
+          "oklch(72% 0.005 248.1)",
+          "oklch(84% 0.005 248.1)",
+          "oklch(95% 0.003 248.1)"
+        ]
+      },
+      "night-paper-2": {
+        "role": "neutral",
+        "displayName": "Night Well",
+        "canonical": "oklch(22.9% 0.007 248.1)",
+        "tonalRamp": [
+          "oklch(15% 0.004 248.1)",
+          "oklch(25% 0.007 248.1)",
+          "oklch(35% 0.007 248.1)",
+          "oklch(48% 0.007 248.1)",
+          "oklch(60% 0.007 248.1)",
+          "oklch(72% 0.007 248.1)",
+          "oklch(84% 0.007 248.1)",
+          "oklch(95% 0.004 248.1)"
+        ]
+      },
+      "night-ink": {
+        "role": "neutral",
+        "displayName": "Night Linework",
+        "canonical": "oklch(93.7% 0.002 247.8)",
         "tonalRamp": [
           "oklch(15% 0.001 247.8)",
-          "oklch(25% 0.001 247.8)",
+          "oklch(25% 0.002 247.8)",
           "oklch(35% 0.002 247.8)",
           "oklch(48% 0.002 247.8)",
           "oklch(60% 0.002 247.8)",
-          "oklch(72% 0.001 247.8)",
-          "oklch(84% 0.001 247.8)",
+          "oklch(72% 0.002 247.8)",
+          "oklch(84% 0.002 247.8)",
           "oklch(95% 0.001 247.8)"
-        ],
-        "nightValue": "#222831"
+        ]
       },
-      "modifier": {
+      "night-ink-2": {
         "role": "neutral",
-        "displayName": "Slate Modifier",
-        "canonical": "oklch(35.1% 0.023 261.2)",
+        "displayName": "Night Note Grey",
+        "canonical": "oklch(72.7% 0.009 253.9)",
         "tonalRamp": [
-          "oklch(15% 0.014 261.2)",
-          "oklch(25% 0.018 261.2)",
-          "oklch(35% 0.023 261.2)",
-          "oklch(48% 0.023 261.2)",
-          "oklch(60% 0.023 261.2)",
-          "oklch(72% 0.020 261.2)",
-          "oklch(84% 0.014 261.2)",
-          "oklch(95% 0.009 261.2)"
-        ],
-        "nightValue": "#2e3540"
+          "oklch(15% 0.005 253.9)",
+          "oklch(25% 0.009 253.9)",
+          "oklch(35% 0.009 253.9)",
+          "oklch(48% 0.009 253.9)",
+          "oklch(60% 0.009 253.9)",
+          "oklch(72% 0.009 253.9)",
+          "oklch(84% 0.009 253.9)",
+          "oklch(95% 0.005 253.9)"
+        ]
       },
-      "modifier-2": {
+      "night-hair": {
         "role": "neutral",
-        "displayName": "Slate Hover",
-        "canonical": "oklch(43.7% 0.025 261.7)",
+        "displayName": "Night Hairline",
+        "canonical": "oklch(33.9% 0.01 254)",
         "tonalRamp": [
-          "oklch(15% 0.015 261.7)",
-          "oklch(25% 0.020 261.7)",
-          "oklch(35% 0.025 261.7)",
-          "oklch(48% 0.025 261.7)",
-          "oklch(60% 0.025 261.7)",
-          "oklch(72% 0.022 261.7)",
-          "oklch(84% 0.016 261.7)",
-          "oklch(95% 0.010 261.7)"
-        ],
-        "nightValue": "#3a4250"
+          "oklch(15% 0.006 254)",
+          "oklch(25% 0.010 254)",
+          "oklch(35% 0.010 254)",
+          "oklch(48% 0.010 254)",
+          "oklch(60% 0.010 254)",
+          "oklch(72% 0.010 254)",
+          "oklch(84% 0.010 254)",
+          "oklch(95% 0.006 254)"
+        ]
       },
-      "mod-lip": {
-        "role": "neutral",
-        "displayName": "Modifier Lip",
-        "canonical": "oklch(25.0% 0.017 259.8)",
+      "night-blue": {
+        "role": "primary",
+        "displayName": "Lifted Blueprint Blue",
+        "canonical": "oklch(70.3% 0.155 273.3)",
         "tonalRamp": [
-          "oklch(15% 0.010 259.8)",
-          "oklch(25% 0.014 259.8)",
-          "oklch(35% 0.017 259.8)",
-          "oklch(48% 0.017 259.8)",
-          "oklch(60% 0.017 259.8)",
-          "oklch(72% 0.015 259.8)",
-          "oklch(84% 0.010 259.8)",
-          "oklch(95% 0.007 259.8)"
-        ],
-        "nightValue": "#0e1115"
+          "oklch(15% 0.093 273.3)",
+          "oklch(25% 0.155 273.3)",
+          "oklch(35% 0.155 273.3)",
+          "oklch(48% 0.155 273.3)",
+          "oklch(60% 0.155 273.3)",
+          "oklch(72% 0.155 273.3)",
+          "oklch(84% 0.155 273.3)",
+          "oklch(95% 0.093 273.3)"
+        ]
       },
-      "legend": {
-        "role": "neutral",
-        "displayName": "Legend Black",
-        "canonical": "oklch(20.4% 0.011 260.7)",
+      "night-blue-press": {
+        "role": "primary",
+        "displayName": "Lifted Pressed Blue",
+        "canonical": "oklch(77.9% 0.113 275.1)",
         "tonalRamp": [
-          "oklch(15% 0.007 260.7)",
-          "oklch(25% 0.009 260.7)",
-          "oklch(35% 0.011 260.7)",
-          "oklch(48% 0.011 260.7)",
-          "oklch(60% 0.011 260.7)",
-          "oklch(72% 0.009 260.7)",
-          "oklch(84% 0.007 260.7)",
-          "oklch(95% 0.004 260.7)"
-        ],
-        "nightValue": "#e8ebef"
+          "oklch(15% 0.068 275.1)",
+          "oklch(25% 0.113 275.1)",
+          "oklch(35% 0.113 275.1)",
+          "oklch(48% 0.113 275.1)",
+          "oklch(60% 0.113 275.1)",
+          "oklch(72% 0.113 275.1)",
+          "oklch(84% 0.113 275.1)",
+          "oklch(95% 0.068 275.1)"
+        ]
       },
-      "legend-muted": {
-        "role": "neutral",
-        "displayName": "Muted Legend",
-        "canonical": "oklch(44.7% 0.024 257.5)",
+      "night-on-blue": {
+        "role": "primary",
+        "displayName": "Night On Blue",
+        "canonical": "oklch(16.7% 0.038 274.4)",
         "tonalRamp": [
-          "oklch(15% 0.015 257.5)",
-          "oklch(25% 0.019 257.5)",
-          "oklch(35% 0.024 257.5)",
-          "oklch(48% 0.024 257.5)",
-          "oklch(60% 0.024 257.5)",
-          "oklch(72% 0.021 257.5)",
-          "oklch(84% 0.015 257.5)",
-          "oklch(95% 0.010 257.5)"
-        ],
-        "nightValue": "#a3acb8"
+          "oklch(15% 0.023 274.4)",
+          "oklch(25% 0.038 274.4)",
+          "oklch(35% 0.038 274.4)",
+          "oklch(48% 0.038 274.4)",
+          "oklch(60% 0.038 274.4)",
+          "oklch(72% 0.038 274.4)",
+          "oklch(84% 0.038 274.4)",
+          "oklch(95% 0.023 274.4)"
+        ]
       },
-      "legend-on-mod": {
+      "night-scrim": {
         "role": "neutral",
-        "displayName": "Legend on Slate",
-        "canonical": "oklch(95.4% 0.005 258.3)",
-        "tonalRamp": [
-          "oklch(15% 0.003 258.3)",
-          "oklch(25% 0.004 258.3)",
-          "oklch(35% 0.005 258.3)",
-          "oklch(48% 0.005 258.3)",
-          "oklch(60% 0.005 258.3)",
-          "oklch(72% 0.004 258.3)",
-          "oklch(84% 0.003 258.3)",
-          "oklch(95% 0.002 258.3)"
-        ],
-        "nightValue": "#e8ebef"
-      },
-      "rule": {
-        "role": "neutral",
-        "displayName": "Hairline",
-        "canonical": "oklch(83.7% 0.011 256.7)",
-        "tonalRamp": [
-          "oklch(15% 0.007 256.7)",
-          "oklch(25% 0.009 256.7)",
-          "oklch(35% 0.011 256.7)",
-          "oklch(48% 0.011 256.7)",
-          "oklch(60% 0.011 256.7)",
-          "oklch(72% 0.010 256.7)",
-          "oklch(84% 0.007 256.7)",
-          "oklch(95% 0.004 256.7)"
-        ],
-        "nightValue": "#343c48"
-      },
-      "cap-lip": {
-        "role": "neutral",
-        "displayName": "Cap Lip",
-        "canonical": "oklch(80.0% 0.013 259.8)",
-        "tonalRamp": [
-          "oklch(15% 0.008 259.8)",
-          "oklch(25% 0.010 259.8)",
-          "oklch(35% 0.013 259.8)",
-          "oklch(48% 0.013 259.8)",
-          "oklch(60% 0.013 259.8)",
-          "oklch(72% 0.011 259.8)",
-          "oklch(84% 0.008 259.8)",
-          "oklch(95% 0.005 259.8)"
-        ],
-        "nightValue": "#0e1115"
+        "displayName": "Night Scrim",
+        "canonical": "rgb(0 0 0 / 0.7)"
       }
     },
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "The home name NAVIN only; types in as keystrokes."
+        "purpose": "The cover name only, letter-masked for the intro rise."
       },
       "headline": {
-        "displayName": "Headline",
-        "purpose": "Inner page titles."
+        "displayName": "Sheet Title",
+        "purpose": "Every sheet head title and the 404 title."
       },
       "title": {
-        "displayName": "Title",
-        "purpose": "Project names, dialog titles, the hero surname."
+        "displayName": "Detail Title",
+        "purpose": "Project names on detail sheets."
       },
       "title-sm": {
-        "displayName": "Title small",
-        "purpose": "Section titles and experience role titles."
+        "displayName": "Title Small",
+        "purpose": "Experience roles, spec figures, dialog titles, race stats."
+      },
+      "subhead": {
+        "displayName": "Subhead",
+        "purpose": "Legend group heads, certificate subsections, plate titles."
       },
       "body-lg": {
-        "displayName": "Body large",
-        "purpose": "Hero bio, max 60ch."
+        "displayName": "Body Large",
+        "purpose": "Cover bio and contact race line."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Prose, max 66ch."
+        "purpose": "Running text, tabular figures on."
       },
       "body-sm": {
-        "displayName": "Body small",
-        "purpose": "Metadata, hints, categories, printed legends."
+        "displayName": "Value",
+        "purpose": "Title-block and spec values, index labels, sheet notes."
       },
-      "action": {
-        "displayName": "Action legend",
-        "purpose": "Bold legends on action keys."
+      "button": {
+        "displayName": "Button",
+        "purpose": "All button labels."
       },
       "label": {
-        "displayName": "Label",
-        "purpose": "Cap legends and spec-field labels."
-      },
-      "data": {
-        "displayName": "Data",
-        "purpose": "Measured quantities, counts, dates; tabular figures."
+        "displayName": "Note",
+        "purpose": "Archivo Narrow uppercase annotation: cell labels, column heads, captions, sheet numbers."
       }
     },
-    "shadows": [
+    "shadows": [],
+    "lineWeights": [
       {
-        "name": "cap-rest",
-        "value": "inset 0 -4px 0 var(--cap-lip), 0 2px 3px rgb(20 23 28 / 0.12), 0 6px 12px -6px rgb(20 23 28 / 0.25)",
-        "purpose": "Every keycap at rest: a lip plus a soft, offset ambient shadow."
+        "name": "w-heavy",
+        "value": "2px solid var(--line)",
+        "purpose": "Border line: sheet frame, index bar, title blocks, dialog panels."
       },
       {
-        "name": "cap-down",
-        "value": "inset 0 -1px 0 var(--cap-lip), 0 1px 1px rgb(20 23 28 / 0.12)",
-        "purpose": "A cap that is pressed, active or struck by a shortcut."
+        "name": "w-line",
+        "value": "1px solid var(--line)",
+        "purpose": "Object lines: sheet dividers, detail sheets, tables, buttons, plates, drafting and dimension lines."
       },
       {
-        "name": "portrait-frame",
-        "value": "inset 0 -6px 0 var(--mod-lip), 0 18px 40px -18px rgb(20 23 28 / 0.45)",
-        "purpose": "The hero portrait slate frame only."
-      },
-      {
-        "name": "dialog-lift",
-        "value": "0 16px 28px -10px rgb(0 0 0 / 0.3)",
-        "purpose": "Modal panels, over a rgb(10 12 15 / 0.55) backdrop."
+        "name": "hairline",
+        "value": "1px solid var(--hair)",
+        "purpose": "Internal cell divisions only; never text, never an outline."
       }
     ],
     "motion": [
       {
         "name": "ease-out",
         "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Cap press, arrow nudge, word-track scroll."
+        "purpose": "Movement: title block slide, race track shift, plate image scale, arrow nudge."
       },
       {
         "name": "t-fast",
-        "value": "120ms",
-        "purpose": "Cap press and release."
+        "value": "140ms",
+        "purpose": "Colour, background and border state changes."
       },
       {
         "name": "t-base",
-        "value": "220ms",
-        "purpose": "Background and color transitions."
+        "value": "240ms",
+        "purpose": "Small movements and index label colour."
       },
       {
-        "name": "t-slow",
-        "value": "420ms",
-        "purpose": "Certificate image hover scale."
+        "name": "title-block",
+        "value": "520ms var(--ease-out)",
+        "purpose": "Compact title block slides up from below the frame."
       },
       {
-        "name": "shortcut-press",
-        "value": "140ms",
-        "purpose": "A physical key press echoed on the on-screen cap (.is-down)."
+        "name": "intro-letters",
+        "value": "translateY 105% to 0, 900ms, stagger 70ms, outExpo",
+        "purpose": "Cover name rises from its baseline mask."
       },
       {
-        "name": "intro-type",
-        "value": "380ms outExpo, 85ms stagger per letter; the rest at 620ms, 60ms stagger",
-        "purpose": "The home name types in as keystrokes."
+        "name": "intro-dimension",
+        "value": "scaleX 0 to 1 from centre, 900ms, inOutExpo",
+        "purpose": "Dimension line under the name draws outward."
       },
       {
-        "name": "reveal",
-        "value": "560ms outExpo, y 16px to 0, stagger min(70ms, 420ms / n)",
-        "purpose": "List rows settle in on scroll."
+        "name": "intro-rest",
+        "value": "opacity 0 to 1, y 14px to 0, 700ms, stagger 70ms, outExpo",
+        "purpose": "Bio, portrait and title block settle in after the name."
       },
       {
-        "name": "view-transition",
-        "value": "260ms",
-        "purpose": "Root crossfade between pages."
+        "name": "reveal-rows",
+        "value": "opacity 0 to 1, y 14px to 0, 640ms, stagger min(70ms, 480ms / n), outExpo",
+        "purpose": "Lists and schedule rows settle in once on entry."
+      },
+      {
+        "name": "reveal-plates",
+        "value": "clip-path inset(0 0 100% 0) to inset(0), 1000ms, stagger 120ms, outExpo",
+        "purpose": "Certificate plates wipe down like a sheet being printed."
+      },
+      {
+        "name": "scroll-smoothing",
+        "value": "Lenis, lerp 0.11",
+        "purpose": "One per-frame update drives index progress, current sheet, drafting rules and the pinned projects track."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "no smoothing, no pin, no drawing; all content visible",
+        "purpose": "prefers-reduced-motion: reduce."
       }
     ],
     "breakpoints": [
       {
-        "name": "board-hero",
-        "value": "900px"
+        "name": "xs",
+        "value": "420px"
       },
       {
-        "name": "projects-stack",
-        "value": "760px"
+        "name": "phone",
+        "value": "480px"
       },
       {
-        "name": "experience",
-        "value": "700px"
-      },
-      {
-        "name": "typing-dialog",
+        "name": "sheet-head",
         "value": "600px"
       },
       {
-        "name": "board-compact",
-        "value": "520px"
+        "name": "tablet",
+        "value": "760px"
       },
       {
-        "name": "hero-actions-full",
-        "value": "420px"
+        "name": "cover-stack",
+        "value": "900px"
+      },
+      {
+        "name": "pin",
+        "value": "(min-width: 900px) and (min-height: 560px)"
+      },
+      {
+        "name": "wide",
+        "value": "1100px"
       }
-    ]
+    ],
+    "themes": {
+      "light": "Day set (default): base tokens on :root",
+      "dark": "Night set: :root[data-theme='dark'], night-* tokens; follows the OS until the visitor picks a set"
+    }
   },
   "components": [
     {
-      "name": "Race Key (gold cap)",
+      "name": "Primary Button",
       "kind": "button",
-      "refersTo": "cap-accent",
-      "description": "The one gold key per context; the primary action.",
-      "html": "<button class=\"ds-cap ds-cap-accent\" type=\"button\"><kbd class=\"ds-kbd\">T</kbd><span>Race my <span class=\"ds-num\">92 wpm</span></span></button>",
-      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--focus,#8a6608);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-cap-accent{--cap-lip:var(--accent-lip,#a8850c);background:var(--accent,#e2b714);border-color:var(--accent,#e2b714);color:var(--accent-ink,#16181d);font-family:'Public Sans',system-ui,sans-serif;font-weight:700;font-size:.875rem;letter-spacing:0;min-height:52px;padding-inline:24px;font-size:1rem}.ds-cap-accent:hover{background:color-mix(in oklab,var(--accent,#e2b714) 88%,white)}.ds-cap-accent:active{box-shadow:inset 0 -1px 0 var(--accent-lip,#a8850c),0 1px 1px rgb(20 23 28/.12)}.ds-kbd{font-family:Michroma,Arial,sans-serif;font-size:.75rem;padding:2px 7px;border:1px solid rgb(0 0 0/.25);border-radius:5px}.ds-num{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}"
+      "refersTo": "button-primary",
+      "description": "The one main action per context: race, open email app, try again.",
+      "html": "<button class=\"ds-btn ds-btn-primary\" type=\"button\">Race my 92 wpm</button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border:1px solid var(--line,#121314);border-radius:0;background:transparent;color:var(--ink,#121314);font-family:var(--ff,'Archivo',Arial,sans-serif);font-size:0.9375rem;font-weight:600;line-height:1.2;text-decoration:none;cursor:pointer;transition:background-color 140ms ease,color 140ms ease,border-color 140ms ease}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid var(--blue,#2b4cff);outline-offset:3px}.ds-btn-primary{background:var(--blue,#2b4cff);border-color:var(--blue,#2b4cff);color:var(--on-blue,#fff)}.ds-btn-primary:hover{background:var(--blue-press,#1e38d6);border-color:var(--blue-press,#1e38d6)}"
     },
     {
-      "name": "Modifier Key (slate cap)",
+      "name": "Line Button",
       "kind": "button",
-      "refersTo": "cap-mod",
-      "description": "Secondary action on a slate modifier key (Email me, Live demo).",
-      "html": "<a class=\"ds-cap ds-cap-mod\" href=\"#\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"2.5\" y=\"4.5\" width=\"19\" height=\"15\" rx=\"2.5\"/><path d=\"M3 6.5l9 6 9-6\"/></svg><span>Email me</span></a>",
-      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--focus,#8a6608);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-cap-mod{--cap-lip:var(--mod-lip,#1d222a);background:var(--modifier,#343b47);border-color:var(--modifier,#343b47);color:var(--legend-on-mod,#eef0f3);font-family:'Public Sans',system-ui,sans-serif;font-weight:700;font-size:.875rem;letter-spacing:0;min-height:52px;padding-inline:24px;font-size:1rem}.ds-cap-mod:hover{background:var(--modifier-2,#4a5260)}.ds-cap-mod:active{box-shadow:inset 0 -1px 0 var(--mod-lip,#1d222a),0 1px 1px rgb(20 23 28/.12)}"
+      "refersTo": "button-line",
+      "description": "Default button: 1px ink outline, inverts to an ink fill on hover.",
+      "html": "<a class=\"ds-btn ds-btn-line\" href=\"#\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"2.5\" y=\"4.5\" width=\"19\" height=\"15\" rx=\"2.5\"/><path d=\"M3 6.5l9 6 9-6\"/></svg>Email me</a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border:1px solid var(--line,#121314);border-radius:0;background:transparent;color:var(--ink,#121314);font-family:var(--ff,'Archivo',Arial,sans-serif);font-size:0.9375rem;font-weight:600;line-height:1.2;text-decoration:none;cursor:pointer;transition:background-color 140ms ease,color 140ms ease,border-color 140ms ease}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid var(--blue,#2b4cff);outline-offset:3px}.ds-btn-line:hover{background:var(--ink,#121314);color:var(--paper,#fbfbfa)}"
     },
     {
-      "name": "Square Cap",
+      "name": "Quiet Button",
       "kind": "button",
-      "refersTo": "cap-square",
-      "description": "Icon-only alpha cap: theme, close, copy, socials.",
-      "html": "<button class=\"ds-cap ds-cap-square\" type=\"button\" aria-label=\"Switch colorway\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z\"/></svg></button>",
-      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--focus,#8a6608);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-cap-square{justify-content:center;min-width:44px;padding-inline:12px}"
+      "refersTo": "button-quiet",
+      "description": "Borderless with a well-grey hover. Theme toggle, dialog close, Day/Night set switch (the pressed set gains the ink border).",
+      "html": "<div class=\"ds-set\"><button class=\"ds-btn ds-btn-quiet\" type=\"button\" aria-pressed=\"true\">Day set</button><button class=\"ds-btn ds-btn-quiet\" type=\"button\" aria-pressed=\"false\">Night set</button></div>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border:1px solid var(--line,#121314);border-radius:0;background:transparent;color:var(--ink,#121314);font-family:var(--ff,'Archivo',Arial,sans-serif);font-size:0.9375rem;font-weight:600;line-height:1.2;text-decoration:none;cursor:pointer;transition:background-color 140ms ease,color 140ms ease,border-color 140ms ease}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid var(--blue,#2b4cff);outline-offset:3px}.ds-set{display:flex}.ds-btn-quiet{border-color:transparent;min-height:44px;padding:0 16px;color:var(--ink-2,#55585c)}.ds-btn-quiet:hover{background:var(--paper-2,#f0f1f0);color:var(--ink,#121314)}.ds-btn-quiet[aria-pressed=true]{color:var(--ink,#121314);border-color:var(--line,#121314)}"
     },
     {
-      "name": "Section Keys",
+      "name": "Sheet Index",
       "kind": "nav",
-      "refersTo": "section-key",
-      "description": "Board navigation: letter legend top-left, label beneath; the current page turns slate.",
-      "html": "<nav class=\"ds-keys\"><a class=\"ds-cap ds-key\" href=\"#\" aria-current=\"page\"><kbd class=\"ds-key-letter\">P</kbd><span class=\"ds-key-label\">Projects</span></a><a class=\"ds-cap ds-key\" href=\"#\"><kbd class=\"ds-key-letter\">E</kbd><span class=\"ds-key-label\">Experience</span></a><a class=\"ds-cap ds-key\" href=\"#\"><kbd class=\"ds-key-letter\">S</kbd><span class=\"ds-key-label\">Stack</span></a></nav>",
-      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--focus,#8a6608);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-keys{display:flex;gap:8px}.ds-key{flex-direction:column;align-items:flex-start;gap:0;min-width:7.5rem;padding-block:4px 8px;line-height:1.3}.ds-key-letter{font-family:Michroma,Arial,sans-serif;font-size:.875rem;color:var(--legend,#14171c)}.ds-key-label{font-family:'Public Sans',system-ui,sans-serif;font-size:.875rem;font-weight:600;letter-spacing:0}.ds-key[aria-current=page]{--cap-lip:var(--mod-lip,#1d222a);background:var(--modifier,#343b47);border-color:var(--modifier,#343b47);color:var(--legend-on-mod,#eef0f3)}.ds-key[aria-current=page] .ds-key-letter{color:var(--accent-on-mod,#e2b714)}"
+      "refersTo": "sheet-index",
+      "description": "Fixed top rail: sheet number and label cells, current sheet underlined blue, 1px blue scroll progress.",
+      "html": "<nav class=\"ds-index\" aria-label=\"Sheets\"><a class=\"ds-ix\" aria-current=\"true\" href=\"#\"><span class=\"ds-no\">A-001</span>Navin</a><a class=\"ds-ix\" data-state=\"ahead\" href=\"#\"><span class=\"ds-no\">A-101</span>Projects</a><a class=\"ds-ix\" href=\"#\"><span class=\"ds-no\">A-201</span>Experience</a><span class=\"ds-prog\"></span></nav>",
+      "css": ".ds-index{position:relative;display:flex;height:48px;background:var(--paper,#fbfbfa);border:2px solid var(--line,#121314);font-family:var(--ff,'Archivo',Arial,sans-serif)}.ds-ix{position:relative;flex:1 0 auto;display:flex;align-items:center;gap:12px;padding:0 16px;border-right:1px solid var(--hair,#c9cbcd);font-size:0.875rem;color:var(--ink-2,#55585c);text-decoration:none;transition:color 240ms ease,background-color 140ms ease}.ds-ix:hover{background:var(--paper-2,#f0f1f0);color:var(--ink,#121314)}.ds-ix[data-state=ahead]{color:var(--ink,#121314)}.ds-ix[aria-current=true]{color:var(--ink,#121314);font-weight:700}.ds-ix[aria-current=true]::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:3px;background:var(--blue,#2b4cff)}.ds-ix:focus-visible{outline:2px solid var(--blue,#2b4cff);outline-offset:-4px}.ds-no{font-family:var(--ff-note,'Archivo Narrow','Arial Narrow',sans-serif);font-weight:600;letter-spacing:0.04em}.ds-prog{position:absolute;left:0;bottom:-1px;width:30%;height:1px;background:var(--blue,#2b4cff)}"
     },
     {
-      "name": "Sheet Panel",
-      "kind": "card",
-      "refersTo": "sheet",
-      "description": "Flat printed panel with a hairline frame, holding a group of printed legends.",
-      "html": "<section class=\"ds-sheet\"><h3 class=\"ds-sheet-title\">Front end <span class=\"ds-count\">04</span></h3><ul class=\"ds-legends\"><li>Astro</li><li>TypeScript</li><li>CSS</li><li>Figma</li></ul></section>",
-      "css": ".ds-sheet{display:grid;gap:16px;padding:24px;background:var(--panel,#f8f9fa);border:1px solid var(--rule,#c5cad1);border-radius:14px;color:var(--legend,#14171c)}.ds-sheet-title{font-family:Michroma,Arial,sans-serif;font-weight:400;font-size:1rem;display:flex;gap:12px;align-items:baseline;margin:0}.ds-count{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:.875rem;color:var(--legend-muted,#4c5562)}.ds-legends{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:8px}.ds-legends li{padding:8px 12px;border:1px solid var(--rule,#c5cad1);border-radius:6px;background:var(--alpha,#e4e7eb);font-family:'Public Sans',system-ui,sans-serif;font-size:.875rem;font-weight:600}"
-    },
-    {
-      "name": "Spec Fields (stat strip)",
+      "name": "Title Block",
       "kind": "custom",
-      "refersTo": "spec-field",
-      "description": "Michroma labels over mono tabular values, divided by hairlines.",
-      "html": "<dl class=\"ds-stats\"><div><dt>wpm</dt><dd>92</dd></div><div><dt>accuracy</dt><dd>98<small>%</small></dd></div><div><dt>time left</dt><dd>30<small>s</small></dd></div></dl>",
-      "css": ".ds-stats{display:grid;grid-template-columns:repeat(3,1fr);margin:0;border:1px solid var(--rule,#c5cad1);border-radius:10px;overflow:hidden;background:var(--panel,#f8f9fa)}.ds-stats>div{padding:12px 16px;border-left:1px solid var(--rule,#c5cad1)}.ds-stats>div:first-child{border-left:0}.ds-stats dt{font-family:Michroma,Arial,sans-serif;font-size:.75rem;color:var(--legend-muted,#4c5562)}.ds-stats dd{margin:0;font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:1.5rem;font-weight:600;line-height:1.3;color:var(--legend,#14171c)}.ds-stats small{font-size:.875rem;font-weight:400;color:var(--legend-muted,#4c5562)}"
+      "refersTo": "title-block-cell",
+      "description": "Open-sided cell grid with a heavy top and left line: narrow notes over 600 values, then the action row and sheet number.",
+      "html": "<aside class=\"ds-tb\"><div class=\"ds-cells\"><div><span class=\"ds-note\">Role</span><span>Computer Science Student</span></div><div><span class=\"ds-note\">Location</span><span>Caloocan City, NCR</span></div></div><div class=\"ds-tb-act\"><button class=\"ds-btn ds-btn-primary\" type=\"button\">Race my 92 wpm</button><a class=\"ds-btn\" href=\"#\">Email me</a><span class=\"ds-note ds-tb-no\">Sheet A-001 of 06</span></div></aside>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border:1px solid var(--line,#121314);border-radius:0;background:transparent;color:var(--ink,#121314);font-family:var(--ff,'Archivo',Arial,sans-serif);font-size:0.9375rem;font-weight:600;line-height:1.2;text-decoration:none;cursor:pointer;transition:background-color 140ms ease,color 140ms ease,border-color 140ms ease}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid var(--blue,#2b4cff);outline-offset:3px}.ds-btn-primary{background:var(--blue,#2b4cff);border-color:var(--blue,#2b4cff);color:var(--on-blue,#fff)}.ds-btn-primary:hover{background:var(--blue-press,#1e38d6);border-color:var(--blue-press,#1e38d6)}.ds-note{font-family:var(--ff-note,'Archivo Narrow','Arial Narrow',sans-serif);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-2,#55585c)}.ds-btn:not(.ds-btn-primary):hover{background:var(--ink,#121314);color:var(--paper,#fbfbfa)}.ds-tb{background:var(--paper,#fbfbfa);border-top:2px solid var(--line,#121314);border-left:2px solid var(--line,#121314);font-family:var(--ff,'Archivo',Arial,sans-serif);color:var(--ink,#121314)}.ds-cells{display:grid;grid-template-columns:1fr 1fr}.ds-cells>div{display:flex;flex-direction:column;padding:12px 16px;border-right:1px solid var(--hair,#c9cbcd);border-bottom:1px solid var(--hair,#c9cbcd);font-size:0.875rem;font-weight:600;line-height:1.35}.ds-cells>div:last-child{border-right:0}.ds-tb-act{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:12px 16px}.ds-tb-no{margin-left:auto}"
+    },
+    {
+      "name": "Sheet Head",
+      "kind": "custom",
+      "description": "Sheet number, heavy title, note, and a 1px drafting rule with end ticks that scroll draws in.",
+      "html": "<header class=\"ds-sh\"><span class=\"ds-sh-no\">A-201</span><h2 class=\"ds-sh-t\">Experience</h2><p class=\"ds-sh-n\">04 roles, most recent first</p><span class=\"ds-sh-r\" aria-hidden=\"true\"></span></header>",
+      "css": ".ds-sh{position:relative;display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:8px 24px;padding-bottom:24px;font-family:var(--ff,'Archivo',Arial,sans-serif);color:var(--ink,#121314)}.ds-sh-no{font-family:var(--ff-note,'Archivo Narrow','Arial Narrow',sans-serif);font-size:0.875rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase}.ds-sh-t{margin:0;font-size:clamp(2.75rem,1rem + 5.4vw,6rem);font-weight:800;letter-spacing:-0.04em;line-height:0.95}.ds-sh-n{margin:0;font-size:0.875rem;color:var(--ink-2,#55585c);text-align:right}.ds-sh-r{position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line,#121314)}.ds-sh-r::before,.ds-sh-r::after{content:'';position:absolute;top:-6px;width:1px;height:13px;background:var(--line,#121314)}.ds-sh-r::before{left:0}.ds-sh-r::after{right:0}"
+    },
+    {
+      "name": "Project Detail Sheet",
+      "kind": "card",
+      "description": "1px ink outlined sheet: main column beside a spec column of note/value cells.",
+      "html": "<article class=\"ds-ps\"><div class=\"ds-ps-m\"><h3>Project name</h3><p>One or two sentences on what it is and does.</p></div><dl class=\"ds-spec\"><div><dt>Detail</dt><dd>A-101.1</dd></div><div><dt>Type</dt><dd>Web app</dd></div><div class=\"ds-fig\"><dt>Figure</dt><dd>06</dd></div><div><dt>Source</dt><dd>Public repository</dd></div></dl></article>",
+      "css": ".ds-ps{display:grid;grid-template-columns:minmax(0,1fr) 15rem;border:1px solid var(--line,#121314);background:var(--paper,#fbfbfa);font-family:var(--ff,'Archivo',Arial,sans-serif);color:var(--ink,#121314)}.ds-ps-m{padding:32px}.ds-ps-m h3{margin:0;font-size:clamp(2rem,1.1rem + 2.6vw,3.5rem);font-weight:800;letter-spacing:-0.035em;line-height:1}.ds-ps-m p{margin:24px 0 0;color:var(--ink-2,#55585c);font-size:1.0625rem;line-height:1.6}.ds-spec{margin:0;border-left:1px solid var(--line,#121314)}.ds-spec>div{padding:12px 16px;border-bottom:1px solid var(--hair,#c9cbcd)}.ds-spec dt{font-family:var(--ff-note,'Archivo Narrow','Arial Narrow',sans-serif);font-size:0.75rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-2,#55585c)}.ds-spec dd{margin:0;font-size:0.875rem;font-weight:600}.ds-fig dd{font-size:1.625rem;font-weight:800;letter-spacing:-0.02em}"
     },
     {
       "name": "Email Field",
       "kind": "input",
-      "refersTo": "spec-field",
-      "description": "Alpha well with the address and a copy cap inside.",
-      "html": "<div class=\"ds-field\"><span class=\"ds-field-text\">name@example.com</span><button class=\"ds-cap ds-cap-square\" type=\"button\" aria-label=\"Copy\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg></button></div>",
-      "css": ".ds-cap{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 16px 11px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);color:var(--legend,#14171c);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.75rem;letter-spacing:.04em;text-decoration:none;cursor:pointer;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1),background-color 220ms ease}.ds-cap:hover{background:var(--panel,#f8f9fa)}.ds-cap:active{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-cap:focus-visible{outline:2px solid var(--focus,#8a6608);outline-offset:3px}.ds-cap svg{width:18px;height:18px}.ds-cap-square{justify-content:center;min-width:44px;padding-inline:12px}.ds-field{display:flex;align-items:center;gap:8px;padding:8px 8px 8px 16px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha,#e4e7eb)}.ds-field-text{flex:1;min-width:0;font-family:'Public Sans',system-ui,sans-serif;font-size:.875rem;color:var(--legend,#14171c);user-select:all}"
+      "description": "1px ink box holding the address with a divided icon copy button.",
+      "html": "<div class=\"ds-ef\"><span>name@example.com</span><button class=\"ds-ef-b\" type=\"button\" aria-label=\"Copy email address\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"9\" y=\"9\" width=\"12\" height=\"12\" rx=\"2\"/><path d=\"M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1\"/></svg></button></div>",
+      "css": ".ds-ef{display:flex;align-items:stretch;border:1px solid var(--line,#121314);font-family:var(--ff,'Archivo',Arial,sans-serif);color:var(--ink,#121314)}.ds-ef span{flex:1;align-self:center;padding:8px 16px;font-size:0.875rem;font-weight:600;user-select:all}.ds-ef-b{display:grid;place-items:center;width:48px;min-height:48px;border:0;border-left:1px solid var(--line,#121314);border-radius:0;background:transparent;color:inherit;cursor:pointer;transition:background-color 140ms ease,color 140ms ease}.ds-ef-b:hover{background:var(--ink,#121314);color:var(--paper,#fbfbfa)}.ds-ef-b:focus-visible{outline:2px solid var(--blue,#2b4cff);outline-offset:3px}"
     },
     {
-      "name": "Index Row",
+      "name": "Race Keyboard",
       "kind": "custom",
-      "refersTo": "cap",
-      "description": "Home section index: a ruled link row whose keycap depresses on hover.",
-      "html": "<a class=\"ds-row\" href=\"#\"><kbd class=\"ds-row-key\">P</kbd><span class=\"ds-row-label\">Projects</span><span class=\"ds-row-count\">04 <span>projects</span></span><svg class=\"ds-row-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 17 17 7M8 7h9v9\"/></svg></a>",
-      "css": ".ds-row{display:grid;grid-template-columns:44px minmax(0,1fr) auto 20px;align-items:center;gap:24px;padding-block:24px;border-block:1px solid var(--rule,#c5cad1);color:var(--legend,#14171c);text-decoration:none;transition:background-color 220ms ease}.ds-row:hover{background:var(--alpha-2,#f1f3f5)}.ds-row:focus-visible{outline:2px solid var(--focus,#8a6608);outline-offset:3px}.ds-row-key{display:grid;place-items:center;width:44px;height:44px;border:1px solid var(--rule,#c5cad1);border-radius:10px;background:var(--alpha-2,#f1f3f5);box-shadow:inset 0 -4px 0 var(--cap-lip,#b9bec6),0 2px 3px rgb(20 23 28/.12),0 6px 12px -6px rgb(20 23 28/.25);font-family:Michroma,Arial,sans-serif;font-size:.875rem;transition:transform 120ms cubic-bezier(.16,1,.3,1),box-shadow 120ms cubic-bezier(.16,1,.3,1)}.ds-row:hover .ds-row-key{transform:translateY(3px);box-shadow:inset 0 -1px 0 var(--cap-lip,#b9bec6),0 1px 1px rgb(20 23 28/.12)}.ds-row-label{font-family:Michroma,Arial,sans-serif}.ds-row-count{font-family:'JetBrains Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;font-size:1.1875rem;font-weight:600}.ds-row-count span{font-size:.875rem;font-weight:400;color:var(--legend-muted,#4c5562)}.ds-row-arrow{width:20px;height:20px;color:var(--legend-muted,#4c5562);transition:transform 220ms cubic-bezier(.16,1,.3,1),color 220ms ease}.ds-row:hover .ds-row-arrow{color:var(--accent-text,#6f5205);transform:translate(2px,-2px)}"
+      "refersTo": "key-next",
+      "description": "Keyboard drawn in plan: hairline square keys, the next key filled blue, a pressed key filled ink.",
+      "html": "<div class=\"ds-kb\" aria-hidden=\"true\"><span class=\"ds-k\">q</span><span class=\"ds-k ds-next\">w</span><span class=\"ds-k ds-pr\">e</span><span class=\"ds-k\">r</span></div>",
+      "css": ".ds-kb{display:flex;gap:6px}.ds-k{display:grid;place-items:center;width:40px;height:40px;border:1px solid var(--hair,#c9cbcd);font-family:var(--ff-note,'Archivo Narrow','Arial Narrow',sans-serif);font-size:0.875rem;font-weight:600;color:var(--ink-2,#55585c);transition:background-color 140ms ease,border-color 140ms ease,color 140ms ease}.ds-next{background:var(--blue,#2b4cff);border-color:var(--blue,#2b4cff);color:var(--on-blue,#fff)}.ds-pr{background:var(--ink,#121314);border-color:var(--ink,#121314);color:var(--paper,#fbfbfa)}"
     }
   ],
   "narrative": {
-    "northStar": "The Keycap Kit Sheet",
-    "overview": "The site is a keycap set laid out on its printed kit sheet, colorway NAVIN/92. Everything you can press is a sculpted keycap: a 1px hairline-bordered cap that sits on a bottom lip and drops 3px when struck, by mouse or by the matching physical key. Everything you read is printed flat on the sheet: hairline-ruled rows, flat panels, and spec fields in which a wide mechanical legend labels a value. The ground is a pale, cool grey plastic. Slate modifier keys carry weight, and one gold key carries the primary action.\n\nDensity is moderate and calm. Content runs on a 1240px board with fluid gutters, prose is held to a 60–66ch measure, and lists are ruled rows rather than card grids. Motion is mechanical and short. Keys depress in 120ms. The home name types in letter by letter as keystrokes (85ms stagger, outExpo), and list rows settle upward on scroll. With reduced motion, everything is visible and still.\n\nThere are two colorways, Day (light, the default) and Night (dark, which follows the OS until the visitor picks one). A visible \"Colorway NAVIN/92\" legend with swatch chips in the footer switches between them. Both colorways share one structure; only the plastic changes.",
+    "northStar": "The Drawing Set",
+    "overview": "The site is a construction drawing set. Every section is one sheet (A-001 to A-501), the viewport is the sheet, and a fixed frame with grid-reference ticks holds every sheet the same way. The reader moves through the set on one scroll axis: the sheet index along the top edge marks where they are, a drafting rule draws itself under each sheet title, and a title block carrying name, sheet number and the two actions (race, email) travels with them between the cover and the contact sheet.\n\nThe material is paper and linework. A near-white sheet, near-black ink, grey hairlines for secondary lines, and one blueprint blue. Depth comes only from line weight: a heavy 2px border line for the frame, index bar, title blocks and dialogs; 1px ink object lines for sheets, tables and buttons; grey hairlines for cell divisions. There are no shadows, no gradients and no rounded corners. Type is one grotesk family (Archivo) set very heavy for titles, with its narrow cut (Archivo Narrow) in small caps-style uppercase for annotation notes, and tabular figures everywhere so sheet numbers, dates and counts align like a schedule.\n\nDensity is drafting-office: generous sheet margins, tight cell grids inside them. Every record carries its spec beside it (projects, certificates, title block cells), each sheet has one loudest fragment (the heavy sheet title or the name), and the Night set is the same drawing on an ink-dark sheet with pale linework and a lifted blue.",
     "keyCharacteristics": [
-      "Pressable things are lipped keycaps. Readable things are printed flat.",
-      "One gold key per context. Slate marks the current position.",
-      "A wide mechanical legend face (Michroma) for keys, labels and display. A workhorse sans (Public Sans) for prose and action legends. Mono (JetBrains Mono, tabular) for measured data.",
-      "Hairline 1px rules in `rule` grey frame every panel, field and list row.",
-      "Physical keyboard shortcuts (H, P, E, S, C, T) press the on-screen cap."
+      "Fixed sheet frame (2px) inset from the viewport, with A–F grid-reference letters and ticks in both side margins.",
+      "Sheet index rail across the top: sheet number + label, current sheet underlined in blue, scroll progress as a 1px blue line.",
+      "Title blocks: cell grids with narrow uppercase notes over 600-weight values, bordered top and left with the heavy line.",
+      "Heavy Archivo 800 titles at tight negative tracking; Archivo Narrow 600 uppercase notes.",
+      "Line weight is the only depth cue. Square everything.",
+      "One blue, and it always means \"act here\", \"you are here\", or \"this is wrong\"."
     ],
     "rules": [
       {
-        "name": "The One Gold Key Rule",
-        "body": "Within any one context (the hero, the board, a dialog), gold fills exactly one key, and that key is the primary action. Every other use of gold is a thin signal: a ring, caret, period, check or arrow tint. Gold never fills a panel, a row or a heading background.",
+        "name": "The One Blue Rule",
+        "body": "Blue means one of three things: the primary action, where you are in the set (current sheet, progress), or a redline (a mistake in the race). It never decorates, never fills a section, and never appears as a second accent tint.",
         "section": "colors"
       },
       {
-        "name": "The Gold Ink Rule",
-        "body": "Gold that must be read as text on a light ground uses `accent-text`. Focus rings and carets use `focus`. The bright `accent` is a fill, not a text color on Day grounds.",
+        "name": "The Hairline Is Not Ink Rule",
+        "body": "Hairline grey draws divisions inside a component; ink draws the component's outline. Text is never set in hairline grey.",
         "section": "colors"
       },
       {
-        "name": "The Slate Means Here Rule",
-        "body": "The current page is shown by turning its section key slate (`modifier`) with a gold-on-slate letter. Gold is not used for the current page.",
-        "section": "colors"
-      },
-      {
-        "name": "The Measured-in-Mono Rule",
-        "body": "Mono with tabular figures is for quantities and dates: wpm, %, seconds, counts, issue dates and phone digits. Prose, names and labels are never set in mono.",
+        "name": "The Weight Not Family Rule",
+        "body": "Hierarchy is made with Archivo's weight axis and size, never by introducing a second display family. The only other face is Archivo Narrow, and only for notes, sheet numbers, periods and counts.",
         "section": "typography"
       },
       {
-        "name": "The Single-Weight Legend Rule",
-        "body": "Michroma ships at 400 only. Hierarchy in the legend face comes from size and color, never from bold or synthetic weight. There is no `text-transform` anywhere. Uppercase comes from the content itself (NAVIN, key letters).",
+        "name": "The Note Sits In Its Cell Rule",
+        "body": "Uppercase narrow notes label a value directly beneath them in the same cell (title blocks, specs, schedules). They are not floated above headings as section kickers.",
         "section": "typography"
       },
       {
-        "name": "The Actions-Are-Keys Rule",
-        "body": "The lipped cap shadow marks something you can press, plus the decorative virtual keyboard in the race. Content items such as skills, tags, figures and certificate plates are printed flat with a hairline and never get a lip.",
-        "section": "elevation"
-      },
-      {
-        "name": "The Flat Sheet Rule",
-        "body": "A panel that does not float (one that is not a dialog) carries no shadow. It is separated by a 1px `rule` hairline and a tonal step.",
+        "name": "The Line Weight Is Depth Rule",
+        "body": "If something needs to read as above the sheet, give it paper fill and the 2px heavy line. Never a shadow, blur or glow.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "**Do** make every action a keycap (`cap`, `cap--mod`, `cap--accent`, `cap--square`) with the cap-at-rest lip, 44px minimum, and the 3px press at 120ms.",
-      "**Do** give each context exactly one gold key, and make it the primary action. Secondary actions such as Email me and Live demo are slate.",
-      "**Do** mark the current location with a slate key and a gold-on-slate letter.",
-      "**Do** use `accent-text` for gold text on light grounds and `focus` for rings and carets.",
-      "**Do** print content flat on panel or ruled rows with 1px `rule` hairlines. Separate with tonal steps (alpha, alpha-2, panel), not shadows.",
-      "**Do** set quantities, dates and counts in JetBrains Mono with tabular figures, and pad counts to two digits.",
-      "**Do** use Michroma at 400 for display, headings and small spec labels. Use Public Sans 700 for legends on action keys.",
-      "**Do** define both colorways for any new color, and keep the footer swatches in step with the tokens."
+      "**Do** frame every page in the fixed sheet frame with the sheet index across the top; a new page is a new sheet with its own A-number (404 links back to the home sheets).",
+      "**Do** open each sheet with a sheet head: sheet number, heavy headline title, a note, and the drafting rule with end ticks.",
+      "**Do** carry spec beside every record as note/value cells (narrow uppercase note over a 600 value), divided by hairlines.",
+      "**Do** use the 2px heavy line only for the frame, index bar, title blocks and dialog panels; 1px ink for object outlines; hairline grey for internal divisions.",
+      "**Do** keep blue to primary actions, current-sheet and progress marks, and redlines; pair any blue error cue with underline or strike-through.",
+      "**Do** give every reveal a visible default: content must be fully present without JS and under reduced motion.",
+      "**Do** keep tabular figures on for sheet numbers, dates, counts and stats."
     ],
     "donts": [
-      "**Don't** introduce red or orange anywhere. Errors are violet (`wrong`). The only warm hue is gold.",
-      "**Don't** put the lipped cap shadow on non-interactive content: tags, skills, figures and plates stay flat.",
-      "**Don't** fill a second element with gold in the same context, and don't use gold as a panel or section background.",
-      "**Don't** set the bright `accent` gold as text on Day grounds.",
-      "**Don't** bold Michroma or apply `text-transform`. It ships at one weight.",
-      "**Don't** set prose, names or labels in mono.",
-      "**Don't** add shadows to static panels. Only caps, the portrait frame and dialogs carry depth.",
-      "**Don't** use white legends on the gold key. Its legend is `accent-ink`."
+      "**Don't** add shadows, blurs, glows or gradients; depth is line weight and paper fill only.",
+      "**Don't** round corners on any container, button, field, key or image frame.",
+      "**Don't** introduce a second accent colour or tint blue into backgrounds or section fills.",
+      "**Don't** set text in hairline grey or use hairlines as the outline of a component.",
+      "**Don't** add a display family beside Archivo, or use Archivo Narrow for anything other than notes, sheet numbers, periods, counts and keys.",
+      "**Don't** float uppercase notes above headings as section kickers; notes belong inside cells and sheet heads.",
+      "**Don't** wrap records in cards with fills; use outlined detail sheets, cell grids and schedules."
     ]
   }
 }

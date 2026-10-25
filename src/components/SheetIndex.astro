@@ -1,0 +1,141 @@
+---
+// The drawing set's sheet index: fixed along the top edge of the frame.
+// It is the site navigation and the scroll rail; scroll.ts marks the current
+// sheet and draws the blue progress line under it.
+import Icon from './Icon.astro';
+import { sheets } from '../data/site';
+
+interface Props {
+  /** On pages outside the set (404), links point back to the home sheets. */
+  base?: string;
+}
+const { base = '' } = Astro.props;
+---
+
+<header class="index" data-index>
+  <nav aria-label="Sheets">
+    <ol class="index-list" role="list">
+      {
+        sheets.map((s, i) => (
+          <li>
+            <a class="index-link" href={`${base}#${s.id}`} data-sheet-link={s.id} aria-current={i === 0 && !base ? 'true' : undefined}>
+              <span class="index-no">{s.no}</span>
+              <span class="index-label">{s.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </nav>
+  <button class="btn btn--icon btn--quiet theme" type="button" data-theme-toggle aria-label="Switch to Night set">
+    <Icon name="moon" class="i-moon" />
+    <Icon name="sun" class="i-sun" />
+  </button>
+  <span class="index-progress" data-progress aria-hidden="true"></span>
+</header>
+
+<style>
+  .index {
+    position: fixed;
+    z-index: 30;
+    top: var(--frame);
+    left: var(--frame);
+    right: var(--frame);
+    height: var(--bar);
+    display: flex;
+    align-items: stretch;
+    background: var(--paper);
+    border: var(--w-heavy) solid var(--line);
+  }
+  nav {
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  nav::-webkit-scrollbar {
+    display: none;
+  }
+  .index-list {
+    display: flex;
+    height: 100%;
+  }
+  .index-list li {
+    flex: 1 0 auto;
+    border-right: 1px solid var(--hair);
+  }
+  .index-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--s-3);
+    height: 100%;
+    padding: 0 var(--s-4);
+    text-decoration: none;
+    font-size: var(--fs-sm);
+    color: var(--ink-2);
+    transition: color var(--t-base) ease, background-color var(--t-fast) ease;
+  }
+  .index-link:hover {
+    background: var(--paper-2);
+    color: var(--ink);
+  }
+  .index-no {
+    font-family: var(--ff-note);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  /* Ahead of the reader: printed at full ink. Behind: greyed. Here: blue rule. */
+  .index-link[data-state='ahead'] {
+    color: var(--ink);
+  }
+  .index-link[aria-current='true'] {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .index-link[aria-current='true']::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 3px;
+    background: var(--blue);
+  }
+  .theme {
+    flex-shrink: 0;
+    min-height: 0;
+    height: 100%;
+    border-left: 1px solid var(--line);
+  }
+  .theme .i-sun,
+  :global([data-theme='dark']) .theme .i-moon {
+    display: none;
+  }
+  :global([data-theme='dark']) .theme .i-sun {
+    display: block;
+  }
+  .index-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: var(--blue);
+    transform-origin: 0 50%;
+    transform: scaleX(var(--progress, 0));
+    pointer-events: none;
+  }
+
+  @media (max-width: 760px) {
+    .index-list li {
+      flex: 0 0 auto;
+    }
+    .index-link {
+      padding: 0 var(--s-3);
+    }
+    .index-link:not([aria-current='true']) .index-label {
+      display: none;
+    }
+  }
+</style>

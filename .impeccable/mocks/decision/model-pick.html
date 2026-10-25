@@ -1,0 +1,27 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>The Line sketch</title>
+<style>
+  *{box-sizing:border-box;margin:0}
+  body{width:1440px;height:900px;background:#fff;font-family:"Helvetica Neue",Arial,sans-serif;color:#111214;overflow:hidden;position:relative}
+  .line{position:absolute;left:160px;top:0;bottom:0;width:14px;background:#1f9d55}
+  .st{position:absolute;left:146px;width:42px;height:42px;border-radius:50%;background:#fff;border:8px solid #1f9d55}
+  .st.now{background:#111214;border-color:#111214}
+  .lab{position:absolute;left:230px;font-size:22px;font-weight:700}
+  .lab small{display:block;font-weight:400;color:#6a6d72;font-size:16px}
+  h1{position:absolute;left:230px;top:150px;font-size:150px;letter-spacing:-.05em;line-height:.9}
+  p{position:absolute;left:236px;top:330px;width:640px;font-size:22px;line-height:1.5}
+  .act{position:absolute;left:236px;top:440px;display:flex;gap:12px}
+  .act span{height:52px;padding:0 24px;display:flex;align-items:center;font-weight:700;border:2px solid #111214;border-radius:26px}
+  .act span:first-child{background:#1f9d55;border-color:#1f9d55;color:#fff}
+  .photo{position:absolute;right:120px;top:120px;width:420px;height:520px;background:#e6e7e9;border-radius:8px}
+</style></head><body>
+<div class="line"></div>
+<div class="st now" style="top:176px"></div>
+<h1>Navin</h1>
+<p>Computer Science student at LPU Manila, building front-end and UI.</p>
+<div class="act"><span>Race my 92 wpm</span><span>Email me</span></div>
+<div class="photo"></div>
+<div class="st" style="top:600px"></div><div class="lab" style="top:600px">Projects<small>next station · 5 stops</small></div>
+<div class="st" style="top:700px"></div><div class="lab" style="top:700px">Experience<small>4 stops</small></div>
+<div class="st" style="top:800px"></div><div class="lab" style="top:800px">Stack<small>28 stops</small></div>
+</body></html>

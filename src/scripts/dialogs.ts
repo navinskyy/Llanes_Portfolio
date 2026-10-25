@@ -8,12 +8,12 @@ const panelOf = (d: HTMLDialogElement) => d.querySelector<HTMLElement>('[data-pa
 export function openDialog(dialog: HTMLDialogElement): Promise<void> {
   if (dialog.open) return Promise.resolve();
   dialog.showModal();
+  document.dispatchEvent(new CustomEvent('dialog:open'));
   const reduced = prefersReducedMotion();
   return new Promise((resolve) => {
     animate(panelOf(dialog), {
       opacity: [0, 1],
       y: reduced ? 0 : [16, 0],
-      scale: reduced ? 1 : [0.97, 1],
       duration: reduced ? 120 : 420,
       ease: 'outExpo',
     }).then(() => resolve());
@@ -32,6 +32,7 @@ export function closeDialog(dialog: HTMLDialogElement): Promise<void> {
       ease: 'inQuad',
     }).then(() => {
       dialog.close();
+      if (!document.querySelector('dialog[open]')) document.dispatchEvent(new CustomEvent('dialog:close'));
       resolve();
     });
   });

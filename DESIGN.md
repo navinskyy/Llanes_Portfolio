@@ -1,84 +1,85 @@
 ---
 name: Navin Byron Llanes, Portfolio
-description: A keyboard kit you can type on. Colorway NAVIN/92.
+description: A construction drawing set. Six sheets, one title block, one blue line.
 colors:
-  alpha: "#e4e7eb"
-  alpha-2: "#f1f3f5"
-  panel: "#f8f9fa"
-  modifier: "#343b47"
-  modifier-2: "#4a5260"
-  legend: "#14171c"
-  legend-muted: "#4c5562"
-  legend-on-mod: "#eef0f3"
-  rule: "#c5cad1"
-  accent: "#e2b714"
-  accent-ink: "#16181d"
-  accent-lip: "#a8850c"
-  accent-text: "#6f5205"
-  accent-on-mod: "#e2b714"
-  focus: "#8a6608"
-  wrong: "#6d4bb8"
-  cap-lip: "#b9bec6"
-  mod-lip: "#1d222a"
+  paper: "#fbfbfa"
+  paper-2: "#f0f1f0"
+  ink: "#121314"
+  ink-2: "#55585c"
+  hair: "#c9cbcd"
+  blue: "#2b4cff"
+  blue-press: "#1e38d6"
+  on-blue: "#ffffff"
+  scrim: "rgb(10 11 12 / 0.6)"
+  night-paper: "#111315"
+  night-paper-2: "#1a1d20"
+  night-ink: "#e9eaeb"
+  night-ink-2: "#a3a7ac"
+  night-hair: "#34383d"
+  night-blue: "#8196ff"
+  night-blue-press: "#a2b1ff"
+  night-on-blue: "#0a0d1f"
+  night-scrim: "rgb(0 0 0 / 0.7)"
 typography:
   display:
-    fontFamily: "Michroma, Arial, sans-serif"
-    fontSize: "clamp(3rem, 1rem + 8vw, 6rem)"
-    fontWeight: 400
-    lineHeight: 0.95
-    letterSpacing: "-0.03em"
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "clamp(5rem, 0.5rem + 15vw, 14rem)"
+    fontWeight: 800
+    lineHeight: 0.82
+    letterSpacing: "-0.04em"
   headline:
-    fontFamily: "Michroma, Arial, sans-serif"
-    fontSize: "clamp(1.75rem, 1.2rem + 2vw, 2.5rem)"
-    fontWeight: 400
-    lineHeight: 1.15
-    letterSpacing: "-0.01em"
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "clamp(2.75rem, 1rem + 5.4vw, 6rem)"
+    fontWeight: 800
+    lineHeight: 0.95
+    letterSpacing: "-0.04em"
   title:
-    fontFamily: "Michroma, Arial, sans-serif"
-    fontSize: "1.5rem"
-    fontWeight: 400
-    lineHeight: 1.15
-    letterSpacing: "-0.01em"
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "clamp(2rem, 1.1rem + 2.6vw, 3.5rem)"
+    fontWeight: 800
+    lineHeight: 1
+    letterSpacing: "-0.035em"
   title-sm:
-    fontFamily: "Michroma, Arial, sans-serif"
-    fontSize: "1.1875rem"
-    fontWeight: 400
-    lineHeight: 1.15
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "1.625rem"
+    fontWeight: 700
+    lineHeight: 1.2
+    letterSpacing: "-0.02em"
+  subhead:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 700
+    lineHeight: 1.05
+    letterSpacing: "-0.015em"
   body-lg:
-    fontFamily: "Public Sans, system-ui, sans-serif"
-    fontSize: "1.1875rem"
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "1.25rem"
     fontWeight: 400
-    lineHeight: 1.65
+    lineHeight: 1.55
   body:
-    fontFamily: "Public Sans, system-ui, sans-serif"
+    fontFamily: "Archivo, Arial, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.6
-  body-sm:
-    fontFamily: "Public Sans, system-ui, sans-serif"
-    fontSize: "0.875rem"
-    fontWeight: 400
-    lineHeight: 1.6
-  action:
-    fontFamily: "Public Sans, system-ui, sans-serif"
-    fontSize: "0.875rem"
-    fontWeight: 700
-    letterSpacing: "0"
-  label:
-    fontFamily: "Michroma, Arial, sans-serif"
-    fontSize: "0.75rem"
-    fontWeight: 400
-    letterSpacing: "0.04em"
-  data:
-    fontFamily: "JetBrains Mono, ui-monospace, monospace"
-    fontSize: "1.5rem"
-    fontWeight: 600
-    lineHeight: 1.3
     fontFeature: "\"tnum\" 1"
+  body-sm:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 600
+    lineHeight: 1.35
+  button:
+    fontFamily: "Archivo, Arial, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 600
+    lineHeight: 1.2
+  label:
+    fontFamily: "Archivo Narrow, Arial Narrow, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 600
+    lineHeight: 1.6
+    letterSpacing: "0.06em"
 rounded:
-  sm: "6px"
-  cap: "10px"
-  panel: "14px"
+  none: "0px"
 spacing:
   s-1: "4px"
   s-2: "8px"
@@ -89,264 +90,234 @@ spacing:
   s-12: "48px"
   s-16: "64px"
   s-24: "96px"
-  gutter: "clamp(1rem, 0.5rem + 2.5vw, 3rem)"
-  measure: "66ch"
+  s-32: "128px"
+  frame: "clamp(8px, 1.4vw, 20px)"
+  bar: "48px"
+  pad: "clamp(1rem, 0.4rem + 2.6vw, 3rem)"
 components:
-  cap:
-    backgroundColor: "{colors.alpha-2}"
-    textColor: "{colors.legend}"
-    typography: "{typography.label}"
-    rounded: "{rounded.cap}"
-    padding: "8px 16px 11px"
-    height: "44px"
-  cap-hover:
-    backgroundColor: "{colors.panel}"
-  cap-mod:
-    backgroundColor: "{colors.modifier}"
-    textColor: "{colors.legend-on-mod}"
-    rounded: "{rounded.cap}"
-    padding: "8px 16px 11px"
-    height: "44px"
-  cap-mod-hover:
-    backgroundColor: "{colors.modifier-2}"
-  cap-accent:
-    backgroundColor: "{colors.accent}"
-    textColor: "{colors.accent-ink}"
-    typography: "{typography.action}"
-    rounded: "{rounded.cap}"
-    padding: "8px 16px 11px"
-    height: "44px"
-  cap-square:
-    backgroundColor: "{colors.alpha-2}"
-    textColor: "{colors.legend}"
-    rounded: "{rounded.cap}"
-    padding: "8px 12px 11px"
-    width: "44px"
-    height: "44px"
-  section-key:
-    backgroundColor: "{colors.alpha-2}"
-    textColor: "{colors.legend}"
-    rounded: "{rounded.cap}"
-    padding: "4px 16px 8px"
-    width: "7.5rem"
-  section-key-current:
-    backgroundColor: "{colors.modifier}"
-    textColor: "{colors.legend-on-mod}"
-  sheet:
-    backgroundColor: "{colors.panel}"
-    textColor: "{colors.legend}"
-    rounded: "{rounded.panel}"
-    padding: "24px"
-  printed-legend:
-    backgroundColor: "{colors.alpha}"
-    textColor: "{colors.legend}"
-    rounded: "{rounded.sm}"
-    padding: "8px 12px"
-  spec-field:
-    backgroundColor: "{colors.panel}"
-    textColor: "{colors.legend}"
-    rounded: "{rounded.cap}"
+  button-primary:
+    backgroundColor: "{colors.blue}"
+    textColor: "{colors.on-blue}"
+    typography: "{typography.button}"
+    rounded: "{rounded.none}"
+    padding: "0 24px"
+    height: "48px"
+  button-primary-hover:
+    backgroundColor: "{colors.blue-press}"
+    textColor: "{colors.on-blue}"
+  button-line:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    typography: "{typography.button}"
+    rounded: "{rounded.none}"
+    padding: "0 24px"
+    height: "48px"
+  button-line-hover:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.paper}"
+  button-quiet:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    height: "48px"
+  button-quiet-hover:
+    backgroundColor: "{colors.paper-2}"
+    textColor: "{colors.ink}"
+  button-icon:
+    backgroundColor: "transparent"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    size: "48px"
+  sheet-index:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink-2}"
+    typography: "{typography.body-sm}"
+    height: "{spacing.bar}"
+  title-block-cell:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    typography: "{typography.body-sm}"
     padding: "12px 16px"
+  dialog-panel:
+    backgroundColor: "{colors.paper}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.none}"
+    padding: "32px 24px 24px"
+    width: "min(440px, calc(100vw - 2rem))"
+  key-next:
+    backgroundColor: "{colors.blue}"
+    textColor: "{colors.on-blue}"
+    rounded: "{rounded.none}"
+    size: "40px"
 ---
 
 # Design System: Navin Byron Llanes, Portfolio
 
 ## Overview
 
-**Creative North Star: "The Keycap Kit Sheet"**
+**Creative North Star: "The Drawing Set"**
 
-The site is a keycap set laid out on its printed kit sheet, colorway NAVIN/92. Everything you can press is a sculpted keycap: a 1px hairline-bordered cap that sits on a bottom lip and drops 3px when struck, by mouse or by the matching physical key. Everything you read is printed flat on the sheet: hairline-ruled rows, flat panels, and spec fields in which a wide mechanical legend labels a value. The ground is a pale, cool grey plastic. Slate modifier keys carry weight, and one gold key carries the primary action.
+The site is a construction drawing set. Every section is one sheet (A-001 to A-501), the viewport is the sheet, and a fixed frame with grid-reference ticks holds every sheet the same way. The reader moves through the set on one scroll axis: the sheet index along the top edge marks where they are, a drafting rule draws itself under each sheet title, and a title block carrying name, sheet number and the two actions (race, email) travels with them between the cover and the contact sheet.
 
-Density is moderate and calm. Content runs on a 1240px board with fluid gutters, prose is held to a 60–66ch measure, and lists are ruled rows rather than card grids. Motion is mechanical and short. Keys depress in 120ms. The home name types in letter by letter as keystrokes (85ms stagger, outExpo), and list rows settle upward on scroll. With reduced motion, everything is visible and still.
+The material is paper and linework. A near-white sheet, near-black ink, grey hairlines for secondary lines, and one blueprint blue. Depth comes only from line weight: a heavy 2px border line for the frame, index bar, title blocks and dialogs; 1px ink object lines for sheets, tables and buttons; grey hairlines for cell divisions. There are no shadows, no gradients and no rounded corners. Type is one grotesk family (Archivo) set very heavy for titles, with its narrow cut (Archivo Narrow) in small caps-style uppercase for annotation notes, and tabular figures everywhere so sheet numbers, dates and counts align like a schedule.
 
-There are two colorways, Day (light, the default) and Night (dark, which follows the OS until the visitor picks one). A visible "Colorway NAVIN/92" legend with swatch chips in the footer switches between them. Both colorways share one structure; only the plastic changes.
+Density is drafting-office: generous sheet margins, tight cell grids inside them. Every record carries its spec beside it (projects, certificates, title block cells), each sheet has one loudest fragment (the heavy sheet title or the name), and the Night set is the same drawing on an ink-dark sheet with pale linework and a lifted blue.
 
 **Key Characteristics:**
-- Pressable things are lipped keycaps. Readable things are printed flat.
-- One gold key per context. Slate marks the current position.
-- A wide mechanical legend face (Michroma) for keys, labels and display. A workhorse sans (Public Sans) for prose and action legends. Mono (JetBrains Mono, tabular) for measured data.
-- Hairline 1px rules in `rule` grey frame every panel, field and list row.
-- Physical keyboard shortcuts (H, P, E, S, C, T) press the on-screen cap.
+- Fixed sheet frame (2px) inset from the viewport, with A–F grid-reference letters and ticks in both side margins.
+- Sheet index rail across the top: sheet number + label, current sheet underlined in blue, scroll progress as a 1px blue line.
+- Title blocks: cell grids with narrow uppercase notes over 600-weight values, bordered top and left with the heavy line.
+- Heavy Archivo 800 titles at tight negative tracking; Archivo Narrow 600 uppercase notes.
+- Line weight is the only depth cue. Square everything.
+- One blue, and it always means "act here", "you are here", or "this is wrong".
 
 ## Colors
 
-A cool-grey plastic palette with one warm gold. Every neutral leans slightly blue (hue around 255–260 in OKLCH). Gold is the only warm hue on any screen, and the palette carries no red or orange anywhere.
+A monochrome drafting palette (warm-neutral paper, cool near-black ink, grey hairline) with a single saturated blueprint blue.
 
 ### Primary
-- **Keycap Gold** (accent): the fill of the race key, the primary key inside each dialog ("Open email app", "Try again") and the skip link. It also marks the next key on the virtual keyboard, text selection and the period after NAVIN. Legends on it are always near-black `accent-ink` (9.3:1), never white.
-- **Gold Lip** (accent-lip): the darker bottom lip under gold caps and under the next-key highlight.
-- **Gold Ink** (accent-text): gold used as text or icon color on light grounds (5.9:1). It covers the index-arrow hover, the copied check and the "won" result title. In Night it is the gold itself.
-- **Gold on Slate** (accent-on-mod): gold legends printed on slate keys, such as the current section letter, the brand period and the active H sub-legend (5.9:1 on `modifier`).
-- **Focus Gold** (focus): the 2px focus outline and the typing caret. It is a deeper gold in Day so the ring holds contrast on pale grounds.
-
-### Secondary
-- **Mistype Violet** (wrong): incorrect characters and words in the typing race, and only there. It is deliberately kept apart from gold so that an error never reads as a highlight.
+- **Blueprint Blue** (blue; Night: night-blue): the primary action fill (Race my 92 wpm, Open email app, Try again, skip link), the current sheet's 3px underline in the index, the 1px scroll-progress line and the pinned-projects meter, the redline for race mistakes (wrong characters underlined, wrong words struck through), the caret, the next key on the race keyboard, a won race's title, focus outlines, text selection, and the contact email on hover.
+- **Pressed Blue** (blue-press; Night: night-blue-press): hover/press state of primary buttons only.
+- **On Blue** (on-blue; Night: night-on-blue): text and icons on a blue fill.
 
 ### Neutral
-- **Alpha Plastic** (alpha): the page ground, and the well behind fields (the email field, printed legends, the certificate image well).
-- **Raised Alpha** (alpha-2): the default keycap face, the footer band and row hover.
-- **Sheet White** (panel): flat printed panels, dialogs, spec-field boxes, cap hover and the pressed colorway chip.
-- **Slate Modifier** (modifier): modifier keys (brand, Email me, Live demo), the current section key, the portrait frame and the "Present" tag.
-- **Slate Hover** (modifier-2): the hover state of modifier keys and the scrollbar thumb.
-- **Modifier Lip** (mod-lip): the bottom lip under slate caps and the portrait frame.
-- **Legend Black** (legend): primary text and legends.
-- **Muted Legend** (legend-muted): secondary text, spec-field labels (dt), the units after counts, and hints.
-- **Legend on Slate** (legend-on-mod): text on modifier surfaces.
-- **Hairline** (rule): every 1px border and divider.
-- **Cap Lip** (cap-lip): the bottom lip under neutral caps.
-
-### Night colorway
-The Night values override the same tokens under `[data-theme='dark']`:
-
-- **Grounds and keys:** alpha `#171b21`, alpha-2 `#1d222a`, panel `#222831`, modifier `#2e3540`, modifier-2 `#3a4250`.
-- **Text:** legend `#e8ebef`, legend-muted `#a3acb8`, legend-on-mod `#e8ebef`.
-- **Lines and lips:** rule `#343c48`, cap-lip `#0e1115`, mod-lip `#0e1115`, and a pure-black cap shadow.
-- **Gold:** accent, accent-text, accent-on-mod and focus all `#e8c03a`, with accent-lip `#9c7a0a` and accent-ink `#16181d`.
-- **Error:** wrong `#b9a3f0`.
+- **Drafting Paper** (paper; Night: night-paper): the sheet itself, and the fill behind every fixed element (index bar, title block, dialogs, dimension label) so linework reads as drawn on the same sheet.
+- **Well Grey** (paper-2; Night: night-paper-2): the only tonal shift. Row and link hover, quiet-button hover, certificate plate image wells.
+- **Drawing Ink** (ink; Night: night-ink): text and all structural linework. The `--line` token is the same value as ink; use it for borders so linework and text can diverge later without a rename.
+- **Note Grey** (ink-2; Night: night-ink-2): secondary text, notes, schedule periods and places, past sheets in the index, counts. 7:1 on paper.
+- **Hairline Grey** (hair; Night: night-hair): secondary lines only, never text. Cell divisions inside title blocks, spec columns, schedule rows, legend columns, unpressed keys.
+- **Scrim** (scrim; Night: night-scrim): dialog backdrop.
 
 ### Named Rules
-**The One Gold Key Rule.** Within any one context (the hero, the board, a dialog), gold fills exactly one key, and that key is the primary action. Every other use of gold is a thin signal: a ring, caret, period, check or arrow tint. Gold never fills a panel, a row or a heading background.
+**The One Blue Rule.** Blue means one of three things: the primary action, where you are in the set (current sheet, progress), or a redline (a mistake in the race). It never decorates, never fills a section, and never appears as a second accent tint.
 
-**The Gold Ink Rule.** Gold that must be read as text on a light ground uses `accent-text`. Focus rings and carets use `focus`. The bright `accent` is a fill, not a text color on Day grounds.
-
-**The Slate Means Here Rule.** The current page is shown by turning its section key slate (`modifier`) with a gold-on-slate letter. Gold is not used for the current page.
+**The Hairline Is Not Ink Rule.** Hairline grey draws divisions inside a component; ink draws the component's outline. Text is never set in hairline grey.
 
 ## Typography
 
-**Display Font:** Michroma (with Arial, sans-serif), self-hosted, weight 400 only
-**Body Font:** Public Sans (with system-ui, sans-serif), weights 400–700
-**Label/Mono Font:** JetBrains Mono (with ui-monospace, monospace), weights 400 and 600
+**Display Font:** Archivo (with Arial, sans-serif), self-hosted, weights 400–900
+**Body Font:** Archivo (same family)
+**Label Font:** Archivo Narrow (with Arial Narrow, sans-serif), weights 400–700
 
-**Character:** Michroma is the legend printed on the caps. It is wide, squared and mechanical, and it sets the name, the headings and the small spec labels. Public Sans does the honest work: prose, roles, and the bold legends on action keys. Mono appears only where a value is measured or counted.
+**Character:** One grotesk at every size, driven by weight rather than family changes: 800 with tight negative tracking for titles, 600 for values and buttons, 400 for reading. The narrow cut is the lettering of a drawing's notes. Tabular figures are on globally (`font-variant-numeric: tabular-nums`).
 
 ### Hierarchy
-- **Display** (400, clamp(3rem, 1rem + 8vw, 6rem), 0.95): only the home name, NAVIN, with a gold period. It types in as keystrokes.
-- **Headline** (400, clamp(1.75rem, 1.2rem + 2vw, 2.5rem), 1.15): inner page titles at the head of each page.
-- **Title** (400, 1.5rem, 1.15): project names, dialog titles and the hero surname line (in `legend-muted`).
-- **Title small** (400, 1.1875rem): section titles ("On the board") and experience role titles. Stack group names step down to 1rem.
-- **Body large** (Public Sans 400, 1.1875rem, 1.65): the hero bio, max 60ch. It drops to 1rem below 900px.
-- **Body** (Public Sans 400, 1rem, 1.6): prose, max `measure` (66ch).
-- **Body small** (Public Sans 400/600, 0.875rem): metadata, hints, categories (600, muted) and printed legends (600).
-- **Action legend** (Public Sans 700, 0.875–1rem, letter-spacing 0): text on action keys (Race, Email me, Live demo, View code, Open email app, Try again).
-- **Label** (Michroma 400, 0.75rem, 0.04em): default cap legends, spec-field labels (dt) and the colorway legend.
-- **Data** (JetBrains Mono 600, tabular-nums, 1.5rem in stat fields, smaller inline): wpm, accuracy, seconds, counts padded to two digits ("04 projects"), dates and the phone number.
+- **Display** (800, clamp 5rem–14rem, 0.82, -0.04em): the cover name only, one letter per mask so it can rise from its baseline.
+- **Headline** (800, clamp 2.75rem–6rem, 0.95, -0.04em): sheet titles in every sheet head, and the 404 title.
+- **Title** (800, clamp 2rem–3.5rem, 1, -0.035em): project names on detail sheets.
+- **Title Small** (700, 1.625rem, 1.2, -0.02em): experience roles, spec-column figures, dialog titles (800, -0.03em), race stats.
+- **Subhead** (700, 1.25rem, -0.015em): legend group heads, certificate subsections, plate titles.
+- **Body Large** (400, 1.25rem, 1.55): cover bio (max 54ch), contact race line (max 44ch).
+- **Body** (400, 1rem, 1.6): running text; project descriptions at 1.0625rem in note grey, max 58ch. Global measure token 66ch.
+- **Body Small / Value** (600, 0.875rem, 1.35): title-block and spec values, index labels (400), sheet notes.
+- **Label / Note** (Archivo Narrow 600, 0.75rem, 0.06em, uppercase, note grey): every `dt` in a cell grid, schedule column heads, figure captions, sheet numbers.
 
 ### Named Rules
-**The Measured-in-Mono Rule.** Mono with tabular figures is for quantities and dates: wpm, %, seconds, counts, issue dates and phone digits. Prose, names and labels are never set in mono.
+**The Weight Not Family Rule.** Hierarchy is made with Archivo's weight axis and size, never by introducing a second display family. The only other face is Archivo Narrow, and only for notes, sheet numbers, periods and counts.
 
-**The Single-Weight Legend Rule.** Michroma ships at 400 only. Hierarchy in the legend face comes from size and color, never from bold or synthetic weight. There is no `text-transform` anywhere. Uppercase comes from the content itself (NAVIN, key letters).
+**The Note Sits In Its Cell Rule.** Uppercase narrow notes label a value directly beneath them in the same cell (title blocks, specs, schedules). They are not floated above headings as section kickers.
 
 ## Layout
 
-Everything sits on one centered board, max-width 1240px, with fluid side gutters (clamp(1rem, 0.5rem + 2.5vw, 3rem)) and 96px of bottom padding on main. Spacing follows a 4px unit (4, 8, 12, 16, 24, 32, 48, 64, 96). Inner pages open with a page head (48px above, 32px below, max 66ch).
+The viewport is the sheet. A fixed frame is inset by `frame` on all sides (2px heavy line), with paper filling the margin so content scrolling past is masked at the border. The sheet index bar (48px) is fixed along the top inner edge; `main` is padded to clear frame and bar, and `scroll-padding-top` matches so anchors land below the bar. Grid-reference letters A–F sit evenly down both side margins at 10px Archivo Narrow with an 8px ink tick crossing into the sheet; they hide below 760px.
 
-- **The board** is a sticky top bar: a three-column grid (brand cap | centered section keys | race and theme caps) on a translucent alpha ground, blurred 10px, with a hairline underneath. Below 900px the section keys wrap to a second row as a four-column grid. Below 520px the key labels shrink to 12px and the sub-legends hide.
-- **The hero** is a two-column grid (text | portrait, minmax(280px, 420px)) with a 64px gap. Below 900px it stacks and the portrait becomes a 16:10 crop.
-- **Lists are ruled rows**, not card grids. Projects, experience and the home index run between 1px hairlines, with 24–32px block padding per row. Experience and the stack use a 15rem label column on the left. Projects use a 13rem right rail that stacks the figure box, a slate "Live demo" key when there is a demo, and "View code". Rows collapse to one column at 700–760px.
-- **Panels** (stack groups, certificate plates, dialogs) are used where content is a grouped set. Certificates tile in an auto-fill grid (min 280px, 24px gap).
+Sheets are full-width sections divided by a 1px ink top border, with horizontal `pad` and block padding of 128px top / 64px bottom (96px / 48px under 900px). Each opens with a sheet head. Inside sheets, structure is cell grids rather than cards: 4-column title-block cells (1fr 1.6fr 1fr 1fr), a 4-column legend, a 2-column plate grid, a 5-column certificate list row, a 4-column contact cell grid. These collapse to 2 columns at 1100px and to 1 at 760px; the schedule table becomes stacked blocks at 760px.
 
-Breakpoints in use:
-- 900px: board and hero
-- 760px: projects and stack
-- 700px: experience
-- 600px: typing dialog
-- 520px: board compaction
-- 420px: hero actions go full width
+The cover is a two-column grid (name and bio left, framed portrait right at clamp 240–400px) with the title block flush to the frame's lower-right corner. Under 900px the order becomes name, title block, portrait; under 480px the title block's actions move first so race and email sit in the first screen.
 
-Hover-only hints hide under `(hover: none)`.
+The projects sheet pins (sticky below the bar) at min-width 900px and min-height 560px, and its detail sheets (min(68vw, 940px) wide) slide sideways 1:1 with vertical scroll, with a count and blue meter below. Elsewhere the detail sheets stack vertically.
+
+Spacing is a 4px unit (s-1 to s-32). Gaps inside components are 8, 12, 16 or 24px; between blocks 32 or 48px; between sheets 96–128px.
 
 ## Elevation & Depth
 
-Depth belongs only to the caps. The sheet itself is flat: panels, fields and rows have no shadow and are separated by hairlines and by tonal steps (alpha, then alpha-2, then panel). A keycap reads as raised because of an inset bottom lip plus a soft, offset ambient shadow. Pressing it shortens the lip and moves the cap down 3px. Two other things float: the portrait frame, which is a large slate "cap" with a deep lip, and modal dialogs.
-
-### Shadow Vocabulary
-- **Cap at rest** (`box-shadow: inset 0 -4px 0 var(--cap-lip), 0 2px 3px rgb(20 23 28 / 0.12), 0 6px 12px -6px rgb(20 23 28 / 0.25)`): every keycap, index key and virtual-keyboard key. Variants swap `--cap-lip` for `mod-lip` or `accent-lip`.
-- **Cap down** (`box-shadow: inset 0 -1px 0 var(--cap-lip), 0 1px 1px rgb(20 23 28 / 0.12)`): pressed, active, `.is-down` from a physical shortcut, and index-row hover.
-- **Portrait frame** (`box-shadow: inset 0 -6px 0 var(--mod-lip), 0 18px 40px -18px rgb(20 23 28 / 0.45)`): the hero portrait only.
-- **Dialog lift** (`box-shadow: 0 16px 28px -10px rgb(0 0 0 / 0.3)`): modal panels over a `rgb(10 12 15 / 0.55)` backdrop.
+Flat. There is no `box-shadow` anywhere in the system and no tonal layering beyond the single well grey. Depth is conveyed by line weight alone: the heavy 2px border line marks the things that sit on top of or frame the set (sheet frame, index bar, title blocks, dialog panels); 1px ink object lines outline sheets, project detail sheets, tables, buttons and plates; grey hairlines divide cells. Fixed elements (index, title block, dialogs) are filled with paper so they occlude what passes under them, which is enough to read them as being on top.
 
 ### Named Rules
-**The Actions-Are-Keys Rule.** The lipped cap shadow marks something you can press, plus the decorative virtual keyboard in the race. Content items such as skills, tags, figures and certificate plates are printed flat with a hairline and never get a lip.
-
-**The Flat Sheet Rule.** A panel that does not float (one that is not a dialog) carries no shadow. It is separated by a 1px `rule` hairline and a tonal step.
+**The Line Weight Is Depth Rule.** If something needs to read as above the sheet, give it paper fill and the 2px heavy line. Never a shadow, blur or glow.
 
 ## Shapes
 
-Shapes are softly squared, like keycaps. There are three radii:
-- **10px:** caps, fields, spec boxes and colorway buttons.
-- **14px:** sheet panels, stack groups and the portrait image. The portrait frame itself is 18px.
-- **6px:** printed legends, certificate plates and the focus outline.
-
-Small inline key hints (`kbd`) use 4–5px, and virtual keys use 8px. Borders are always 1px solid `rule`. Dashed hairlines mark placeholder or secondary separators: the "Repository not public" slot, and the mobile date band on experience. Images inside frames are clipped to the frame's inner radius.
+Square. Every container, button, input, key, image frame and dialog has 0 radius; there is no radius token above `none`. Forms are rectangles assembled from lines: open-sided title blocks (heavy top and left border only, closing against the frame), spec columns separated by a 1px ink vertical, and drafting devices built from lines and ticks: the dimension line under the cover name (1px line, 17px end ticks, label knocked out on paper) and the drafting rule under each sheet title (1px line, 13px end ticks). The portrait sits in a 1px ink frame with 8px paper inset. Icons are a single 1.75 stroke set, with brand marks filled; their own internal corners are glyph geometry, not a container radius.
 
 ## Components
 
-### Keycap (button / link)
-Tactile and literal. A key sits on a lip and goes down when struck.
-- **Shape:** 10px radius, 1px border, minimum 44×44px. The bottom padding is 3px deeper than the top to leave room for the lip.
-- **Default (alpha cap):** the alpha-2 face, legend text and the Michroma label legend. Hover moves to the panel face. Used for "View code".
-- **Modifier (slate cap):** the modifier face, legend-on-mod text and the `mod-lip`. Hover moves to modifier-2. Used for the brand key, "Email me" and "Live demo".
-- **Accent (gold cap):** the accent face, accent-ink text, the `accent-lip` and the bold Public Sans action legend. Hover mixes 12% white into the face. One per context.
-- **Square:** a 44px icon-only cap for theme, close, copy and the social links. It holds an 18px stroke icon. The theme cap shows one icon per colorway.
-- **Press:** `translateY(3px)` plus the cap-down shadow, 120ms `cubic-bezier(0.16, 1, 0.3, 1)`. Physical shortcuts add `.is-down` for 140ms.
-- **Focus:** a 2px `focus` outline, 3px offset, 6px radius (global).
+### Buttons
+Square and line-drawn; they fill on hover like a key being inked.
+- **Shape:** square (0px), min-height 48px, 24px horizontal padding, 1px border, Archivo 600 at 0.9375rem, 8px icon gap with 18px icons.
+- **Primary:** blue fill and border, on-blue text. Hover moves to pressed blue. Used once per context for the main action (race, open email app, try again).
+- **Line (default):** transparent with a 1px ink border and ink text; hover inverts to an ink fill with paper text.
+- **Quiet:** transparent border; hover fills well grey. Used for the theme toggle, dialog close and the Day/Night set switch (the pressed set gains the ink border).
+- **Icon:** 48px square, no padding. Socials and copy.
+- **Active:** translateY(1px). **Focus:** 2px blue outline offset 3px (global).
+- Transitions on background, color and border at 140ms ease.
 
-### Section Keys (navigation)
-- Caps 7.5rem wide, with the letter printed top-left in Michroma and the label beneath in Public Sans 600 at 14px.
-- **Current page:** the cap turns slate and the letter turns gold-on-slate.
-- **Mobile:** a four-column key row under the brand and tools. At 520px and below, legends center and labels drop to 12px.
+### Sheet Index (navigation)
+The site navigation and the scroll rail, fixed across the top edge of the frame.
+- **Style:** 48px bar, paper fill, 2px heavy border; one cell per sheet divided by hairlines, each cell an Archivo Narrow 600 sheet number plus a 0.875rem label in note grey.
+- **States:** hover fills well grey and inks the label; the current sheet is ink 700 with a 3px blue underline; the next sheet ahead is printed at full ink, past sheets stay grey. A 1px blue progress line along the bottom edge scales with total scroll.
+- **Theme toggle:** quiet icon button at the right end with a 1px ink divider.
+- **Mobile (under 760px):** cells stop stretching, only the current sheet keeps its label, and the bar scrolls horizontally to keep the current sheet in view.
 
-### Sheet Panel (card / container)
-- **Corner Style:** 14px (6px for certificate plates).
-- **Background:** panel, on the alpha ground.
-- **Shadow Strategy:** none (Flat Sheet Rule). Dialogs are the exception.
-- **Border:** 1px rule.
-- **Internal Padding:** 24px (16px on mobile). Dialogs use 32px top and 24px sides.
+### Title Block
+The signature component. Present as a full block on the cover and on the contact sheet, and as a compact block fixed in the frame's lower-right corner on every sheet between them.
+- **Cover title block:** heavy top and left border, a 4-column cell grid (Role, School, Location, Phone) with hairline divisions and narrow notes over 600-weight values, then an action row (primary race button, line email button, icon socials) and "Sheet A-001 of 06" pushed right.
+- **Compact title block:** paper fill, heavy top and left border, cells for "Drawn by" and the live sheet number (the "of 06" in note grey 400), and the race and email buttons at 44px. It slides up from below the frame (520ms ease-out) when neither full title block is in view and hides when either is. Under 760px it spans the frame width; under 420px email collapses to its icon.
 
-### Spec Fields
-A printed data block. A Michroma 12px muted label (dt) sits over or beside a mono tabular value (dd, 600). There are three variants:
-- **Stat strip:** three values (wpm / accuracy / time left) divided by hairlines inside a 10px-radius frame.
-- **Certificate spec list:** a two-column dt/dd ruled list under each certificate plate, with a 5.5rem label column.
-- **Project figure box:** a panel face with a 10px radius and the value at 1.5rem.
+### Sheet Head
+One per sheet: the Archivo Narrow sheet number in ink, the heavy headline title, a note-grey 0.875rem note right-aligned, and a 1px ink drafting rule along the bottom with 13px end ticks. The rule scales from the left as the sheet arrives (scroll-scrubbed), and its right tick appears only when the line is complete. Under 600px the note drops to its own row, left-aligned.
 
-### Printed Legends (chips)
-- **Style:** an alpha face, a 1px rule border, 6px radius, 8×12px padding, Public Sans 600 at 14px.
-- **State:** none. They are flat and not pressable, by the Actions-Are-Keys Rule.
+### Cards / Containers (detail sheets and plates)
+- **Corner Style:** square (0px).
+- **Background:** paper; plate image wells in well grey with 16px inset.
+- **Shadow Strategy:** none (see Elevation & Depth).
+- **Border:** 1px ink outline; internal divisions 1px ink (spec column, plate image) or hairline (spec rows).
+- **Project detail sheet:** main column (title, note-grey description, actions pinned to the bottom) beside a 200–240px spec column of note/value cells (Detail number, Type, an optional large figure at 1.625rem 800, Source, Demo). Under 900px the spec moves below as a 2-column grid, 1 column under 480px.
+- **Certificate plate:** image well, then a caption row with a 700 title and inline note/value spec. Image scales to 1.025 on hover (600ms ease-out).
+- **Internal Padding:** 32px for detail sheets (24/16 on phones), 12px 16px for spec cells, 16px for plates.
+
+### Schedules and Legends (tables and lists)
+- **Experience schedule:** a real table. Narrow uppercase column heads over a 1px ink rule; rows divided by hairlines with 24px block padding; period in Archivo Narrow note grey with "Present" in ink 700; role at Title Small; organisation 500; place note grey. Rows hover to well grey. Stacks per row under 760px.
+- **Stack legend:** 4 columns divided by hairlines; each group head is a 700 subhead with a narrow note-grey count, over a 1px ink rule; items are hairline-divided rows.
+- **Certificate list:** a row grid (96×68 thumbnail with hairline border, 600 title, kind, date, arrow), hairline-divided under a 1px ink top rule. Hover fills well grey and nudges the arrow up-right 2px.
 
 ### Inputs / Fields
-- **Email field:** an alpha well, a 1px rule border and a 10px radius. The address is set in body small with `user-select: all`, and a square copy cap sits inside. On success, the copy icon swaps to a gold-ink check and a polite status line appears.
-- **Typing input:** visually hidden. The visible field is the word track: mono at 1.375rem, two 48px lines, muted until typed. Correct characters turn to legend, and mistakes turn violet (`wrong`) and are underlined. The caret is a 2px blinking `focus`-gold bar.
+- **Style:** the email field in the email dialog is a 1px ink box holding the address (600, 0.875rem, select-all) with a 1px-ink-divided icon copy button.
+- **Focus:** global 2px blue outline.
+- **Status:** copy confirmation in note grey via a polite live region; the copy icon swaps to a check.
 
-### Index Row (home)
-A ruled row that works as a link: a 44px index keycap, a Michroma label, a muted sample line (ellipsized), a mono count padded to two digits with a muted unit, and a 20px arrow. On hover, the row tints alpha-2, the keycap depresses, and the arrow nudges 2px up-right in gold ink.
+### Dialogs
+A loose sheet laid over the set: paper panel, 2px heavy border, 0 radius, no shadow, over the scrim. 440px wide (email, result) or 760px (race). Title at 1.625rem 800, note-grey sub, quiet close button top-right. Smooth scrolling pauses while a dialog is open.
 
-### Colorway Switch (signature)
-A fieldset legend reads "Colorway NAVIN/92". The Day and Night buttons each show three overlapping 16px swatch chips (ground, modifier, gold) and a name. The pressed option gets a legend-colored border and a panel face.
+### Typing Race
+- **Stats:** a 1px ink box of three hairline-divided cells, narrow uppercase labels over 800 figures, units in note grey.
+- **Track:** 1.375rem words in note grey at 0.75 opacity; correct characters ink; mistakes redlined in blue with underline (characters) or strike-through (words) so the cue never rests on colour; a 2px blue blinking caret.
+- **Keyboard in plan:** 40px square hairline keys in Archivo Narrow; the next key filled blue, a pressed key filled ink. 28×34px on phones.
+- **Result:** a won race sets the result title in blue.
 
-### Virtual Keyboard (race dialog)
-QWERTY rows of 40px keys with an 8px radius and the cap-at-rest shadow (28×34px on mobile). The next key to type turns gold with the gold lip. Pressed keys take the cap-down shadow.
-
-### Icons
-A single inline-SVG set: 24px viewBox, 1.75 stroke, round caps and joins, `currentColor`. Brand marks (GitHub, LinkedIn, Instagram) are the only filled glyphs. Icons render at 16px inline and 18px in caps.
+### Motion
+- **Intro (cover, once):** name letters rise from a baseline mask (105% to 0, 900ms, 70ms stagger, expo out); the dimension line draws outward from its centre (scaleX 0 to 1, 900ms, in-out expo); bio, portrait and title block fade up 14px in a 70ms stagger.
+- **Scroll-scrubbed:** index progress line, sheet-head drafting rules, the pinned projects track and meter, all written from one per-frame update driven by Lenis smoothing (lerp 0.11).
+- **List reveals (once, on entry):** rows settle up 14px with fade (640ms, stagger capped at 480ms total); certificate plates wipe down by clip-path like a sheet being printed (1000ms, 120ms stagger).
+- **State transitions:** 140ms ease for colour; 240ms ease-out for movement; 520ms ease-out for the title block.
+- **Reduced motion:** no smoothing, no pinning, no drawing; rules render fully drawn and all content is visible from the start. Pre-hiding only applies when JS has run and motion is welcome, with a 3s safety release.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** make every action a keycap (`cap`, `cap--mod`, `cap--accent`, `cap--square`) with the cap-at-rest lip, 44px minimum, and the 3px press at 120ms.
-- **Do** give each context exactly one gold key, and make it the primary action. Secondary actions such as Email me and Live demo are slate.
-- **Do** mark the current location with a slate key and a gold-on-slate letter.
-- **Do** use `accent-text` for gold text on light grounds and `focus` for rings and carets.
-- **Do** print content flat on panel or ruled rows with 1px `rule` hairlines. Separate with tonal steps (alpha, alpha-2, panel), not shadows.
-- **Do** set quantities, dates and counts in JetBrains Mono with tabular figures, and pad counts to two digits.
-- **Do** use Michroma at 400 for display, headings and small spec labels. Use Public Sans 700 for legends on action keys.
-- **Do** define both colorways for any new color, and keep the footer swatches in step with the tokens.
+- **Do** frame every page in the fixed sheet frame with the sheet index across the top; a new page is a new sheet with its own A-number (404 links back to the home sheets).
+- **Do** open each sheet with a sheet head: sheet number, heavy headline title, a note, and the drafting rule with end ticks.
+- **Do** carry spec beside every record as note/value cells (narrow uppercase note over a 600 value), divided by hairlines.
+- **Do** use the 2px heavy line only for the frame, index bar, title blocks and dialog panels; 1px ink for object outlines; hairline grey for internal divisions.
+- **Do** keep blue to primary actions, current-sheet and progress marks, and redlines; pair any blue error cue with underline or strike-through.
+- **Do** give every reveal a visible default: content must be fully present without JS and under reduced motion.
+- **Do** keep tabular figures on for sheet numbers, dates, counts and stats.
 
 ### Don't:
-- **Don't** introduce red or orange anywhere. Errors are violet (`wrong`). The only warm hue is gold.
-- **Don't** put the lipped cap shadow on non-interactive content: tags, skills, figures and plates stay flat.
-- **Don't** fill a second element with gold in the same context, and don't use gold as a panel or section background.
-- **Don't** set the bright `accent` gold as text on Day grounds.
-- **Don't** bold Michroma or apply `text-transform`. It ships at one weight.
-- **Don't** set prose, names or labels in mono.
-- **Don't** add shadows to static panels. Only caps, the portrait frame and dialogs carry depth.
-- **Don't** use white legends on the gold key. Its legend is `accent-ink`.
+- **Don't** add shadows, blurs, glows or gradients; depth is line weight and paper fill only.
+- **Don't** round corners on any container, button, field, key or image frame.
+- **Don't** introduce a second accent colour or tint blue into backgrounds or section fills.
+- **Don't** set text in hairline grey or use hairlines as the outline of a component.
+- **Don't** add a display family beside Archivo, or use Archivo Narrow for anything other than notes, sheet numbers, periods, counts and keys.
+- **Don't** float uppercase notes above headings as section kickers; notes belong inside cells and sheet heads.
+- **Don't** wrap records in cards with fills; use outlined detail sheets, cell grids and schedules.

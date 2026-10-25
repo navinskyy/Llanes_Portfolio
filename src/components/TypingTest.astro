@@ -6,20 +6,20 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
 ---
 
 <dialog id="typing-dialog" class="dlg tt" data-dialog aria-labelledby="tt-title" aria-describedby="tt-help">
-  <div class="tt-card sheet" data-panel>
-    <button class="cap cap--square dlg-close" type="button" data-close aria-label="Close typing test">
+  <div class="tt-card dlg-panel" data-panel>
+    <button class="btn btn--icon btn--quiet dlg-close" type="button" data-close aria-label="Close typing test">
       <Icon name="close" />
     </button>
     <h2 id="tt-title">Race Navin</h2>
     <p id="tt-help" class="dlg-sub">
       Type the words for {typingBenchmark.durationSeconds} seconds. The timer starts on your first key. Beat{' '}
-      <span class="tabular">{typingBenchmark.wpm} wpm</span> at <span class="tabular">{typingBenchmark.accuracy}%</span> accuracy to win.
+      {typingBenchmark.wpm} wpm at {typingBenchmark.accuracy}% accuracy to win.
     </p>
 
     <dl class="tt-stats" aria-live="off">
-      <div><dt>wpm</dt><dd class="tabular" id="tt-wpm">0</dd></div>
-      <div><dt>accuracy</dt><dd class="tabular"><span id="tt-acc">100</span><small>%</small></dd></div>
-      <div><dt>time left</dt><dd class="tabular"><span id="tt-time">{typingBenchmark.durationSeconds}</span><small>s</small></dd></div>
+      <div><dt>wpm</dt><dd id="tt-wpm">0</dd></div>
+      <div><dt>accuracy</dt><dd><span id="tt-acc">100</span><small>%</small></dd></div>
+      <div><dt>time left</dt><dd><span id="tt-time">{typingBenchmark.durationSeconds}</span><small>s</small></dd></div>
     </dl>
 
     <div class="tt-viewport" aria-hidden="true">
@@ -47,29 +47,26 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
 </dialog>
 
 <dialog id="result-dialog" class="dlg result" data-dialog aria-labelledby="result-title" aria-describedby="result-sub">
-  <div class="dlg-panel sheet" data-panel>
-    <button class="cap cap--square dlg-close" type="button" data-close aria-label="Close result">
+  <div class="dlg-panel" data-panel>
+    <button class="btn btn--icon btn--quiet dlg-close" type="button" data-close aria-label="Close result">
       <Icon name="close" />
     </button>
     <h2 id="result-title">Result</h2>
     <p class="dlg-sub" id="result-sub"></p>
     <dl class="result-stats">
-      <div><dt>your wpm</dt><dd class="tabular" id="result-wpm">0</dd></div>
-      <div><dt>accuracy</dt><dd class="tabular"><span id="result-acc">0</span><small>%</small></dd></div>
-      <div><dt>navin</dt><dd class="tabular">{typingBenchmark.wpm}<small> / {typingBenchmark.accuracy}%</small></dd></div>
+      <div><dt>your wpm</dt><dd id="result-wpm">0</dd></div>
+      <div><dt>accuracy</dt><dd><span id="result-acc">0</span><small>%</small></dd></div>
+      <div><dt>navin</dt><dd>{typingBenchmark.wpm}<small> / {typingBenchmark.accuracy}%</small></dd></div>
     </dl>
-    <button class="cap cap--accent retry" id="result-retry" type="button"><Icon name="retry" />Try again</button>
+    <button class="btn btn--primary retry" id="result-retry" type="button"><Icon name="retry" />Try again</button>
   </div>
 </dialog>
 
 <style>
   .tt-card {
-    position: relative;
     width: min(760px, calc(100vw - 2rem));
     max-height: calc(100dvh - 2rem);
     overflow-y: auto;
-    padding: var(--s-8) var(--s-6) var(--s-6);
-    box-shadow: 0 16px 28px -10px rgb(0 0 0 / 0.3);
     display: flex;
     flex-direction: column;
     gap: var(--s-6);
@@ -81,33 +78,35 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
   .result-stats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border: 1px solid var(--rule);
-    border-radius: var(--r-cap);
-    overflow: hidden;
+    border: 1px solid var(--line);
   }
   .tt-stats > div,
   .result-stats > div {
     padding: var(--s-3) var(--s-4);
-    border-left: 1px solid var(--rule);
+    border-left: 1px solid var(--hair);
   }
   .tt-stats > div:first-child,
   .result-stats > div:first-child {
     border-left: 0;
   }
   dt {
-    font-family: var(--ff-legend);
+    font-family: var(--ff-note);
     font-size: var(--fs-xs);
-    color: var(--legend-muted);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-2);
   }
   dd {
     font-size: var(--fs-xl);
-    font-weight: 600;
+    font-weight: 800;
+    letter-spacing: -0.02em;
     line-height: 1.3;
   }
   dd small {
     font-size: var(--fs-sm);
-    color: var(--legend-muted);
-    font-weight: 400;
+    color: var(--ink-2);
+    font-weight: 500;
   }
 
   .tt-viewport {
@@ -115,32 +114,34 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
     height: 96px;
   }
   .tt-track {
-    font-family: var(--ff-data);
     font-size: 1.375rem;
+    font-weight: 500;
     line-height: 48px;
-    color: var(--legend-muted);
+    color: var(--ink-2);
+    opacity: 0.75;
     transition: transform 320ms var(--ease-out);
   }
   .tt-track :global(.word) {
     display: inline-block;
-    margin-right: 0.6em;
+    margin-right: 0.55em;
   }
   .tt-track :global(.char) {
     position: relative;
   }
   .tt-track :global(.char.is-correct) {
-    color: var(--legend);
+    color: var(--ink);
   }
+  /* Mistakes are redlined: blue, and struck or underlined so the cue
+     never rests on colour alone. */
   .tt-track :global(.char.is-incorrect) {
-    color: var(--wrong);
+    color: var(--blue);
     text-decoration: underline;
   }
   .tt-track :global(.word.is-correct) {
     opacity: 0.45;
   }
   .tt-track :global(.word.is-wrong) {
-    color: var(--wrong);
-    opacity: 0.7;
+    color: var(--blue);
     text-decoration: line-through;
   }
   .tt-track :global(.char.is-caret)::before {
@@ -150,7 +151,7 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
     top: 0.15em;
     bottom: 0.15em;
     width: 2px;
-    background: var(--focus);
+    background: var(--blue);
     animation: blink 1s step-end infinite;
   }
   @keyframes blink {
@@ -166,68 +167,67 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
     pointer-events: none;
   }
 
+  /* The keyboard is drawn in plan: hairline squares, the next key inked blue. */
   .tt-keyboard {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: var(--s-2);
+    gap: 6px;
   }
   .kb-row {
     display: flex;
-    gap: var(--s-2);
+    gap: 6px;
   }
   .kb-key {
     display: grid;
     place-items: center;
     width: 40px;
     height: 40px;
-    border: 1px solid var(--rule);
-    border-radius: 8px;
-    background: var(--alpha-2);
-    box-shadow: var(--cap-rest);
-    font-family: var(--ff-legend);
-    font-size: var(--fs-xs);
-    color: var(--legend-muted);
+    border: 1px solid var(--hair);
+    font-family: var(--ff-note);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--ink-2);
     transition:
-      transform var(--t-fast) var(--ease-out),
-      box-shadow var(--t-fast) var(--ease-out);
+      background-color var(--t-fast) ease,
+      border-color var(--t-fast) ease,
+      color var(--t-fast) ease;
   }
   .kb-key.is-next {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: var(--accent-ink);
-    --cap-lip: var(--accent-lip);
+    background: var(--blue);
+    border-color: var(--blue);
+    color: var(--on-blue);
   }
   .kb-key.is-pressed {
-    transform: translateY(3px);
-    box-shadow: var(--cap-down);
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
   }
   .kb-space {
     width: 280px;
   }
   .tt-foot {
     font-size: var(--fs-sm);
-    color: var(--legend-muted);
+    color: var(--ink-2);
     display: flex;
     gap: var(--s-2);
     align-items: center;
     justify-content: center;
   }
   kbd {
-    font-family: var(--ff-data);
+    font-family: var(--ff-note);
     font-size: var(--fs-xs);
+    font-weight: 600;
     padding: 1px 6px;
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    background: var(--alpha);
+    border: 1px solid var(--hair);
   }
   .tt-foot kbd + kbd {
     margin-left: var(--s-4);
   }
 
-  /* Outcome reads in the title itself: a win is set in the accent. */
+  /* A win is set in blue in the title itself. */
   .result[data-outcome='won'] :global(#result-title) {
-    color: var(--accent-text);
+    color: var(--blue);
   }
   .result-stats {
     margin-block: var(--s-6);
@@ -237,11 +237,6 @@ const rows = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((r) => [...r]);
   }
   .retry {
     width: 100%;
-    justify-content: center;
-    font-family: var(--ff-body);
-    font-weight: 700;
-    font-size: var(--fs-sm);
-    letter-spacing: 0;
   }
 
   @media (max-width: 600px) {

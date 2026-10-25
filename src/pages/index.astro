@@ -1,349 +1,966 @@
 ---
-import { Picture } from 'astro:assets';
+import { Picture, Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import SheetHead from '../components/SheetHead.astro';
 import portrait from '../assets/photos/navin.jpg';
-import { person, socials, sections, projects, experience, stack, honors, certificates, typingBenchmark } from '../data/site';
+import { person, socials, projects, experience, stack, honors, certificates, typingBenchmark, sheetNo, sheets } from '../data/site';
 
-const counts: Record<string, { n: number; unit: string; sample: string }> = {
-  P: { n: projects.length, unit: 'projects', sample: projects.map((p) => p.name).slice(0, 3).join(' · ') },
-  E: { n: experience.length, unit: 'roles', sample: [...new Set(experience.map((r) => r.org))].slice(0, 2).join(' · ') },
-  S: { n: stack.reduce((a, g) => a + g.items.length, 0), unit: 'tools', sample: stack.map((g) => g.group).join(' · ') },
-  C: { n: honors.length + certificates.length, unit: 'certificates', sample: "Dean's List · seminars 2023–2026" },
-};
+const pad = (n: number) => String(n).padStart(2, '0');
+const toolCount = stack.reduce((a, g) => a + g.items.length, 0);
+const letters = [...person.name.toUpperCase()];
 ---
 
 <Base>
-  <section class="hero" data-intro-root aria-labelledby="hero-name">
-    <div class="hero-text">
-      <h1 id="hero-name" class="name" aria-label={person.name}>
-        {[...person.name.toUpperCase()].map((ch) => <span data-intro-letter aria-hidden="true">{ch}</span>)}<span
-          class="name-dot"
-          data-intro-letter
-          aria-hidden="true">.</span
-        >
-      </h1>
-      <p class="surname" data-intro>{person.lastNames}</p>
-      <p class="role" data-intro>
-        {person.role} · <span class="school">{person.school}</span>
-      </p>
-      <p class="bio" data-intro>{person.bio}</p>
+  <!-- A-001: the cover sheet -->
+  <section id="navin" class="cover" data-sheet="navin" data-intro-root aria-labelledby="hero-name">
+    <div class="cover-body">
+      <div class="cover-main">
+        <h1 id="hero-name">
+          <span class="visually-hidden">{person.fullName}</span>
+          <span class="name" aria-hidden="true">
+            {letters.map((ch) => <span class="name-mask"><span class="name-l" data-intro-letter>{ch}</span></span>)}
+          </span>
+          <span class="dim" data-intro-dim aria-hidden="true">
+            <span class="dim-line"></span>
+            <span class="dim-label" data-intro>{person.lastNames}</span>
+          </span>
+        </h1>
+        <p class="bio" data-intro>{person.bio}</p>
+      </div>
 
-      <div class="actions" data-intro>
-        <button class="cap cap--accent action-race" type="button" data-open="typing">
-          <kbd aria-hidden="true">T</kbd>
-          <span>Race my <span class="tabular">{typingBenchmark.wpm} wpm</span></span>
+      <figure class="portrait" data-intro>
+        <div class="portrait-frame">
+          <Picture
+            src={portrait}
+            formats={['avif', 'webp']}
+            widths={[360, 560, 840]}
+            sizes="(max-width: 900px) calc(100vw - 4rem), 400px"
+            alt="Portrait of Navin Byron Llanes"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+        <figcaption class="note">Elevation 1 · Portrait</figcaption>
+      </figure>
+    </div>
+
+    <div class="cover-tb" data-cover-tb>
+      <dl class="cover-cells" data-intro>
+        <div><dt class="note">Role</dt><dd>{person.role}</dd></div>
+        <div><dt class="note">School</dt><dd>{person.school}</dd></div>
+        <div><dt class="note">Location</dt><dd>{person.location}</dd></div>
+        <div><dt class="note">Phone</dt><dd><a href={person.phoneHref}>{person.phone}</a></dd></div>
+      </dl>
+      <div class="cover-actions" data-intro>
+        <button class="btn btn--primary" type="button" data-open="typing">
+          Race my {typingBenchmark.wpm} wpm
         </button>
-        <a class="cap cap--mod action-email" href={`mailto:${person.email}`} data-open="email">
-          <Icon name="mail" />
-          <span>Email me</span>
-        </a>
+        <a class="btn" href={`mailto:${person.email}`} data-open="email"><Icon name="mail" />Email me</a>
         <ul class="socials" role="list">
           {
             socials.map((s) => (
               <li>
-                <a class="cap cap--square" href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.label} (opens in a new tab)`}>
+                <a class="btn btn--icon" href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`${s.label} (opens in a new tab)`}>
                   <Icon name={s.icon} />
                 </a>
               </li>
             ))
           }
         </ul>
+        <span class="cover-sheet note">Sheet {sheetNo('navin')} of {pad(sheets.length)}</span>
       </div>
-
-      <ul class="contact" role="list" data-intro>
-        <li><Icon name="phone" /><a class="tabular" href={person.phoneHref}>{person.phone}</a></li>
-        <li><Icon name="pin" /><span>{person.location}</span></li>
-      </ul>
     </div>
-
-    <figure class="portrait" data-intro>
-      <Picture
-        src={portrait}
-        formats={['avif', 'webp']}
-        widths={[360, 560, 840]}
-        sizes="(max-width: 900px) min(100vw - 2rem, 420px), 420px"
-        alt="Portrait of Navin Byron Llanes"
-        loading="eager"
-        fetchpriority="high"
-      />
-    </figure>
   </section>
 
-  <section class="index" aria-labelledby="index-title">
-    <div class="index-head">
-      <h2 id="index-title" class="index-title">On the board</h2>
-      <p class="index-hint">Press a letter on your keyboard to jump there, or <kbd>T</kbd> to race.</p>
+  <!-- A-101: projects pin while their detail sheets slide sideways -->
+  <section id="projects" class="projects" data-sheet="projects" data-pin aria-labelledby="projects-title">
+    <div class="pin" data-pin-frame>
+      <div class="pad">
+        <SheetHead id="projects" title="Projects" note={`${pad(projects.length)} detail sheets`} />
+      </div>
+      <div class="rail" data-pin-viewport>
+        <ol class="track" role="list" data-pin-track data-reveal-group>
+          {
+            projects.map((p, i) => (
+              <li class="proj" data-reveal>
+                <article class="proj-sheet" aria-labelledby={`proj-${i}`}>
+                  <div class="proj-main">
+                    <h3 id={`proj-${i}`}>{p.name}</h3>
+                    <p class="proj-desc">{p.description}</p>
+                    <div class="proj-actions">
+                      {p.demo && (
+                        <a class="btn" href={p.demo} target="_blank" rel="noopener noreferrer">
+                          Live demo <Icon name="arrow" />
+                          <span class="visually-hidden">(opens in a new tab)</span>
+                        </a>
+                      )}
+                      {p.url && (
+                        <a class="btn" href={p.url} target="_blank" rel="noopener noreferrer">
+                          View code <Icon name="arrow" />
+                          <span class="visually-hidden">(opens in a new tab)</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                  <dl class="spec">
+                    <div><dt class="note">Detail</dt><dd>{sheetNo('projects')}.{i + 1}</dd></div>
+                    <div><dt class="note">Type</dt><dd>{p.category}</dd></div>
+                    {p.figure && (
+                      <div class="spec-figure">
+                        <dt class="note">{p.figure.label}</dt>
+                        <dd>{p.figure.value}</dd>
+                      </div>
+                    )}
+                    <div><dt class="note">Source</dt><dd>{p.url ? 'Public repository' : 'Repository not public'}</dd></div>
+                    {p.demo && <div><dt class="note">Demo</dt><dd>Deployed</dd></div>}
+                  </dl>
+                </article>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div class="pad meter" aria-hidden="true">
+        <span class="meter-count"><span data-pin-count>01</span> / {pad(projects.length)}</span>
+        <span class="meter-bar"><span data-pin-bar></span></span>
+        <span class="meter-hint note">Scroll to slide</span>
+      </div>
     </div>
-    <ul class="index-list" role="list" data-reveal-group>
+  </section>
+
+  <!-- A-201: experience as a schedule -->
+  <section id="experience" class="sheet" data-sheet="experience" aria-labelledby="experience-title">
+    <SheetHead id="experience" title="Experience" note={`${pad(experience.length)} roles, most recent first`} />
+    <table class="schedule">
+      <caption class="visually-hidden">Roles, most recent first</caption>
+      <thead>
+        <tr>
+          <th scope="col" class="note">Period</th>
+          <th scope="col" class="note">Role</th>
+          <th scope="col" class="note">Organisation</th>
+          <th scope="col" class="note">Location</th>
+        </tr>
+      </thead>
+      <tbody data-reveal-group>
+        {
+          experience.map((r) => (
+            <tr data-reveal>
+              <td class="period">
+                {r.start} – {r.end === 'Present' ? <strong class="present">Present</strong> : r.end}
+              </td>
+              <th scope="row" class="role">{r.title}</th>
+              <td class="org">{r.org}</td>
+              <td class="place">{r.place}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </section>
+
+  <!-- A-301: the stack as a drawing legend -->
+  <section id="stack" class="sheet" data-sheet="stack" aria-labelledby="stack-title">
+    <SheetHead id="stack" title="Stack" note={`${pad(toolCount)} tools in ${pad(stack.length)} groups`} />
+    <div class="legend">
       {
-        sections.map((s) => (
+        stack.map((g, gi) => (
+          <section class="lg" aria-labelledby={`lg-${gi}`}>
+            <h3 id={`lg-${gi}`}>
+              {g.group} <span class="lg-count">{pad(g.items.length)}</span>
+            </h3>
+            <ul role="list" data-reveal-group>
+              {g.items.map((item) => (
+                <li data-reveal>{item}</li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- A-401: certificates, honors first -->
+  <section id="certificates" class="sheet" data-sheet="certificates" aria-labelledby="certificates-title">
+    <SheetHead id="certificates" title="Certificates" note={`${pad(honors.length + certificates.length)} on file, 2023–2026`} />
+
+    <h3 class="sub">Academic honors</h3>
+    <ul class="honors" role="list" data-reveal-group="plates">
+      {
+        honors.map((c) => (
           <li data-reveal>
-            <a class="index-row" href={s.href}>
-              <kbd class="index-key" aria-hidden="true">{s.key}</kbd>
-              <span class="index-label">{s.label}</span>
-              <span class="index-sample">{counts[s.key].sample}</span>
-              <span class="index-count tabular">
-                {String(counts[s.key].n).padStart(2, '0')} <span>{counts[s.key].unit}</span>
-              </span>
-              <Icon name="arrow" class="index-arrow" />
-            </a>
+            <figure class="plate">
+              <a class="plate-img" href={c.image.src} target="_blank" rel="noopener" aria-label={`View full size: ${c.title} (opens in a new tab)`}>
+                <Image src={c.image} alt={c.alt} widths={[480, 720, 960]} sizes="(max-width: 760px) 100vw, 45vw" loading="eager" />
+              </a>
+              <figcaption>
+                <span class="plate-title">{c.title}</span>
+                <dl class="plate-spec">
+                  <div><dt class="note">Issued</dt><dd>{c.date}</dd></div>
+                  {c.details?.map((d) => (
+                    <div><dt class="note">{d.label}</dt><dd>{d.value}</dd></div>
+                  ))}
+                </dl>
+              </figcaption>
+            </figure>
           </li>
         ))
       }
     </ul>
+
+    <h3 class="sub">Certifications &amp; seminars</h3>
+    <ol class="certs" role="list" data-reveal-group>
+      {
+        certificates.map((c) => (
+          <li data-reveal>
+            <a class="cert" href={c.image.src} target="_blank" rel="noopener">
+              <Image class="cert-thumb" src={c.image} alt="" widths={[160, 320]} sizes="120px" loading="lazy" />
+              <span class="cert-title">{c.title}</span>
+              <span class="cert-kind">{c.kind}</span>
+              <span class="cert-date">{c.date}</span>
+              <Icon name="arrow" class="cert-arrow" />
+              <span class="visually-hidden">(view certificate, opens in a new tab)</span>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <!-- A-501: the closing sheet carries the full title block -->
+  <section id="contact" class="sheet contact" data-sheet="contact" aria-labelledby="contact-title">
+    <SheetHead id="contact" title="Contact" note={person.location} />
+    <div data-contact-tb>
+    <a class="contact-email" href={`mailto:${person.email}`} data-open="email">{person.email}</a>
+    <dl class="contact-cells">
+      <div><dt class="note">Phone</dt><dd><a href={person.phoneHref}>{person.phone}</a></dd></div>
+      {
+        socials.map((s) => (
+          <div>
+            <dt class="note">{s.label}</dt>
+            <dd>
+              <a href={s.href} target="_blank" rel="noopener noreferrer">
+                {s.href.replace(/^https:\/\/(www\.)?/, '')}
+                <span class="visually-hidden">(opens in a new tab)</span>
+              </a>
+            </dd>
+          </div>
+        ))
+      }
+    </dl>
+    <div class="contact-race">
+      <p>Or race me first. {typingBenchmark.durationSeconds} seconds, {typingBenchmark.wpm} wpm at {typingBenchmark.accuracy}% to beat.</p>
+      <button class="btn btn--primary" type="button" data-open="typing">Race my {typingBenchmark.wpm} wpm</button>
+    </div>
+    </div>
+
+    <footer class="colophon">
+      <span>© {new Date().getFullYear()} {person.fullName}</span>
+      <span>Set of {pad(sheets.length)} sheets</span>
+      <div class="set-switch" role="group" aria-label="Colour set">
+        <button class="btn btn--quiet" type="button" data-set-theme="light" aria-pressed="true">Day set</button>
+        <button class="btn btn--quiet" type="button" data-set-theme="dark" aria-pressed="false">Night set</button>
+      </div>
+    </footer>
   </section>
 </Base>
 
 <style>
-  .hero {
+  /* ---------- shared sheet rhythm ---------- */
+  .sheet,
+  .pad {
+    padding-inline: var(--pad);
+  }
+  .sheet {
+    padding-block: var(--s-32) var(--s-16);
+    border-top: 1px solid var(--line);
+  }
+
+  /* ---------- A-001 cover ---------- */
+  .cover {
+    min-height: calc(100svh - 2 * var(--frame) - var(--bar) - 2px);
+    display: flex;
+    flex-direction: column;
+  }
+  .cover-body {
+    flex: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
-    gap: var(--s-16);
-    align-items: center;
-    padding-block: var(--s-16) var(--s-24);
+    grid-template-columns: minmax(0, 1fr) clamp(240px, 27vw, 400px);
+    gap: var(--s-8) var(--s-12);
+    padding: clamp(1.5rem, 4vh, 3.5rem) var(--pad) var(--s-8);
+  }
+  .cover-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  h1 {
+    display: inline-flex;
+    flex-direction: column;
+    align-self: flex-start;
   }
   .name {
-    font-family: var(--ff-legend);
-    font-weight: 400;
-    font-size: var(--fs-display);
-    line-height: 0.95;
-    letter-spacing: -0.03em;
     display: flex;
+    font-size: var(--fs-display);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.82;
   }
-  .name span {
+  .name-mask {
+    display: inline-block;
+    overflow: clip;
+    padding-bottom: 0.04em;
+  }
+  .name-l {
     display: inline-block;
   }
-  .name-dot {
-    color: var(--accent);
-  }
-  .surname {
-    margin-top: var(--s-3);
-    font-family: var(--ff-legend);
-    font-size: var(--fs-xl);
-    color: var(--legend-muted);
-  }
-  .role {
+  /* A dimension line measuring the name, labelled with the surname. */
+  .dim {
+    position: relative;
+    display: flex;
+    justify-content: center;
     margin-top: var(--s-6);
-    font-weight: 600;
+    height: 28px;
   }
-  .school {
-    font-weight: 400;
-    color: var(--legend-muted);
+  .dim-line {
+    position: absolute;
+    left: 0;
+    right: 0.04em;
+    top: 50%;
+    height: 1px;
+    background: var(--line);
+    transform-origin: 50% 50%;
+  }
+  .dim-line::before,
+  .dim-line::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    width: 1px;
+    height: 17px;
+    background: var(--line);
+  }
+  .dim-line::before {
+    left: 0;
+  }
+  .dim-line::after {
+    right: 0;
+  }
+  .dim-label {
+    position: relative;
+    padding: 0 var(--s-3);
+    background: var(--paper);
+    font-size: clamp(1.125rem, 0.8rem + 1vw, 1.625rem);
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 28px;
   }
   .bio {
-    margin-top: var(--s-4);
-    max-width: 60ch;
-    font-size: var(--fs-lg);
-    line-height: 1.65;
-  }
-
-  .actions {
     margin-top: var(--s-8);
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: var(--s-3);
+    max-width: 54ch;
+    font-size: var(--fs-lg);
+    line-height: 1.55;
   }
-  .action-race,
-  .action-email {
-    min-height: 52px;
-    padding-inline: var(--s-6);
-    font-family: var(--ff-body);
-    font-weight: 700;
-    font-size: var(--fs-md);
-    letter-spacing: 0;
-  }
-  .action-race kbd {
-    font-family: var(--ff-legend);
-    font-size: var(--fs-xs);
-    padding: 2px 7px;
-    border: 1px solid rgb(0 0 0 / 0.25);
-    border-radius: 5px;
-  }
-  .socials {
-    display: flex;
-    gap: var(--s-2);
-    list-style: none;
-    padding: 0;
-  }
-  .contact {
-    list-style: none;
-    padding: 0;
-    margin-top: var(--s-6);
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--s-2) var(--s-6);
-    color: var(--legend-muted);
-    font-size: var(--fs-sm);
-  }
-  .contact li {
-    white-space: nowrap;
-    display: flex;
-    align-items: center;
-    gap: var(--s-2);
-  }
-  .contact :global(svg) {
-    width: 16px;
-    height: 16px;
-  }
-  .contact a {
-    color: var(--legend);
-    text-decoration: none;
-  }
-  .contact a:hover {
-    text-decoration: underline;
-  }
-
   .portrait {
-    padding: var(--s-3) var(--s-3) var(--s-4);
-    background: var(--modifier);
-    border-radius: calc(var(--r-panel) + 4px);
-    box-shadow: inset 0 -6px 0 var(--mod-lip), 0 18px 40px -18px rgb(var(--cap-shadow) / 0.45);
+    align-self: start;
+  }
+  .portrait-frame {
+    padding: var(--s-2);
+    border: 1px solid var(--line);
   }
   .portrait :global(img) {
     width: 100%;
     height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
-    object-position: 50% 62%;
-    border-radius: var(--r-panel);
+    object-position: 50% 60%;
+  }
+  .portrait figcaption {
+    margin-top: var(--s-2);
   }
 
-  .index {
-    border-top: 1px solid var(--rule);
-    padding-top: var(--s-12);
+  /* Title block: flush to the frame's lower-right corner. */
+  .cover-tb {
+    align-self: flex-end;
+    width: min(100%, 980px);
+    border-top: var(--w-heavy) solid var(--line);
+    border-left: var(--w-heavy) solid var(--line);
   }
-  .index-head {
+  .cover-cells {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 1fr 1fr;
+  }
+  .cover-cells > div {
+    padding: var(--s-3) var(--s-4);
+    border-right: 1px solid var(--hair);
+    border-bottom: 1px solid var(--hair);
+  }
+  .cover-cells > div:last-child {
+    border-right: 0;
+  }
+  .cover-cells dd {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .cover-cells a {
+    text-decoration: none;
+  }
+  .cover-cells a:hover {
+    text-decoration: underline;
+  }
+  .cover-actions {
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--s-2) var(--s-6);
+    align-items: center;
+    gap: var(--s-2);
+    padding: var(--s-3) var(--s-4);
   }
-  .index-hint {
-    font-size: var(--fs-sm);
-    color: var(--legend-muted);
+  .socials {
+    display: flex;
+    gap: var(--s-2);
   }
-  .index-hint kbd {
-    font-family: var(--ff-legend);
-    font-size: var(--fs-xs);
-    padding: 1px 6px;
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    background: var(--alpha-2);
-    color: var(--legend);
+  .cover-sheet {
+    margin-left: auto;
   }
-  @media (hover: none) {
-    .index-hint {
-      display: none;
-    }
+
+  /* ---------- A-101 projects ---------- */
+  .projects {
+    border-top: 1px solid var(--line);
+    padding-top: var(--s-32);
   }
-  .index-title {
-    font-family: var(--ff-legend);
-    font-weight: 400;
-    font-size: var(--fs-lg);
+  .rail {
+    margin-top: var(--s-8);
+    padding-inline: var(--pad);
   }
-  .index-list {
-    list-style: none;
-    padding: 0;
-    margin-top: var(--s-6);
-    border-top: 1px solid var(--rule);
-  }
-  .index-row {
+  .track {
     display: grid;
-    grid-template-columns: 44px minmax(0, 12rem) minmax(0, 1fr) auto 20px;
+    gap: var(--s-6);
+  }
+  .proj-sheet {
+    height: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(200px, 15rem);
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .proj-main {
+    display: flex;
+    flex-direction: column;
+    padding: var(--s-8);
+  }
+  .proj-sheet h3 {
+    font-size: var(--fs-title);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1;
+  }
+  .proj-desc {
+    margin-top: var(--s-6);
+    max-width: 58ch;
+    color: var(--ink-2);
+    font-size: 1.0625rem;
+  }
+  .proj-actions {
+    margin-top: auto;
+    padding-top: var(--s-8);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2);
+  }
+  .spec {
+    border-left: 1px solid var(--line);
+  }
+  .spec > div {
+    padding: var(--s-3) var(--s-4);
+    border-bottom: 1px solid var(--hair);
+  }
+  .spec dd {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+  }
+  .spec-figure dd {
+    font-size: var(--fs-xl);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .meter {
+    display: none;
+  }
+
+  /* Pinned: the sheet holds still and the track slides sideways (scroll.ts). */
+  :global(.is-pinned) .projects {
+    padding-top: 0;
+  }
+  :global(.is-pinned) .pin {
+    position: sticky;
+    top: calc(var(--frame) + var(--bar));
+    height: calc(100svh - 2 * var(--frame) - var(--bar) - 1px);
+    display: flex;
+    flex-direction: column;
+    padding-top: clamp(2rem, 7vh, 5rem);
+    overflow: clip;
+  }
+  :global(.is-pinned) .rail {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    overflow: clip;
+  }
+  :global(.is-pinned) .track {
+    display: flex;
+    align-items: stretch;
+    max-height: 100%;
+    width: max-content;
+    will-change: transform;
+  }
+  :global(.is-pinned) .proj {
+    width: min(68vw, 940px);
+  }
+  :global(.is-pinned) .meter {
+    display: flex;
     align-items: center;
     gap: var(--s-6);
     padding-block: var(--s-6);
-    border-bottom: 1px solid var(--rule);
-    text-decoration: none;
-    transition: background-color var(--t-base) ease;
+    /* Clear of the compact title block in the lower-right corner. */
+    padding-right: min(600px, 45vw);
   }
-  .index-row:hover {
-    background: var(--alpha-2);
-  }
-  .index-key {
-    display: grid;
-    place-items: center;
-    width: 44px;
-    height: 44px;
-    border: 1px solid var(--rule);
-    border-radius: var(--r-cap);
-    background: var(--alpha-2);
-    box-shadow: var(--cap-rest);
-    font-family: var(--ff-legend);
+  .meter-count {
+    font-weight: 700;
     font-size: var(--fs-sm);
-    transition: transform var(--t-fast) var(--ease-out), box-shadow var(--t-fast) var(--ease-out);
   }
-  .index-row:hover .index-key {
-    transform: translateY(3px);
-    box-shadow: var(--cap-down);
+  .meter-bar {
+    position: relative;
+    flex: 1;
+    height: 1px;
+    background: var(--hair);
   }
-  .index-label {
-    font-family: var(--ff-legend);
-    font-size: var(--fs-md);
+  .meter-bar span {
+    position: absolute;
+    inset: 0;
+    background: var(--blue);
+    transform-origin: 0 50%;
+    transform: scaleX(var(--pin, 0));
   }
-  .index-sample {
-    color: var(--legend-muted);
-    font-size: var(--fs-sm);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+
+  /* ---------- A-201 experience schedule ---------- */
+  .schedule {
+    width: 100%;
+    margin-top: var(--s-8);
+    border-collapse: collapse;
+    text-align: left;
   }
-  .index-count {
-    font-size: var(--fs-lg);
+  .schedule thead th {
+    padding: 0 var(--s-4) var(--s-3) 0;
+    border-bottom: 1px solid var(--line);
     font-weight: 600;
   }
-  .index-count span {
-    font-size: var(--fs-sm);
-    font-weight: 400;
-    color: var(--legend-muted);
+  .schedule td,
+  .schedule tbody th {
+    padding: var(--s-6) var(--s-4) var(--s-6) 0;
+    border-bottom: 1px solid var(--hair);
+    vertical-align: baseline;
   }
-  .index-row :global(.index-arrow) {
+  .period {
+    width: 14rem;
+    font-family: var(--ff-note);
+    font-size: var(--fs-md);
+    white-space: nowrap;
+    color: var(--ink-2);
+  }
+  .present {
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .role {
+    font-size: var(--fs-xl);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+  }
+  .org {
+    font-weight: 500;
+  }
+  .place {
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+  .schedule tbody tr {
+    transition: background-color var(--t-fast) ease;
+  }
+  .schedule tbody tr:hover {
+    background: var(--paper-2);
+  }
+
+  /* ---------- A-301 stack legend ---------- */
+  .legend {
+    margin-top: var(--s-8);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-left: 1px solid var(--hair);
+  }
+  .lg {
+    border-right: 1px solid var(--hair);
+  }
+  .lg h3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s-3);
+    padding: var(--s-4);
+    border-bottom: 1px solid var(--line);
+    font-size: var(--fs-lg);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .lg-count {
+    font-family: var(--ff-note);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .lg li {
+    padding: var(--s-2) var(--s-4);
+    border-bottom: 1px solid var(--hair);
+  }
+
+  /* ---------- A-401 certificates ---------- */
+  .sub {
+    margin-top: var(--s-12);
+    font-size: var(--fs-lg);
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+  .honors {
+    margin-top: var(--s-4);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-6);
+  }
+  .plate {
+    border: 1px solid var(--line);
+  }
+  .plate-img {
+    display: block;
+    padding: var(--s-4);
+    background: var(--paper-2);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .plate-img :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    transition: transform 600ms var(--ease-out);
+  }
+  .plate-img:hover :global(img) {
+    transform: scale(1.025);
+  }
+  .plate figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--s-2) var(--s-6);
+    padding: var(--s-4);
+  }
+  .plate-title {
+    font-weight: 700;
+    font-size: var(--fs-lg);
+    letter-spacing: -0.015em;
+  }
+  .plate-spec {
+    display: flex;
+    gap: var(--s-6);
+  }
+  .plate-spec dd {
+    font-weight: 600;
+    font-size: var(--fs-sm);
+  }
+  .certs {
+    margin-top: var(--s-4);
+    border-top: 1px solid var(--line);
+  }
+  .cert {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) 9rem 10rem 20px;
+    align-items: center;
+    gap: var(--s-6);
+    padding: var(--s-3) var(--s-2) var(--s-3) 0;
+    border-bottom: 1px solid var(--hair);
+    text-decoration: none;
+    transition: background-color var(--t-fast) ease;
+  }
+  .cert:hover {
+    background: var(--paper-2);
+  }
+  .cert :global(.cert-thumb) {
+    width: 96px;
+    height: 68px;
+    object-fit: cover;
+    border: 1px solid var(--hair);
+  }
+  .cert-title {
+    font-weight: 600;
+    line-height: 1.35;
+  }
+  .cert-kind,
+  .cert-date {
+    font-size: var(--fs-sm);
+    color: var(--ink-2);
+  }
+  .cert :global(.cert-arrow) {
     width: 20px;
     height: 20px;
-    color: var(--legend-muted);
-    transition: transform var(--t-base) var(--ease-out), color var(--t-base) ease;
+    color: var(--ink-2);
+    transition: transform var(--t-base) var(--ease-out), color var(--t-fast) ease;
   }
-  .index-row:hover :global(.index-arrow) {
-    color: var(--accent-text);
+  .cert:hover :global(.cert-arrow) {
+    color: var(--ink);
     transform: translate(2px, -2px);
   }
 
-  @media (max-width: 900px) {
-    .hero {
-      grid-template-columns: 1fr;
-      gap: var(--s-8);
-      padding-block: var(--s-6) var(--s-16);
+  /* ---------- A-501 contact ---------- */
+  .contact {
+    padding-bottom: 0;
+  }
+  .contact-email {
+    display: inline-block;
+    margin-top: var(--s-12);
+    font-size: clamp(1.25rem, 0.2rem + 4.6vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+    text-decoration: underline;
+    text-decoration-thickness: 0.06em;
+    text-underline-offset: 0.14em;
+    transition: color var(--t-fast) ease;
+  }
+  .contact-email:hover {
+    color: var(--blue);
+  }
+  .contact-cells {
+    margin-top: var(--s-12);
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    border-top: 1px solid var(--line);
+  }
+  .contact-cells > div {
+    padding: var(--s-4) var(--s-4) var(--s-4) 0;
+    border-bottom: 1px solid var(--hair);
+  }
+  .contact-cells dd {
+    margin-top: var(--s-1);
+    font-weight: 600;
+    overflow-wrap: anywhere;
+  }
+  .contact-race {
+    margin-top: var(--s-12);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-4) var(--s-8);
+  }
+  .contact-race p {
+    font-size: var(--fs-lg);
+    max-width: 44ch;
+  }
+  .colophon {
+    margin-top: var(--s-24);
+    margin-inline: calc(var(--pad) * -1);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--s-2) var(--s-8);
+    padding: var(--s-2) var(--pad);
+    border-top: 1px solid var(--line);
+    font-size: var(--fs-sm);
+    color: var(--ink-2);
+  }
+  .set-switch {
+    margin-left: auto;
+    display: flex;
+  }
+  .set-switch .btn {
+    min-height: 44px;
+    padding-inline: var(--s-4);
+    color: var(--ink-2);
+  }
+  .set-switch .btn[aria-pressed='true'] {
+    color: var(--ink);
+    border-color: var(--line);
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 1100px) {
+    .cover-cells {
+      grid-template-columns: 1fr 1fr;
     }
-    .actions {
-      margin-top: var(--s-6);
+    .legend {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .lg:nth-child(n + 3) {
+      margin-top: var(--s-8);
+    }
+    .cert {
+      grid-template-columns: 96px minmax(0, 1fr) 10rem 20px;
+    }
+    .cert-kind {
+      display: none;
+    }
+    .contact-cells {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 900px) {
+    /* Phones: the title block's actions come before the portrait. */
+    .cover-body {
+      display: contents;
+    }
+    .cover-main {
+      order: 1;
+      padding: var(--s-6) var(--pad) var(--s-8);
+    }
+    .cover-tb {
+      order: 2;
+      border-left: 0;
     }
     .portrait {
-      width: 100%;
+      order: 3;
+      margin: var(--s-8) var(--pad);
+    }
+    .portrait {
+      max-width: 420px;
     }
     .portrait :global(img) {
-      aspect-ratio: 16 / 10;
-      object-position: 50% 58%;
+      aspect-ratio: 16 / 11;
     }
+    .cover-tb {
+      width: 100%;
+    }
+    .sheet {
+      padding-block: var(--s-24) var(--s-12);
+    }
+    .projects {
+      padding-top: var(--s-24);
+    }
+    .proj-sheet {
+      grid-template-columns: 1fr;
+    }
+    .spec {
+      border-left: 0;
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .spec > div:nth-child(odd) {
+      border-right: 1px solid var(--hair);
+    }
+    .projects {
+      padding-bottom: var(--s-12);
+    }
+  }
+  @media (max-width: 760px) {
     .bio {
       font-size: var(--fs-md);
     }
-    .index-row {
-      grid-template-columns: 44px minmax(0, 1fr) auto;
-      gap: var(--s-4);
+    .proj-main {
+      padding: var(--s-6) var(--s-4);
     }
-    .index-sample,
-    .index-row :global(.index-arrow) {
+    .schedule thead {
       display: none;
     }
+    .schedule,
+    .schedule tbody,
+    .schedule tr,
+    .schedule td,
+    .schedule tbody th {
+      display: block;
+      width: auto;
+    }
+    .schedule tr {
+      padding-block: var(--s-4);
+      border-bottom: 1px solid var(--hair);
+    }
+    .schedule td,
+    .schedule tbody th {
+      padding: 0;
+      border: 0;
+    }
+    .role {
+      margin-top: var(--s-1);
+    }
+    .honors {
+      grid-template-columns: 1fr;
+    }
+    .legend {
+      grid-template-columns: 1fr;
+      border-left: 0;
+    }
+    .lg {
+      border-right: 0;
+    }
+    .lg:nth-child(n + 2) {
+      margin-top: var(--s-8);
+    }
+    .lg h3 {
+      padding-inline: 0;
+    }
+    .lg li {
+      padding-inline: 0;
+    }
+    .cert {
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: var(--s-1) var(--s-4);
+    }
+    .cert :global(.cert-thumb) {
+      grid-row: span 2;
+      width: 72px;
+      height: 52px;
+    }
+    .cert-date {
+      grid-column: 2;
+    }
+    .cert :global(.cert-arrow) {
+      display: none;
+    }
+    .contact-cells {
+      grid-template-columns: 1fr;
+    }
+    .colophon {
+      padding-bottom: calc(var(--s-2) + 64px);
+    }
+    .set-switch {
+      margin-left: 0;
+    }
   }
-  @media (max-width: 420px) {
-    .action-race,
-    .action-email {
+  @media (max-width: 480px) {
+    /* Actions first, so race and email sit inside the first screen. */
+    .cover-tb {
+      display: flex;
+      flex-direction: column;
+    }
+    .cover-actions {
+      order: -1;
+      border-bottom: 1px solid var(--hair);
+    }
+    .cover-body {
+      padding-bottom: var(--s-6);
+    }
+    .cover-actions > .btn {
       flex: 1 1 100%;
-      justify-content: center;
+    }
+    .cover-sheet {
+      margin-left: 0;
+    }
+    .spec {
+      grid-template-columns: 1fr;
+    }
+    .spec > div:nth-child(odd) {
+      border-right: 0;
     }
   }
 </style>

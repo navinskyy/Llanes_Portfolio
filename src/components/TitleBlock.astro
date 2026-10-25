@@ -1,0 +1,103 @@
+---
+// The compact title block: fixed in the frame's lower-right corner once the
+// cover sheet's own title block scrolls away, so contact and the race are
+// always one action away. scroll.ts shows it and keeps the sheet number live.
+import Icon from './Icon.astro';
+import { person, sheets, typingBenchmark } from '../data/site';
+---
+
+<aside class="tb" data-title-block aria-label="Title block">
+  <div class="tb-cell tb-name">
+    <span class="note">Drawn by</span>
+    <span>{person.fullName}</span>
+  </div>
+  <div class="tb-cell tb-sheet">
+    <span class="note">Sheet</span>
+    <span><span data-tb-sheet>{sheets[0].no}</span> <span class="tb-of">of {String(sheets.length).padStart(2, '0')}</span></span>
+  </div>
+  <div class="tb-actions">
+    <button class="btn btn--primary" type="button" data-open="typing">
+      Race my {typingBenchmark.wpm} wpm
+    </button>
+    <a class="btn" href={`mailto:${person.email}`} data-open="email">
+      <Icon name="mail" />
+      <span class="tb-email-label">Email me</span>
+    </a>
+  </div>
+</aside>
+
+<style>
+  .tb {
+    position: fixed;
+    z-index: 25;
+    right: var(--frame);
+    bottom: var(--frame);
+    display: flex;
+    align-items: stretch;
+    background: var(--paper);
+    border-top: var(--w-heavy) solid var(--line);
+    border-left: var(--w-heavy) solid var(--line);
+    transform: translateY(calc(100% + var(--frame) + 1px));
+    visibility: hidden;
+    transition:
+      transform 520ms var(--ease-out),
+      visibility 0s linear 520ms;
+  }
+  .tb[data-shown] {
+    transform: none;
+    visibility: visible;
+    transition:
+      transform 520ms var(--ease-out),
+      visibility 0s;
+  }
+  .tb-cell {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: var(--s-2) var(--s-4);
+    border-right: 1px solid var(--hair);
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    line-height: 1.3;
+    white-space: nowrap;
+  }
+  .tb-cell .note {
+    font-size: 0.6875rem;
+  }
+  .tb-of {
+    color: var(--ink-2);
+    font-weight: 400;
+  }
+  .tb-actions {
+    display: flex;
+    gap: var(--s-2);
+    padding: var(--s-2);
+  }
+  .tb-actions .btn {
+    min-height: 44px;
+    padding-inline: var(--s-4);
+  }
+
+  @media (max-width: 760px) {
+    .tb {
+      left: var(--frame);
+      border-right: var(--w-heavy) solid var(--line);
+    }
+    .tb-name {
+      display: none;
+    }
+    .tb-actions {
+      flex: 1;
+      justify-content: flex-end;
+    }
+  }
+  @media (max-width: 420px) {
+    .tb-email-label {
+      display: none;
+    }
+    .tb-actions .btn:last-child {
+      min-width: 44px;
+      padding: 0;
+    }
+  }
+</style>
