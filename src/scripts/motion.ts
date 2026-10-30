@@ -1,97 +1,79 @@
-// Anime.js motion for the drawing set.
+// Anime.js motion, used sparingly.
 //
 // Visibility contract: content is visible by default. The inline head script
 // adds `motion-ok` to <html> only when JS runs and reduced motion is off; CSS
-// then pre-hides [data-intro] / [data-intro-letter] / [data-reveal] items, and
-// these functions bring them in and mark them [data-shown]. A safety timer in
-// the head removes the hiding if this bundle never boots.
-import { animate, stagger, createTimeline } from 'animejs';
+// then pre-hides [data-reveal] items until these functions bring them in.
+import { animate, stagger, steps } from 'animejs';
 import { prefersReducedMotion } from './motion-prefs';
 
 const markShown = (els: Iterable<Element>) => {
   for (const el of els) el.setAttribute('data-shown', '');
 };
 
-/** The cover sheet's one authored moment: the name rises out of its baseline,
- *  then a dimension line draws outward from the centre to measure it. */
-export function playIntro(): () => void {
-  const root = document.querySelector<HTMLElement>('[data-intro-root]');
-  if (!root || prefersReducedMotion()) return () => {};
-
-  const letters = root.querySelectorAll<HTMLElement>('[data-intro-letter]');
-  const dim = root.querySelector<HTMLElement>('[data-intro-dim]');
-  const dimLine = dim?.querySelector<HTMLElement>('.dim-line');
-  const rest = root.querySelectorAll<HTMLElement>('[data-intro]');
-
-  const tl = createTimeline({ defaults: { ease: 'outExpo' } });
-  tl.add(letters, {
-    y: ['105%', '0%'],
-    duration: 900,
-    delay: stagger(70),
-    onComplete: () => markShown(letters),
+/** Cover: the title and status window settle in, then the status line types. */
+export function playIntro() {
+  const items = document.querySelectorAll<HTMLElement>('[data-intro] [data-reveal]');
+  if (!items.length) return;
+  if (prefersReducedMotion()) return markShown(items);
+  animate(items, {
+    opacity: [0, 1],
+    y: [12, 0],
+    duration: 650,
+    delay: stagger(80, { start: 60 }),
+    // Pixel worlds move in whole steps.
+    ease: steps(6),
+    onComplete: () => markShown(items),
   });
-  if (dimLine) {
-    tl.add(
-      dimLine,
-      { scaleX: [0, 1], duration: 900, ease: 'inOutExpo', onComplete: () => dim?.setAttribute('data-shown', '') },
-      '-=520',
-    );
-  }
-  tl.add(
-    rest,
-    {
-      opacity: [0, 1],
-      y: [14, 0],
-      duration: 700,
-      delay: stagger(70),
-      onComplete: () => markShown(rest),
-    },
-    '-=500',
-  );
-
-  return () => tl.pause();
+  typeStatus(700);
 }
 
-/** Sibling stagger for lists, played once when the list scrolls into view.
- *  `data-reveal-group="plates"` wipes figures down like a sheet being printed;
- *  every other group settles its rows upward. */
-export function initReveals(): () => void {
-  const groups = document.querySelectorAll<HTMLElement>('[data-reveal-group]');
-  if (!groups.length || prefersReducedMotion() || !('IntersectionObserver' in window)) return () => {};
+/** Types the cover's status line once, character by character. */
+function typeStatus(delay: number) {
+  const el = document.querySelector<HTMLElement>('[data-type]');
+  if (!el) return;
+  // The typed copy is aria-hidden; a visually hidden twin carries the text.
+  const text = el.textContent ?? '';
+  el.textContent = '';
+  let i = 0;
+  const tick = () => {
+    el.textContent = text.slice(0, ++i);
+    if (i < text.length) window.setTimeout(tick, 38);
+  };
+  window.setTimeout(tick, delay);
+}
 
+/** Chapters: each block steps in once as it scrolls into view; item rows
+ *  inside it follow one after another. */
+export function initReveals() {
+  const els = [...document.querySelectorAll<HTMLElement>('[data-reveal]')].filter((el) => !el.closest('[data-intro]'));
+  if (!els.length) return;
+  if (prefersReducedMotion() || !('IntersectionObserver' in window)) return markShown(els);
   const io = new IntersectionObserver(
     (entries) => {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
-        io.unobserve(entry.target);
-        const group = entry.target as HTMLElement;
-        const items = group.querySelectorAll<HTMLElement>(':scope > [data-reveal]');
-        // Cap the total stagger so long lists don't drag.
-        const each = Math.min(70, 480 / Math.max(items.length, 1));
-        const done = () => markShown(items);
-        if (group.dataset.revealGroup === 'plates') {
-          animate(items, {
+        const el = entry.target as HTMLElement;
+        io.unobserve(el);
+        animate(el, {
+          opacity: [0, 1],
+          y: [16, 0],
+          duration: 520,
+          ease: steps(5),
+          onComplete: () => markShown([el]),
+        });
+        const rows = el.querySelectorAll<HTMLElement>('[data-reveal-item]');
+        if (rows.length) {
+          animate(rows, {
             opacity: [0, 1],
-            clipPath: ['inset(0% 0% 100% 0%)', 'inset(0% 0% 0% 0%)'],
-            duration: 1000,
-            delay: stagger(120),
-            ease: 'outExpo',
-            onComplete: done,
-          });
-        } else {
-          animate(items, {
-            opacity: [0, 1],
-            y: [14, 0],
-            duration: 640,
-            delay: stagger(each),
-            ease: 'outExpo',
-            onComplete: done,
+            x: [-12, 0],
+            duration: 420,
+            delay: stagger(90, { start: 160 }),
+            ease: steps(4),
           });
         }
       }
     },
     { rootMargin: '0px 0px -8% 0px', threshold: 0.01 },
   );
-  groups.forEach((g) => io.observe(g));
-  return () => io.disconnect();
+  els.forEach((el) => io.observe(el));
 }

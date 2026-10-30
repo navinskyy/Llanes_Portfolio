@@ -1,0 +1,247 @@
+---
+// Sticky header: the guide's chapter index, the sound switch, and a stepped
+// progress meter along the bottom edge. Behaviour: src/scripts/header.ts.
+import Icon from './Icon.astro';
+import PixelAvatar from './PixelAvatar.astro';
+import { person, sections } from '../data/site';
+
+interface Props {
+  home?: boolean;
+}
+const { home = true } = Astro.props;
+const href = (id: string) => (home ? `#${id}` : `/#${id}`);
+---
+
+<header class="header" data-header>
+  <div class="wrap bar">
+    <a class="brand" href={home ? '#top' : '/'}>
+      <PixelAvatar class="brand-face" />
+      <span class="pixel">{person.displayName}</span>
+    </a>
+
+    <nav class="nav" id="site-nav" aria-label="Chapters" data-nav>
+      <ol role="list">
+        {
+          sections.map((s, i) => (
+            <li>
+              <a href={href(s.id)} data-nav-link={s.id}>
+                <span class="nav-num mono" aria-hidden="true">
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                {s.label}
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </nav>
+
+    <div class="actions">
+      <button class="sound tag" type="button" data-sound-toggle aria-pressed="false">
+        <Icon name="volume-off" class="i-off" />
+        <Icon name="volume" class="i-on" />
+        <span>Sound <span data-sound-state>off</span></span>
+      </button>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
+        <Icon name="menu" class="i-menu" />
+        <Icon name="close" class="i-close" />
+        <span class="visually-hidden">Menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Reading progress, filled in 4% steps. Decorative: the active chapter link carries the same information. -->
+  <div class="meter" aria-hidden="true"><span class="meter-fill" data-progress></span></div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--bg-deep);
+  }
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--s-6);
+    height: calc(var(--header) - 6px);
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    font-size: var(--fs-lg);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .brand :global(.brand-face) {
+    width: 28px;
+    height: 28px;
+  }
+  .nav {
+    margin-left: auto;
+  }
+  .nav ol {
+    display: flex;
+    gap: var(--s-1);
+  }
+  .nav a {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: var(--s-2) var(--s-3);
+    font-size: var(--fs-sm);
+    color: var(--muted);
+    text-decoration: none;
+    transition: color var(--t-fast) steps(2);
+  }
+  .nav-num {
+    font-size: 0.6875rem;
+    color: var(--faint);
+  }
+  .nav a:hover {
+    color: var(--fg);
+  }
+  /* The current chapter gets the menu cursor. */
+  .nav a[aria-current] {
+    color: var(--amber);
+    background: var(--panel);
+  }
+  .nav a[aria-current] .nav-num {
+    color: var(--amber);
+  }
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--s-2);
+  }
+  .sound {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2);
+    min-height: 36px;
+    padding: 0 var(--s-3);
+    border: 2px solid var(--frame);
+    background: transparent;
+    color: var(--muted);
+    transition:
+      color var(--t-fast) steps(2),
+      border-color var(--t-fast) steps(2);
+  }
+  .sound:hover {
+    color: var(--fg);
+    border-color: var(--frame-hi);
+  }
+  .sound[aria-pressed='true'] {
+    color: var(--green);
+    border-color: var(--green);
+  }
+  .sound :global(svg) {
+    width: 14px;
+    height: 14px;
+  }
+  .sound :global(.i-on),
+  .sound[aria-pressed='true'] :global(.i-off) {
+    display: none;
+  }
+  .sound[aria-pressed='true'] :global(.i-on) {
+    display: block;
+  }
+  .menu-btn {
+    display: none;
+  }
+  .menu-btn :global(.i-close),
+  .menu-btn[aria-expanded='true'] :global(.i-menu) {
+    display: none;
+  }
+  .menu-btn[aria-expanded='true'] :global(.i-close) {
+    display: block;
+  }
+
+  .meter {
+    height: 6px;
+    background: var(--bg);
+    border-block: 2px solid var(--bg-deep);
+  }
+  .meter-fill {
+    display: block;
+    height: 100%;
+    width: 100%;
+    transform: scaleX(var(--p, 0));
+    transform-origin: left;
+    /* Segmented like a health bar: amber cells with 2px gaps. */
+    background: repeating-linear-gradient(90deg, var(--amber) 0 14px, transparent 14px 16px);
+  }
+
+  @media (max-width: 980px) {
+    .nav-num {
+      display: none;
+    }
+    .nav a {
+      padding-inline: var(--s-2);
+    }
+  }
+  @media (max-width: 860px) {
+    .menu-btn {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      margin-right: -8px;
+      border: 0;
+      background: transparent;
+    }
+    .menu-btn :global(svg) {
+      width: 22px;
+      height: 22px;
+    }
+    .actions {
+      margin-left: auto;
+    }
+    .nav {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      margin: 0;
+      padding: var(--s-2) var(--gutter) var(--s-6);
+      background: var(--bg-deep);
+      border-bottom: 2px solid var(--frame);
+      display: none;
+    }
+    .nav[data-open] {
+      display: block;
+    }
+    .nav ol {
+      flex-direction: column;
+      gap: 2px;
+    }
+    .nav a {
+      padding: var(--s-3);
+      font-family: var(--ff-pixel);
+      font-size: var(--fs-lg);
+    }
+    .nav-num {
+      display: inline;
+      font-size: var(--fs-xs);
+    }
+  }
+  @media (max-width: 420px) {
+    .brand .pixel {
+      font-size: var(--fs-md);
+    }
+    .sound > span {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+    }
+    .sound {
+      width: 40px;
+      justify-content: center;
+      padding: 0;
+    }
+  }
+</style>

@@ -1,0 +1,111 @@
+---
+// Navin as a 24×24 pixel bust: backwards cap, round glasses, black tee with a
+// white print, silver chain, backpack straps. Drawn from the portrait in
+// src/assets/photos/navin-selfie.jpg. Each character is one art pixel.
+// The eyelid layer is shown briefly by CSS to blink.
+interface Props {
+  class?: string;
+  /** Accessible name; omit for a decorative copy. */
+  label?: string;
+}
+const { class: className, label } = Astro.props;
+
+const art = [
+  '........................',
+  '........KKKKKKKK........',
+  '......KKCCCCCCCCKK......',
+  '.....KCCCCCCCCCCCCK.....',
+  '....KCCCCCCLLCCCCCCK....',
+  '....KCCCCCCLLCCCCCCK....',
+  '...KcCCCCCCCCCCCCCCcK...',
+  '...KccccccccccccccccK...',
+  '...KHHHHHHHHHHHHHHHHK...',
+  '...KHSSSSSSSSSSSSSSHK...',
+  '...KSGGGGGGSSGGGGGGSK...',
+  '..sKSGSEESGGGGSEESGSKs..',
+  '..sKSGWEESGSSGSEEWGSKs..',
+  '...KSSGGGGSSSSGGGGSSK...',
+  '...KSSSSSSSssSSSSSSSK...',
+  '...KSSSSSSSssSSSSSSSK...',
+  '...KsSSSSSSSSSSSSSSsK...',
+  '....KSSSSMMMMMMSSSSK....',
+  '....KsSSSSSSSSSSSSsK....',
+  '.....KKsSSSSSSSSsKK.....',
+  '........KsSSSSsK........',
+  '...KTTTTTTsVSsTTTTTTK...',
+  '..KTBBTTTTTTVTTTTTBBTK..',
+  '.KTTBBTTTPPTTTTTTTBBTTK.',
+];
+
+const palette: Record<string, string> = {
+  K: '#14141c', // outline
+  G: '#3c3d4a', // glasses frames
+  C: '#6e7366', // cap
+  c: '#535849', // cap shade
+  L: '#b3b7a6', // cap patch
+  H: '#18161a', // hair
+  S: '#c98f66', // skin
+  s: '#a87250', // skin shade
+  E: '#18161a', // eyes
+  W: '#dfe9f2', // lens glint
+  M: '#9a5546', // mouth
+  T: '#202027', // tee
+  B: '#0b0b10', // straps
+  P: '#efe6d2', // print
+  V: '#cfd3d8', // chain
+};
+
+// Merge horizontal runs of one colour into single rects.
+const rects: { x: number; y: number; w: number; fill: string }[] = [];
+art.forEach((row, y) => {
+  let x = 0;
+  while (x < row.length) {
+    const ch = row[x];
+    let w = 1;
+    while (row[x + w] === ch) w++;
+    if (palette[ch]) rects.push({ x, y, w, fill: palette[ch] });
+    x += w;
+  }
+});
+// Closed eyes: skin over the top row of each eye leaves a lash line.
+const lids = [7, 15].map((x) => ({ x, y: 11, w: 2, fill: palette.S }));
+---
+
+<svg
+  class:list={['pixel-avatar', className]}
+  viewBox="0 0 24 24"
+  shape-rendering="crispEdges"
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+>
+  {rects.map((r) => <rect x={r.x} y={r.y} width={r.w} height="1" fill={r.fill} />)}
+  <g class="lids">
+    {lids.map((r) => <rect x={r.x} y={r.y} width={r.w} height="1" fill={r.fill} />)}
+  </g>
+</svg>
+
+<style>
+  .pixel-avatar {
+    image-rendering: pixelated;
+  }
+  .lids {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .lids {
+      animation: blink 5.2s steps(1) infinite;
+    }
+  }
+  @keyframes blink {
+    0%,
+    95%,
+    100% {
+      opacity: 0;
+    }
+    96%,
+    98% {
+      opacity: 1;
+    }
+  }
+</style>

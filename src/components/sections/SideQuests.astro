@@ -1,0 +1,71 @@
+---
+// What Navin is exploring now, as a quest log. Edit `quests` in site.ts.
+import ChapterHead from './ChapterHead.astro';
+import { quests } from '../../data/site';
+---
+
+<section id="learning" class="chapter" aria-labelledby="learning-title">
+  <div class="wrap">
+    <ChapterHead id="learning" />
+    <ol class="log" role="list" data-reveal>
+      {
+        quests.map((q, i) => (
+          <li class="quest">
+            <span class="num mono" aria-hidden="true">
+              Q{i + 1}
+            </span>
+            <div>
+              <h3 class="pixel">{q.title}</h3>
+              <p>{q.note}</p>
+            </div>
+            <span class="status tag" data-status={q.state}>
+              {q.state}
+            </span>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .log {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 var(--s-12);
+  }
+  .quest {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--s-4);
+    align-items: baseline;
+    padding-block: var(--s-6);
+    border-bottom: 2px dashed var(--frame);
+  }
+  .num {
+    font-size: var(--fs-xs);
+    color: var(--faint);
+  }
+  h3 {
+    font-size: var(--fs-xl);
+    font-weight: 600;
+  }
+  p {
+    margin-top: var(--s-2);
+    color: var(--muted);
+    font-size: var(--fs-sm);
+  }
+  @media (max-width: 860px) {
+    .log {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 480px) {
+    .quest {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+    .status {
+      grid-column: 2;
+    }
+  }
+</style>

@@ -1,0 +1,97 @@
+---
+import { Picture } from 'astro:assets';
+import ChapterHead from './ChapterHead.astro';
+// Swap this import to change the photo.
+import photo from '../../assets/photos/navin-selfie.jpg';
+import { person, profile, story } from '../../data/site';
+---
+
+<section id="about" class="chapter" aria-labelledby="about-title">
+  <div class="wrap">
+    <ChapterHead id="about" />
+    <div class="grid">
+      <div class="sheet" data-reveal>
+        <figure class="photo win">
+          <figcaption class="win-bar tag"><span>Photo</span><span>{person.name}</span></figcaption>
+          <Picture
+            src={photo}
+            formats={['avif', 'webp']}
+            widths={[320, 480, 720]}
+            sizes="(max-width: 860px) 70vw, 340px"
+            alt={`${person.fullName} in a cap and round glasses, on a sidewalk`}
+          />
+        </figure>
+        <dl class="facts">
+          {
+            profile.map((f) => (
+              <div>
+                <dt class="tag">{f.key}</dt>
+                <dd>{f.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+
+      <div class="story" data-reveal>
+        {story.map((p, i) => <p class:list={{ lead: i === 0 }}>{p}</p>)}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 340px) minmax(0, 1fr);
+    gap: var(--s-16);
+    align-items: start;
+  }
+  .photo :global(img) {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .facts {
+    margin-top: var(--s-6);
+  }
+  .facts div {
+    display: grid;
+    grid-template-columns: 7.5rem 1fr;
+    gap: var(--s-4);
+    align-items: baseline;
+    padding-block: var(--s-3);
+    border-bottom: 2px dashed var(--frame);
+    font-size: var(--fs-sm);
+  }
+  .facts dt {
+    color: var(--muted);
+  }
+  .story {
+    display: grid;
+    gap: var(--s-6);
+    max-width: 64ch;
+    color: var(--muted);
+    font-size: var(--fs-lg);
+  }
+  .lead {
+    font-family: var(--ff-pixel);
+    font-size: var(--fs-xl);
+    line-height: 1.4;
+    color: var(--fg);
+  }
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--s-10);
+    }
+    .sheet {
+      order: 2;
+    }
+    .photo {
+      max-width: 300px;
+    }
+  }
+</style>

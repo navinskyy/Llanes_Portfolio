@@ -1,0 +1,116 @@
+---
+// 12×12 inventory icons. `o` is the outline, `f` the fill, `a` the item's
+// accent (passed in, so each item keeps one colour).
+import type { ItemIcon } from '../data/site';
+
+interface Props {
+  name: ItemIcon;
+  accent?: string;
+  class?: string;
+}
+const { name, accent = 'var(--amber)', class: className } = Astro.props;
+
+const art: Record<ItemIcon, string[]> = {
+  cross: [
+    '............',
+    '....oooo....',
+    '....oaao....',
+    '....oaao....',
+    '.ooooaaoooo.',
+    '.oaaaaaaaao.',
+    '.oaaaaaaaao.',
+    '.ooooaaoooo.',
+    '....oaao....',
+    '....oaao....',
+    '....oooo....',
+    '............',
+  ],
+  book: [
+    '............',
+    '.oooooooooo.',
+    '.oaoffffffo.',
+    '.oaofoooofo.',
+    '.oaoffffffo.',
+    '.oaofoooffo.',
+    '.oaoffffffo.',
+    '.oaoffffffo.',
+    '.oaoooooooo.',
+    '.oafffffffo.',
+    '.oooooooooo.',
+    '............',
+  ],
+  tooth: [
+    '............',
+    '..ooo..ooo..',
+    '.offfooaffo.',
+    '.offffffafo.',
+    '.offffffffo.',
+    '.offffffffo.',
+    '..offffffo..',
+    '..offffffo..',
+    '..offooffo..',
+    '..ofo..ofo..',
+    '..oo....oo..',
+    '............',
+  ],
+  shield: [
+    '............',
+    '.oooooooooo.',
+    '.offfaafffo.',
+    '.offfaafffo.',
+    '.oaaaaaaaao.',
+    '.offfaafffo.',
+    '.offfaafffo.',
+    '..offaaffo..',
+    '..offaaffo..',
+    '...offffo...',
+    '....oooo....',
+    '............',
+  ],
+  cup: [
+    '...a..a.....',
+    '....a..a....',
+    '...a..a.....',
+    '.oooooooo...',
+    '.oaaaaaaoooo',
+    '.offffffo..o',
+    '.offffffo..o',
+    '.offffffoooo',
+    '..offffo....',
+    '..oooooo....',
+    'oooooooooo..',
+    '............',
+  ],
+  receipt: [
+    '............',
+    '..oooooooo..',
+    '..offffffo..',
+    '..ofaaaafo..',
+    '..offffffo..',
+    '..ofaafffo..',
+    '..offffffo..',
+    '..ofaaaafo..',
+    '..offffffo..',
+    '..offffffo..',
+    '..ofofofoo..',
+    '..o.o.o.o...',
+  ],
+};
+
+const colors: Record<string, string> = { o: 'var(--fg)', f: 'var(--panel)', a: accent };
+const rects: { x: number; y: number; w: number; fill: string }[] = [];
+art[name].forEach((row, y) => {
+  let x = 0;
+  while (x < row.length) {
+    const ch = row[x];
+    let w = 1;
+    while (row[x + w] === ch) w++;
+    if (colors[ch]) rects.push({ x, y, w, fill: colors[ch] });
+    x += w;
+  }
+});
+---
+
+<svg class={className} viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
+  {rects.map((r) => <rect x={r.x} y={r.y} width={r.w} height="1" fill={r.fill} />)}
+</svg>

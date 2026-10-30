@@ -1,0 +1,36 @@
+---
+import { person } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="wrap row">
+    <p>© {year} {person.fullName}</p>
+    <p>Pixel art drawn for this site · Built with Astro</p>
+    <a href="/#top">Back to start</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: var(--bg-deep);
+    border-top: 2px solid var(--frame);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-2) var(--s-6);
+    padding-block: var(--s-8);
+    font-family: var(--ff-mono);
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+  .row a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .row a:hover {
+    color: var(--amber);
+  }
+</style>

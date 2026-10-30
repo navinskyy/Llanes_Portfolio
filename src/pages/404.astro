@@ -1,51 +1,42 @@
 ---
 import Base from '../layouts/Base.astro';
-import { sheets } from '../data/site';
+import PixelAvatar from '../components/PixelAvatar.astro';
+import { sections } from '../data/site';
 ---
 
-<Base title="Sheet not found" description="This page does not exist." indexBase="/">
-  <section class="missing" aria-labelledby="missing-title">
-    <h1 id="missing-title">Nothing is drawn here.</h1>
-    <p class="lede">Sheet 404 isn't in this set. These are the sheets that are:</p>
+<Base title="Page not found" description="This page does not exist." home={false}>
+  <section class="wrap nf">
+    <PixelAvatar class="face" />
+    <h1 class="pixel">404: area not found</h1>
+    <p class="lede">This page doesn't exist. It may have moved when the site became one page. Warp to:</p>
     <ul class="links" role="list">
-      {
-        sheets.map((s) => (
-          <li>
-            <a class="btn" href={`/#${s.id}`}>
-              <span class="note">{s.no}</span> {s.label}
-            </a>
-          </li>
-        ))
-      }
+      <li><a class="key key--primary" href="/">Start</a></li>
+      {sections.map((s) => <li><a class="key" href={`/#${s.id}`}>{s.label}</a></li>)}
     </ul>
   </section>
 </Base>
 
 <style>
-  .missing {
-    min-height: calc(100svh - 2 * var(--frame) - var(--bar) - 2px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: var(--s-16) var(--pad);
+  .nf {
+    padding-block: var(--s-24);
+  }
+  .nf :global(.face) {
+    width: 96px;
+    height: 96px;
   }
   h1 {
-    font-size: var(--fs-sheet);
-    font-weight: 800;
-    letter-spacing: -0.04em;
+    margin-top: var(--s-6);
+    font-size: var(--fs-h2);
+    font-weight: 600;
   }
   .lede {
-    margin-top: var(--s-4);
-    color: var(--ink-2);
-    font-size: var(--fs-lg);
+    margin-top: var(--s-3);
+    color: var(--muted);
   }
   .links {
-    margin-top: var(--s-8);
     display: flex;
     flex-wrap: wrap;
     gap: var(--s-2);
-  }
-  .links .note {
-    color: inherit;
+    margin-top: var(--s-8);
   }
 </style>

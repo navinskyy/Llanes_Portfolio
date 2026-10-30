@@ -5,22 +5,12 @@ primary_target: "src/pages/index.astro"
 related_targets: ["src/layouts/Base.astro"]
 ---
 
-Scope: whole portfolio as one long scroll (intro, projects, experience, stack, certificates, contact) plus the typing race dialog. Mode: Experience. Old inner routes redirect to their section.
-Audience: recruiters screening for internships / junior front-end roles; contact and the race are the actions.
-Chosen by: user, on the second hand (first hand re-rolled). User pinned: modern minimalist, one long scroll, inertial smooth scroll with a section progress rail and pinned sideways projects, fresh palette (no gold), keyboard shortcuts dropped.
-
+Scope: whole portfolio as one long scroll (start screen, about, projects, journey, skills, side quests, contact). Mode: Experience. Old routes redirect to their section. No typing test, chat or blog in this version.
+Audience: recruiters screening for internships / junior front-end roles; projects and contact are the actions. User pinned: retro 16/32-bit pixel game world, midnight ground, warm off-white text, restrained green/amber/red/blue accents, pixel display font + readable sans, original pixel avatar, sound default muted, no fake loading screen, no fake form, no invented facts.
 ## Direction contract
-
-THESIS: The portfolio is a construction drawing set. Each section is one sheet in the set (A-001 to A-501), and a title block that always carries name, role and contact travels with the reader. It refuses the centered hero over a card grid and the dark terminal look.
-
-OWN-WORLD: White drafting sheet (#fbfbfa), near-black linework ink, a grey hairline for secondary lines, one blueprint blue reserved for the primary action, the current sheet tab and the redline. One identical hairline sheet frame repeats on every section. One grotesk family at all widths and weights, tabular figures for sheet numbers, dates and counts. No shadows and no rounded corners; depth comes from line weight only. Night set: ink-dark sheet, pale linework, the same blue lifted.
-
-STORY: The visitor reads who Navin is from sheet A-001 (name, CS at LPU Manila, front-end/UI), scrolls the set sheet by sheet, sees every project with its spec beside it, and races him or emails him from the title block at any point.
-
-FIRST VIEWPORT: The sheet index runs across the top as the scroll rail (A-001 Navin … A-501 Contact), with the current sheet underlined in blue. NAVIN is set huge and heavy at the left, with a dimension line under it labeled Byron Llanes, then one line of bio. The portrait sits at the right as a framed elevation. The title block sits lower right with role, location and sheet number, plus the blue "Race my 92 wpm" key and the Email key.
-
-FORM: The Drawing Set, grounded list position 7 of 7 (re-roll 1). seed: seed:0062f46b70564601. Signature interaction: one scroll axis drives the sheet index, a drafting line that draws itself under each sheet title, and the projects sheet, which pins while its project sheets slide sideways.
-
-Raises: one identical sheet frame repeats as the ruler (from VU Meter Bridge); every record carries its spec beside it (from Glaze Shelf); the next sheet in the index brightens as you approach and past sheets grey (from Alien Understory); one loudest fragment per sheet (from Raygun); one focal figure per sheet (from Wuxia Hoarding).
-
-FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
+THESIS: The portfolio is the instruction manual from a game cartridge box, the official player's guide to Navin. Each section is a chapter of the booklet with its page number in the running index. It refuses the stock dark-terminal hacker page and the neon synthwave arcade.
+OWN-WORLD: Midnight booklet stock (#0f1020) with warm off-white print (#efe6d2); one pixel-stepped frame (2px border, notched corners) repeats for every window; amber for the cursor and progress, retro green for "cleared/live", muted red for "in progress", electric blue for links. Pixelify Sans as the cover and chapter lettering; Geist for reading; Geist Mono for dates and stats. Scanlines only on the cover screen.
+STORY: The visitor lands on the cover (title, pixel Navin, PRESS START), reads the player profile, browses the items chapter (real screenshot, then inventory slots with drawn pixel icons for projects without screenshots), follows the world map timeline, checks equipment and side quests, and ends on the customer-support page with real contact lines.
+FIRST VIEWPORT: Manual cover: NAVIN LLANES set huge in pixel lettering, a status window (PLAYER / CLASS / MODE / STATUS with typewriter line), an original pixel avatar (cap, round glasses, black tee) standing on a tiled ledge with a small desk terminal, and PRESS START with a blinking cursor that scrolls to Items.
+FORM: Game instruction manual / player's guide, grounded list position 6 of 7. seed: 289daa142e8df250ca327579f461af22. Signature interaction: the header's page index plus a stepped progress meter that fills as you read the booklet, and the avatar who blinks idly.
+FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, DESIGN.md, and every raster carrying its provenance.

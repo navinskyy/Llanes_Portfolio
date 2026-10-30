@@ -1,0 +1,219 @@
+---
+// Experience and education as a world map: a vertical path of level nodes,
+// newest first, beside the education window, honours and certificates.
+import { getImage } from 'astro:assets';
+import Icon from '../Icon.astro';
+import ChapterHead from './ChapterHead.astro';
+import { certificates, education, experience, honors } from '../../data/site';
+
+// Certificates open as full-size images; ship a web-sized copy, not the original.
+const linked = await Promise.all(
+  [...honors, ...certificates].map(async (c) => ({
+    ...c,
+    href: (await getImage({ src: c.image, width: 1600, format: 'webp' })).src,
+  })),
+);
+const honorItems = linked.slice(0, honors.length);
+const certItems = linked.slice(honors.length);
+---
+
+<section id="journey" class="chapter" aria-labelledby="journey-title">
+  <div class="wrap">
+    <ChapterHead id="journey" />
+
+    <div class="grid">
+      <ol class="path" role="list" aria-label="Experience, newest first" data-reveal>
+        {
+          experience.map((r) => {
+            const current = r.end === 'Present';
+            return (
+              <li class:list={['stop', { current }]}>
+                <span class="node" aria-hidden="true" />
+                <p class="when mono">
+                  {r.start} – {r.end}
+                </p>
+                <h3 class="pixel">{r.title}</h3>
+                <p class="org">
+                  {r.org} · {r.place}
+                </p>
+                <p class="status tag" data-status={current ? 'Active' : 'Cleared'}>
+                  {r.kind}
+                  {current ? ' · current' : ' · cleared'}
+                </p>
+              </li>
+            );
+          })
+        }
+      </ol>
+
+      <div class="side" data-reveal>
+        <div class="win school">
+          <p class="win-bar tag"><span>Education</span><span>{education.status}</span></p>
+          <div class="school-body">
+            <h3 class="pixel">{education.school}</h3>
+            <p class="org">{education.program}</p>
+          </div>
+          <ul class="honors" role="list" aria-label="Academic honours">
+            {
+              honorItems.map((h) => (
+                <li>
+                  <a href={h.href} target="_blank" rel="noopener noreferrer">
+                    {h.title}
+                    <span class="visually-hidden"> certificate (opens in a new tab)</span>
+                  </a>
+                  <span class="mono">
+                    {h.detail} · {h.date}
+                  </span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <h3 class="sub pixel">Certificates &amp; seminars</h3>
+        <ul class="certs" role="list">
+          {
+            certItems.map((c) => (
+              <li>
+                <a href={c.href} target="_blank" rel="noopener noreferrer">
+                  <span>{c.title}</span>
+                  <Icon name="arrow" />
+                  <span class="visually-hidden"> (opens the certificate in a new tab)</span>
+                </a>
+                <span class="cert-meta mono">
+                  {c.kind}
+                  {c.issuer && ` · ${c.issuer}`} · {c.date}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-16);
+    align-items: start;
+  }
+
+  /* The path: a dashed trail with a square node per stop. */
+  .path {
+    position: relative;
+    padding-left: var(--s-10);
+  }
+  .path::before {
+    content: '';
+    position: absolute;
+    left: 9px;
+    top: 10px;
+    bottom: 10px;
+    border-left: 2px dashed var(--frame);
+  }
+  .stop {
+    position: relative;
+  }
+  .stop + .stop {
+    margin-top: var(--s-10);
+  }
+  .node {
+    position: absolute;
+    left: calc(var(--s-10) * -1 + 2px);
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    background: var(--bg);
+    border: 2px solid var(--frame-hi);
+  }
+  .current .node {
+    background: var(--amber);
+    border-color: var(--amber);
+  }
+  .when {
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+  .stop h3 {
+    margin-top: var(--s-2);
+    font-size: var(--fs-xl);
+    font-weight: 600;
+  }
+  .org {
+    margin-top: var(--s-1);
+    color: var(--muted);
+  }
+  .stop .status {
+    margin-top: var(--s-3);
+  }
+
+  .school-body {
+    padding: var(--s-5) var(--s-5) var(--s-4);
+  }
+  .school h3 {
+    font-size: var(--fs-xl);
+    font-weight: 600;
+  }
+  .honors li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--s-1) var(--s-4);
+    padding: var(--s-3) var(--s-5);
+    border-top: 2px dashed var(--frame);
+    font-size: var(--fs-sm);
+  }
+  .honors .mono {
+    font-size: var(--fs-xs);
+    color: var(--green);
+  }
+  .sub {
+    margin-top: var(--s-10);
+    padding-bottom: var(--s-3);
+    font-size: var(--fs-lg);
+    font-weight: 600;
+    border-bottom: 2px solid var(--frame);
+  }
+  .certs li {
+    display: grid;
+    gap: 2px;
+    padding-block: var(--s-3);
+    border-bottom: 2px dashed var(--frame);
+  }
+  .honors a,
+  .certs a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+  .honors a:hover,
+  .certs a:hover {
+    color: var(--amber);
+    text-decoration: underline;
+  }
+  .certs a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.4em;
+    font-size: var(--fs-sm);
+  }
+  .certs a :global(svg) {
+    flex-shrink: 0;
+    width: 11px;
+    height: 11px;
+    align-self: center;
+  }
+  .cert-meta {
+    font-size: var(--fs-xs);
+    color: var(--muted);
+  }
+
+  @media (max-width: 980px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--s-12);
+    }
+  }
+</style>

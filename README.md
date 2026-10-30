@@ -1,6 +1,8 @@
-# navin. — portfolio
+# Navin Byron Llanes — portfolio
 
-Personal portfolio of Navin Byron Llanes, built with [Astro](https://astro.build) 7 and [Anime.js](https://animejs.com) 4. The site is fully static: every page is pre-rendered HTML, and the only client JavaScript handles the interactive parts (typing race, dialogs, theme, keyboard shortcuts, motion).
+A single-page portfolio built with [Astro](https://astro.build) 7, styled as a retro game's player's guide: midnight background, pixel lettering, an original pixel-art avatar and item icons. Fully static, no UI framework; [Anime.js](https://animejs.com) handles the stepped entrance and scroll reveals.
+
+Chapters: cover → player profile (about) → inventory (projects) → world map (experience & education) → loadout (skills) → side quests (learning) → continue? (contact). The sticky header links to each one, smooth-scrolls there, highlights the chapter in view and fills a progress meter. Optional chiptune interface sounds stay off until the visitor turns them on.
 
 ## Commands
 
@@ -17,47 +19,43 @@ Requires Node.js 22.22 or newer (Astro 7 requirement).
 
 ## Editing content
 
-All text, links, and images live in **`src/data/site.ts`**: projects, experience, stack, certificates, contact details, and the typing-test benchmark (92 wpm / 97%).
+Everything lives in **`src/data/site.ts`**:
 
-- A project link or certificate **Verify** link only appears when its `url` / `verifyUrl` is set. Leave it `undefined` to hide it.
-- Certificate and photo images go in `src/assets/`. Astro resizes them and converts them to WebP/AVIF at build time.
+- `person`: name, headline, statement, the cover's typed `status` line, contact details, and `resume`.
+- `projects`: problem, description, status, stack, role, icon, screenshot, links. A link only appears when its `url`/`demo` is set.
+- `story` and `profile` (About), `experience`, `education`, `honors`, `certificates`, `skills`, `quests`.
 
-## Deploying (Vercel or Netlify)
+Common tasks:
 
-Both platforms detect Astro automatically. The build command is `npm run build` and the output directory is `dist`.
+- **Add a project screenshot**: put the image in `src/assets/projects/`, import it at the top of `site.ts`, and set `image: { src, alt }` on the project. A project with a screenshot gets the wide, featured layout.
+- **Add your résumé**: save it as `public/resume.pdf` and set `resume: '/resume.pdf'` in `person`. The Contact section then shows a download link.
+- **Change the photo**: change the import at the top of `src/components/sections/Profile.astro` (and the Open Graph image in `src/layouts/Base.astro`).
+- **Redraw the pixel art**: the avatar and icons are character grids in `src/components/PixelAvatar.astro` and `PixelIcon.astro`; each character is one pixel.
 
-Set the `SITE_URL` environment variable to the final domain (see `.env.example`). It is used for canonical URLs, Open Graph tags, `robots.txt`, and `sitemap-index.xml`. Without it, a placeholder domain is used.
+Images in `src/assets/` are resized and converted to AVIF/WebP at build time.
 
 ## Structure
 
 ```
 src/
-  data/site.ts          content (single source of truth)
-  layouts/Base.astro    <head>/SEO, theme bootstrapping, board, footer, dialogs
-  components/           Board (keycap nav), Footer, EmailDialog, TypingTest, Icon
-  pages/                /, /projects, /experience, /stack, /certifications, 404, robots.txt
-  scripts/              client modules (see below)
-  styles/global.css     design tokens ("NAVIN/92" colorway), keycap component, base styles
+  data/site.ts              content (single source of truth)
+  layouts/Base.astro        <head>/SEO, theme bootstrap, header, footer
+  components/
+    Header.astro            sticky header, mobile menu, sound switch, progress meter
+    PixelAvatar.astro, PixelIcon.astro   original pixel art (SVG grids)
+    Footer.astro, Icon.astro
+    sections/               Cover, Profile, Inventory, Journey, Loadout, SideQuests, Continue, ChapterHead
+  lib/sound.ts              Web Audio interface sounds (off by default)
+  scripts/                  header, copy-email, motion
+  pages/                    index, 404, robots.txt
 ```
 
-### Client scripts and the page lifecycle
+## Accessibility and motion
 
-The site uses Astro's `<ClientRouter />` for smooth page swaps. The client bundle (`src/scripts/main.ts`) therefore runs **once**, while the page DOM is replaced on every navigation. Every module that touches the page exports an `init…()` function that returns a cleanup function:
+- Skip link, semantic landmarks, visible amber focus rings, keyboard support for the menu (Esc closes it).
+- Content is visible without JavaScript. With `prefers-reduced-motion`, smooth scrolling, reveals, typing and blinking are all turned off.
+- Sound is synthesised in the browser (no audio files). Nothing plays until the visitor presses **Sound off** to turn it on; the choice is saved in `localStorage`.
 
-- `astro:page-load`: run all `init…()` functions.
-- `astro:before-swap`: run every cleanup. It aborts listeners via `AbortController`, disconnects observers, and reverts Anime.js animations.
+## Deploying (Vercel or Netlify)
 
-This prevents duplicate listeners and lingering animations after navigation. The theme and the `motion-ok` class are copied onto the incoming document in `astro:before-swap` (inline script in `Base.astro`), so there is no flash between pages.
-
-### Motion
-
-- **Intro**: on the home page, NAVIN types in letter by letter, then the rest settles (`playIntro`, Anime.js timeline).
-- **Reveals**: lists (projects, roles, stack groups, certificates, home index) stagger in when they scroll into view, using IntersectionObserver plus Anime.js.
-- **Dialogs**: open and close with Anime.js. They are native `<dialog>` elements, which provide focus trapping and Esc handling.
-- **Keycaps**: press feedback is CSS. Keyboard shortcuts (H, P, E, S, C, T) press the matching on-screen key before navigating.
-
-Content is visible by default. Elements are pre-hidden only when `<html class="motion-ok">` is set, which happens only when JavaScript runs and the visitor hasn't asked for reduced motion. If the motion bundle fails to boot, a 3-second failsafe shows everything. With `prefers-reduced-motion`, the intro and reveals are skipped and dialogs use short fades.
-
-## Design notes
-
-`PRODUCT.md` records the product facts. `.impeccable/` holds the direction contract used during the redesign with the [Impeccable](https://impeccable.style) design skill.
+Both detect Astro automatically: build command `npm run build`, output `dist`. Set `SITE_URL` to the final domain.

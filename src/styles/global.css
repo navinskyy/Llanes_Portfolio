@@ -1,76 +1,62 @@
 /* ==========================================================================
-   The Drawing Set: design tokens
-   A white drafting sheet, near-black linework, a grey hairline for secondary
-   lines, and one blueprint blue for the primary action, the current sheet and
-   the scroll progress. Day is the default; Night follows the OS until the
-   visitor picks a set.
+   The player's guide: design tokens
+   Midnight booklet stock, warm off-white print, four small accents with fixed
+   jobs. Pixel lettering for the cover and chapter titles, a plain sans for
+   reading, mono for dates and numbers. One notched pixel window repeats.
    ========================================================================== */
 :root {
   /* colour */
-  --paper: #fbfbfa;
-  --paper-2: #f0f1f0;      /* wells, row hover */
-  --ink: #121314;
-  --ink-2: #55585c;        /* secondary text, 7:1 on paper */
-  --line: #121314;         /* primary linework */
-  --hair: #c9cbcd;         /* secondary hairlines, decorative only */
-  --blue: #2b4cff;         /* white on it is 5.9:1 */
-  --blue-press: #1e38d6;
-  --on-blue: #ffffff;
-  --scrim: rgb(10 11 12 / 0.6);
+  --bg: #0f1020;           /* booklet stock */
+  --bg-deep: #0a0b17;      /* cover, footer */
+  --panel: #161830;        /* inside a window */
+  --panel-2: #1d2040;      /* slots, hovered rows */
+  --fg: #efe6d2;           /* print */
+  --muted: #b0a993;        /* secondary print, 7.9:1 on --bg */
+  --faint: #7d7867;        /* non-essential metadata, 4.3:1 */
+  --frame: #3a3e6b;        /* window frames, rules */
+  --frame-hi: #5a5f9a;     /* hovered frame */
+  --amber: #f2b84b;        /* cursor, progress, current chapter */
+  --green: #7fd68f;        /* live / cleared */
+  --red: #e86f5f;          /* in progress */
+  --blue: #7fb2ff;         /* links */
+  --scrim: rgb(6 6 14 / 0.7);
 
   /* type */
-  --ff: var(--font-sheet), 'Arial', sans-serif;
-  --ff-note: var(--font-note), 'Arial Narrow', sans-serif;
-  --fs-xs: 0.75rem;   /* 12 */
-  --fs-sm: 0.875rem;  /* 14 */
-  --fs-md: 1rem;      /* 16 */
-  --fs-lg: 1.25rem;   /* 20 */
-  --fs-xl: 1.625rem;  /* 26 */
-  --fs-title: clamp(2rem, 1.1rem + 2.6vw, 3.5rem);
-  --fs-sheet: clamp(2.75rem, 1rem + 5.4vw, 6rem);
-  --fs-display: clamp(5rem, 0.5rem + 15vw, 14rem);
+  --ff-pixel: var(--font-pixel), ui-monospace, monospace;
+  --ff-sans: var(--font-sans), system-ui, sans-serif;
+  --ff-mono: var(--font-mono), ui-monospace, monospace;
+  --fs-xs: 0.75rem;    /* 12 */
+  --fs-sm: 0.875rem;   /* 14 */
+  --fs-md: 1rem;       /* 16 */
+  --fs-lg: 1.125rem;   /* 18 */
+  --fs-xl: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  --fs-h2: clamp(2.25rem, 1.6rem + 2.6vw, 4rem);
+  --fs-display: clamp(3.25rem, 1.4rem + 7.4vw, 6rem);
 
-  /* space: 4px unit */
+  /* space: 4px unit, which is also one art pixel */
   --s-1: 0.25rem;
   --s-2: 0.5rem;
   --s-3: 0.75rem;
   --s-4: 1rem;
+  --s-5: 1.25rem;
   --s-6: 1.5rem;
   --s-8: 2rem;
+  --s-10: 2.5rem;
   --s-12: 3rem;
   --s-16: 4rem;
   --s-24: 6rem;
   --s-32: 8rem;
 
-  /* line weights: the border line, object lines, and grey hairlines (--hair) */
-  --w-heavy: 2px;
-  --w-line: 1px;
+  /* layout */
+  --header: 64px;
+  --wrap: 1160px;
+  --gutter: clamp(1rem, 0.4rem + 3vw, 3rem);
 
-  /* the sheet frame */
-  --frame: clamp(8px, 1.4vw, 20px);
-  --bar: 48px;
-  --pad: clamp(1rem, 0.4rem + 2.6vw, 3rem);
-  --measure: 66ch;
-
-  /* motion */
+  /* motion: steps for anything pixel, an exponential ease for everything else */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --t-fast: 140ms;
+  --t-fast: 120ms;
   --t-base: 240ms;
 
-  color-scheme: light;
-}
-
-:root[data-theme='dark'] {
-  --paper: #111315;
-  --paper-2: #1a1d20;
-  --ink: #e9eaeb;
-  --ink-2: #a3a7ac;
-  --line: #e9eaeb;
-  --hair: #34383d;
-  --blue: #8196ff;
-  --blue-press: #a2b1ff;
-  --on-blue: #0a0d1f;
-  --scrim: rgb(0 0 0 / 0.7);
   color-scheme: dark;
 }
 
@@ -85,44 +71,60 @@
 }
 html {
   -webkit-text-size-adjust: 100%;
-  scrollbar-color: var(--ink-2) var(--paper);
-  scrollbar-width: thin;
-  scroll-padding-top: calc(var(--frame) + var(--bar));
+  scroll-padding-top: calc(var(--header) + var(--s-4));
+  scrollbar-color: var(--frame) var(--bg-deep);
+  background: var(--bg-deep);
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--frame);
+  border: 3px solid var(--bg-deep);
 }
 body {
   min-height: 100dvh;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--ff);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--ff-sans);
   font-size: var(--fs-md);
-  line-height: 1.6;
-  font-variant-numeric: tabular-nums;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+  caret-color: var(--amber);
 }
 img,
 svg {
   display: block;
   max-width: 100%;
 }
-button,
-input {
+button {
   font: inherit;
   color: inherit;
+  cursor: pointer;
 }
 h1,
 h2,
 h3 {
+  font-weight: 400;
+  line-height: 1.1;
   text-wrap: balance;
-  line-height: 1.05;
 }
 p {
   text-wrap: pretty;
 }
 a {
   color: inherit;
-  text-underline-offset: 0.22em;
-  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 2px;
 }
 ul[role='list'],
 ol[role='list'] {
@@ -130,11 +132,11 @@ ol[role='list'] {
   padding: 0;
 }
 ::selection {
-  background: var(--blue);
-  color: var(--on-blue);
+  background: var(--amber);
+  color: var(--bg-deep);
 }
 :focus-visible {
-  outline: 2px solid var(--blue);
+  outline: 2px solid var(--amber);
   outline-offset: 3px;
 }
 .visually-hidden {
@@ -146,93 +148,183 @@ ol[role='list'] {
   white-space: nowrap;
 }
 
-/* Annotation voice: narrow caps, the lettering of a drawing's notes. */
-.note {
-  font-family: var(--ff-note);
+/* ---------- shared atoms ---------- */
+.wrap {
+  width: 100%;
+  max-width: calc(var(--wrap) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.pixel {
+  font-family: var(--ff-pixel);
+  letter-spacing: 0.01em;
+}
+.mono {
+  font-family: var(--ff-mono);
+  font-variant-numeric: tabular-nums;
+}
+/* Small all-caps pixel label: statuses, keys, window titles. */
+.tag {
+  font-family: var(--ff-pixel);
   font-size: var(--fs-xs);
-  font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  line-height: 1;
 }
 
-/* ---------- buttons: square, line-drawn ---------- */
-.btn {
+/* The window: a 2px frame whose corner pixels are missing, as on a 16-bit
+   menu box. Used for every panel; nothing else on the page is boxed. */
+.win {
+  position: relative;
+  background: var(--panel);
+  border: 2px solid var(--frame);
+  clip-path: polygon(
+    2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px,
+    100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%,
+    2px calc(100% - 2px), 0 calc(100% - 2px), 0 2px, 2px 2px
+  );
+}
+/* A window's title bar: label left, optional detail right. */
+.win-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--s-4);
+  padding: var(--s-2) var(--s-4);
+  border-bottom: 2px solid var(--frame);
+  color: var(--muted);
+}
+
+/* Link with a pixel arrow; blue like every link in the guide. */
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-weight: 500;
+  color: var(--blue);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--blue) 40%, transparent);
+  transition:
+    color var(--t-fast) ease,
+    text-decoration-color var(--t-fast) ease;
+}
+.link:hover {
+  color: var(--fg);
+  text-decoration-color: var(--amber);
+}
+.link svg {
+  width: 12px;
+  height: 12px;
+  transition: transform var(--t-base) steps(2);
+}
+.link:hover svg {
+  transform: translate(2px, -2px);
+}
+
+/* Buttons are keys: pixel label, notched frame, they press down 2px. */
+.key {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--s-2);
-  min-height: 48px;
-  padding: 0 var(--s-6);
-  border: 1px solid var(--line);
-  background: transparent;
-  color: var(--ink);
-  font-family: var(--ff);
-  font-size: 0.9375rem;
-  font-weight: 600;
-  line-height: 1.2;
+  min-height: 44px;
+  padding: 0 var(--s-5);
+  border: 2px solid var(--frame-hi);
+  background: var(--panel-2);
+  font-family: var(--ff-pixel);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   text-decoration: none;
   white-space: nowrap;
-  cursor: pointer;
+  clip-path: polygon(
+    2px 0, calc(100% - 2px) 0, calc(100% - 2px) 2px, 100% 2px,
+    100% calc(100% - 2px), calc(100% - 2px) calc(100% - 2px), calc(100% - 2px) 100%, 2px 100%,
+    2px calc(100% - 2px), 0 calc(100% - 2px), 0 2px, 2px 2px
+  );
   transition:
-    background-color var(--t-fast) ease,
-    color var(--t-fast) ease,
-    border-color var(--t-fast) ease;
-  -webkit-tap-highlight-color: transparent;
+    background-color var(--t-fast) steps(2),
+    border-color var(--t-fast) steps(2),
+    color var(--t-fast) steps(2);
 }
-.btn:hover {
-  background: var(--ink);
-  color: var(--paper);
+.key:hover {
+  border-color: var(--amber);
+  color: var(--amber);
 }
-.btn:active {
-  transform: translateY(1px);
+.key:active {
+  transform: translateY(2px);
 }
-.btn svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
+.key:focus-visible {
+  outline-offset: -6px;
 }
-.btn--primary {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: var(--on-blue);
+.key svg {
+  width: 16px;
+  height: 16px;
 }
-.btn--primary:hover {
-  background: var(--blue-press);
-  border-color: var(--blue-press);
-  color: var(--on-blue);
+.key--primary {
+  background: var(--amber);
+  border-color: var(--amber);
+  color: var(--bg-deep);
 }
-.btn--icon {
-  min-width: 48px;
-  padding: 0;
-}
-.btn--quiet {
-  border-color: transparent;
-}
-.btn--quiet:hover {
-  background: var(--paper-2);
-  color: var(--ink);
+.key--primary:hover {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--bg-deep);
 }
 
-/* Elements revealed by script are visible unless <html class="motion-ok">
-   (set only when JS runs and reduced motion is off); motion.ts brings them in. */
-.motion-ok [data-intro]:not([data-shown]),
+/* Status chip: a square pixel lamp plus a pixel label. */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--lamp, var(--muted));
+}
+.status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: currentColor;
+}
+.status[data-status='Live'],
+.status[data-status='Cleared'] {
+  --lamp: var(--green);
+}
+.status[data-status='In progress'] {
+  --lamp: var(--red);
+}
+.status[data-status='Early stage'],
+.status[data-status='Active'] {
+  --lamp: var(--amber);
+}
+.status[data-status='Research'],
+.status[data-status='Training'] {
+  --lamp: var(--blue);
+}
+
+/* Elements revealed by script stay visible unless <html class="motion-ok">
+   (set only when JS runs and reduced motion is off). */
 .motion-ok [data-reveal]:not([data-shown]) {
   opacity: 0;
-}
-.motion-ok [data-intro-letter]:not([data-shown]) {
-  transform: translateY(105%);
-}
-.motion-ok [data-intro-dim]:not([data-shown]) .dim-line {
-  transform: scaleX(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    scroll-behavior: auto !important;
     transition-duration: 1ms !important;
     animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ---------- chapters ---------- */
+.chapter {
+  padding-block: var(--s-24);
+}
+.chapter + .chapter {
+  border-top: 2px dashed var(--frame);
+}
+@media (max-width: 860px) {
+  .chapter {
+    padding-block: var(--s-16);
   }
 }

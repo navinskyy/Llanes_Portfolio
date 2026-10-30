@@ -1,0 +1,52 @@
+---
+// Chapter heading: the game-world title in pixel lettering, the plain-language
+// name beside it, and the guide's page number at the far right.
+import { sections, type SectionId } from '../../data/site';
+
+interface Props {
+  id: SectionId;
+}
+const { id } = Astro.props;
+const index = sections.findIndex((s) => s.id === id);
+const { title, plain } = sections[index];
+---
+
+<header class="chapter-head" data-reveal>
+  <h2 id={`${id}-title`} class="pixel">{title}</h2>
+  <p class="plain">{plain}</p>
+  <p class="page mono" aria-hidden="true">p.{String(index + 1).padStart(2, '0')}</p>
+</header>
+
+<style>
+  .chapter-head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: baseline;
+    gap: var(--s-2) var(--s-6);
+    padding-bottom: var(--s-6);
+    margin-bottom: var(--s-12);
+    border-bottom: 2px solid var(--frame);
+  }
+  h2 {
+    font-size: var(--fs-h2);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .plain {
+    color: var(--muted);
+  }
+  .page {
+    font-size: var(--fs-xs);
+    color: var(--faint);
+  }
+  @media (max-width: 600px) {
+    .chapter-head {
+      grid-template-columns: 1fr auto;
+      margin-bottom: var(--s-8);
+    }
+    .plain {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+  }
+</style>

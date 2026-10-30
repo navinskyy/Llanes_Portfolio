@@ -1,32 +1,26 @@
 ---
 import { Font, getImage } from 'astro:assets';
-import 'lenis/dist/lenis.css';
 import '../styles/global.css';
-import SheetIndex from '../components/SheetIndex.astro';
-import TitleBlock from '../components/TitleBlock.astro';
-import EmailDialog from '../components/EmailDialog.astro';
-import TypingTest from '../components/TypingTest.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import favicon from '../assets/favicon.png';
-import portrait from '../assets/photos/navin.jpg';
+import portrait from '../assets/photos/navin-selfie.jpg';
 import { person } from '../data/site';
 
 interface Props {
   title?: string;
   description?: string;
-  /** Pages outside the one-page set link their index back to the home sheets. */
-  indexBase?: string;
+  /** False on pages other than the single page, so header links point back to it. */
+  home?: boolean;
 }
 
 const {
   title,
-  description = `${person.fullName} — Computer Science student at ${person.school}, focused on front-end development and UI design.`,
-  indexBase,
+  description = `${person.fullName}, ${person.role} at ${person.school}. Practical software, AI-powered applications and cybersecurity projects.`,
+  home = true,
 } = Astro.props;
 
-// Grid references along the frame edge, as on every sheet of a drawing set.
-const refs = ['A', 'B', 'C', 'D', 'E', 'F'];
-
-const fullTitle = title ? `${title} · ${person.fullName}` : `${person.fullName} — Front-end & UI`;
+const fullTitle = title ? `${title} · ${person.displayName}` : `${person.displayName} · Player's guide`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 // The source favicon is a 1.3 MB PNG; ship small derived versions instead.
 const icon32 = await getImage({ src: favicon, width: 32, height: 32, format: 'png' });
@@ -45,8 +39,7 @@ const ogImage = await getImage({ src: portrait, width: 1200, format: 'jpg' });
     <link rel="icon" type="image/png" sizes="32x32" href={icon32.src} />
     <link rel="apple-touch-icon" href={icon180.src} />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#111315" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#0a0b17" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={person.fullName} />
@@ -56,43 +49,29 @@ const ogImage = await getImage({ src: portrait, width: 1200, format: 'jpg' });
     <meta property="og:image" content={new URL(ogImage.src, Astro.site)} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <Font cssVariable="--font-sheet" preload />
-    <Font cssVariable="--font-note" />
+    <Font cssVariable="--font-pixel" preload />
+    <Font cssVariable="--font-sans" preload />
+    <Font cssVariable="--font-mono" />
 
-    <!-- Apply the saved or OS theme before first paint. -->
+    <!-- Reveal pre-hiding only when motion is welcome; if scripts never boot,
+         everything shows after 3 s. -->
     <script is:inline>
-      (() => {
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const root = document.documentElement;
-        try {
-          const saved = localStorage.getItem('theme');
-          root.dataset.theme = saved === 'light' || saved === 'dark' ? saved : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        } catch {
-          root.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-        // Allow intro/reveal pre-hiding only when motion is welcome; if the
-        // motion bundle never boots, show everything after 3 s.
-        if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-          root.classList.add('motion-ok');
-          setTimeout(() => {
-            if (!window.__motionReady) root.classList.remove('motion-ok');
-          }, 3000);
-        }
-      })();
+        root.classList.add('motion-ok');
+        setTimeout(() => {
+          if (!window.__motionReady) root.classList.remove('motion-ok');
+        }, 3000);
+      }
     </script>
   </head>
   <body>
-    <a class="skip-link btn btn--primary" href="#main">Skip to content</a>
-    <div class="frame" data-frame aria-hidden="true">
-      <ol class="refs refs--l">{refs.map((r) => <li>{r}</li>)}</ol>
-      <ol class="refs refs--r">{refs.map((r) => <li>{r}</li>)}</ol>
-    </div>
-    <SheetIndex base={indexBase} />
+    <a class="skip-link key key--primary" href="#main">Skip to content</a>
+    <Header home={home} />
     <main id="main" tabindex="-1">
       <slot />
     </main>
-    <TitleBlock />
-    <EmailDialog />
-    <TypingTest />
+    <Footer />
 
     <script>
       import { boot } from '../scripts/main';
@@ -102,72 +81,6 @@ const ogImage = await getImage({ src: portrait, width: 1200, format: 'jpg' });
 </html>
 
 <style>
-  /* The viewport is the drawing sheet: one hairline border inset on all
-     sides, with the index along its top edge. */
-  .frame {
-    position: fixed;
-    z-index: 20;
-    inset: var(--frame);
-    border: var(--w-heavy) solid var(--line);
-    pointer-events: none;
-  }
-  /* Paper outside the frame masks content scrolling past the border. */
-  .frame::before {
-    content: '';
-    position: absolute;
-    inset: calc(var(--frame) * -1 - var(--w-heavy));
-    border: var(--frame) solid var(--paper);
-  }
-  /* Reference letters sit in the margin outside the border; each carries a
-     tick that crosses into the sheet. */
-  .refs {
-    position: absolute;
-    top: var(--bar);
-    bottom: 0;
-    width: var(--frame);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    list-style: none;
-    padding: 0;
-    font-family: var(--ff-note);
-    font-size: 0.625rem;
-    font-weight: 600;
-    color: var(--ink-2);
-    text-align: center;
-  }
-  .refs--l {
-    left: calc(var(--frame) * -1 - var(--w-heavy));
-  }
-  .refs--r {
-    right: calc(var(--frame) * -1 - var(--w-heavy));
-  }
-  .refs li {
-    position: relative;
-    line-height: 1;
-  }
-  .refs li::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    width: 8px;
-    height: 1px;
-    background: var(--line);
-  }
-  .refs--l li::after {
-    left: 100%;
-  }
-  .refs--r li::after {
-    right: 100%;
-  }
-  @media (max-width: 760px) {
-    .refs {
-      display: none;
-    }
-  }
-  main {
-    padding: calc(var(--frame) + var(--bar)) calc(var(--frame) + var(--w-heavy)) var(--frame);
-  }
   main:focus {
     outline: none;
   }
@@ -175,7 +88,7 @@ const ogImage = await getImage({ src: portrait, width: 1200, format: 'jpg' });
     position: fixed;
     top: var(--s-3);
     left: var(--s-3);
-    z-index: 50;
+    z-index: 60;
     transform: translateY(-200%);
   }
   .skip-link:focus {
