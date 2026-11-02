@@ -1,12 +1,14 @@
 ---
 import { Picture } from 'astro:assets';
 import ChapterHead from './ChapterHead.astro';
+import HomeBase from '../scenes/HomeBase.astro';
 // Swap this import to change the photo.
 import photo from '../../assets/photos/navin-selfie.jpg';
 import { person, profile, story } from '../../data/site';
 ---
 
 <section id="about" class="chapter" aria-labelledby="about-title">
+  <HomeBase />
   <div class="wrap">
     <ChapterHead id="about" />
     <div class="grid">

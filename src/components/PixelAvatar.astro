@@ -128,19 +128,20 @@ const viewBox = crop === 'head' ? '7 0 34 34' : '0 0 48 48';
   </g>
 </svg>
 
-<style>
+<!-- Global so the hundreds of rects don't each carry a scoping attribute. -->
+<style is:global>
   .pixel-avatar {
     image-rendering: pixelated;
   }
-  .lids {
+  .pixel-avatar .lids {
     opacity: 0;
   }
   @media (prefers-reduced-motion: no-preference) {
-    .lids {
-      animation: blink 5.2s steps(1) infinite;
+    .pixel-avatar .lids {
+      animation: avatar-blink 5.2s steps(1) infinite;
     }
   }
-  @keyframes blink {
+  @keyframes avatar-blink {
     0%,
     95%,
     100% {

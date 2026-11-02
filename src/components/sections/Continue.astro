@@ -4,10 +4,12 @@
 import Icon from '../Icon.astro';
 import PixelAvatar from '../PixelAvatar.astro';
 import ChapterHead from './ChapterHead.astro';
+import FinalDestination from '../scenes/FinalDestination.astro';
 import { person, socials } from '../../data/site';
 ---
 
 <section id="contact" class="chapter" aria-labelledby="contact-title">
+  <FinalDestination />
   <div class="wrap">
     <ChapterHead id="contact" />
     <div class="grid" data-reveal>
@@ -76,6 +78,10 @@ import { person, socials } from '../../data/site';
 </section>
 
 <style>
+  /* Room below the content for the skyline the guide ends on. */
+  section {
+    padding-bottom: calc(var(--s-24) + 120px);
+  }
   .grid {
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);

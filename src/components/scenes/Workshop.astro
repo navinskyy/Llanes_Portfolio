@@ -1,0 +1,125 @@
+---
+// Skills: the developer's workshop. Circuit traces run under the chapter,
+// server racks blink at one side and a terminal hums at the other, code
+// glyphs float in the margins and the chapter rests on a workbench edge.
+import Scene from './Scene.astro';
+import Sprite from './Sprite.astro';
+import Strip from './Strip.astro';
+import { tile, type PixelRect } from '../../lib/pixels';
+import { glyphBraces, glyphCode, glyphLock, glyphPrompt, monitor, rack, world as W } from '../../lib/sprites';
+
+// A 48×48 circuit tile: traces with right-angle turns and square pads.
+const T = 'rgba(127,214,143,0.06)';
+const P = 'rgba(127,214,143,0.11)';
+const traces: PixelRect[] = [
+  { x: 0, y: 8, w: 14, fill: T },
+  { x: 14, y: 8, w: 1, h: 12, fill: T },
+  { x: 14, y: 20, w: 20, fill: T },
+  { x: 34, y: 4, w: 1, h: 16, fill: T },
+  { x: 34, y: 4, w: 14, fill: T },
+  { x: 6, y: 30, w: 1, h: 18, fill: T },
+  { x: 6, y: 30, w: 16, fill: T },
+  { x: 40, y: 20, w: 1, h: 28, fill: T },
+  { x: 24, y: 36, w: 16, fill: T },
+  { x: 13, y: 7, w: 3, h: 3, fill: P },
+  { x: 33, y: 19, w: 3, h: 3, fill: P },
+  { x: 21, y: 29, w: 3, h: 3, fill: P },
+  { x: 23, y: 35, w: 3, h: 3, fill: P },
+  { x: 39, y: 46, w: 3, h: 2, fill: P },
+];
+const circuit = tile(48, 48, traces);
+const bench = tile(16, 6, [
+  { x: 0, y: 0, w: 16, fill: W.edge },
+  { x: 0, y: 1, w: 16, h: 5, fill: W.sil },
+  { x: 15, y: 1, w: 1, h: 5, fill: W.sil2 },
+]);
+const leds = [W.green, W.amber, W.blue];
+---
+
+<Scene tint="rgb(127 214 143 / 0.05)" texture={circuit}>
+  <div class="set">
+    <div class="lamp lamp--g" data-pulse></div>
+    <div class="lamp lamp--b" data-pulse></div>
+
+    <div class="racks edge">
+      <Sprite pic={rack} px={4} blink={leds} />
+      <Sprite pic={rack} px={3} blink={leds} class="rack-2" />
+    </div>
+    <div class="desk edge">
+      <Sprite pic={monitor} px={4} blink={[W.amber]} />
+    </div>
+
+    <div class="glyph glyph--a edge" data-depth="1.2"><Sprite pic={glyphCode} px={4} data-float="8" /></div>
+    <div class="glyph glyph--b edge" data-depth="0.7"><Sprite pic={glyphBraces} px={4} data-float="6" /></div>
+    <div class="glyph glyph--c edge" data-depth="1"><Sprite pic={glyphLock} px={4} data-float="6" /></div>
+    <div class="glyph glyph--d wide" data-depth="0.5"><Sprite pic={glyphPrompt} px={3} data-float="4" /></div>
+
+    <Strip tile={bench} px={4} data-ground />
+  </div>
+</Scene>
+
+<style>
+  .set {
+    position: absolute;
+    inset: 0;
+  }
+  .lamp {
+    position: absolute;
+    bottom: -120px;
+    width: 520px;
+    height: 360px;
+    background: radial-gradient(closest-side, rgb(127 214 143 / 0.08), transparent);
+  }
+  .lamp--g {
+    left: -140px;
+  }
+  .lamp--b {
+    right: -140px;
+    background: radial-gradient(closest-side, rgb(127 178 255 / 0.08), transparent);
+  }
+  .racks,
+  .desk {
+    position: absolute;
+    bottom: 24px;
+  }
+  .racks {
+    left: var(--side);
+    width: 88px;
+    height: 72px;
+  }
+  .racks :global(.sprite) {
+    bottom: 0;
+    left: 0;
+  }
+  .racks :global(.rack-2) {
+    left: 48px;
+  }
+  .desk {
+    right: var(--side);
+    width: 64px;
+    height: 52px;
+  }
+  .glyph {
+    position: absolute;
+  }
+  .glyph :global(.sprite) {
+    position: relative;
+  }
+  .glyph--a {
+    top: 18%;
+    left: calc(var(--side) + 20px);
+  }
+  .glyph--b {
+    top: 30%;
+    right: calc(var(--side) + 24px);
+  }
+  .glyph--c {
+    top: 52%;
+    left: calc(var(--side) + 52px);
+  }
+  .glyph--d {
+    top: 4%;
+    right: 34%;
+    opacity: 0.8;
+  }
+</style>

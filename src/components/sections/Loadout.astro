@@ -2,10 +2,12 @@
 // Skills as an equipment screen: one bag per group, one slot per item.
 // No levels or bars; a group still being learned is marked Training.
 import ChapterHead from './ChapterHead.astro';
+import Workshop from '../scenes/Workshop.astro';
 import { skills } from '../../data/site';
 ---
 
 <section id="skills" class="chapter" aria-labelledby="skills-title">
+  <Workshop />
   <div class="wrap">
     <ChapterHead id="skills" />
     <div class="bags" data-reveal>

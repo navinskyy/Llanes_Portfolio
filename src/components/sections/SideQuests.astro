@@ -1,10 +1,12 @@
 ---
 // What Navin is exploring now, as a quest log. Edit `quests` in site.ts.
 import ChapterHead from './ChapterHead.astro';
+import Exploration from '../scenes/Exploration.astro';
 import { quests } from '../../data/site';
 ---
 
 <section id="learning" class="chapter" aria-labelledby="learning-title">
+  <Exploration />
   <div class="wrap">
     <ChapterHead id="learning" />
     <ol class="log" role="list" data-reveal>

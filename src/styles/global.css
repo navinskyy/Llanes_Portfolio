@@ -311,6 +311,16 @@ ol[role='list'] {
 .motion-ok [data-portrait]:not([data-shown]) {
   clip-path: inset(100% 0 0 0);
 }
+/* Chapter scenery fades in the first time it scrolls into view; particles and
+   shooting stars stay hidden until motion.ts starts them. */
+.motion-ok .chapter > [data-scene]:not([data-shown]),
+.motion-ok [data-rise],
+.motion-ok [data-shoot] {
+  opacity: 0;
+}
+html:not(.motion-ok) [data-shoot] {
+  display: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -324,7 +334,44 @@ ol[role='list'] {
 
 /* ---------- chapters ---------- */
 .chapter {
+  position: relative;
+  isolation: isolate;
   padding-block: var(--s-24);
+}
+
+/* ---------- scenery ----------
+   Each chapter has a scene behind it (src/components/scenes). Props beside the
+   content are `.edge` (only where the margins are wide enough to hold them);
+   larger props that sit behind content are `.wide` (hidden on phones). */
+.edge,
+.wide {
+  display: none;
+}
+@media (min-width: 861px) {
+  .wide {
+    display: block;
+  }
+}
+@media (min-width: 1440px) {
+  .edge {
+    display: block;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tw {
+    animation: twinkle 4s steps(1) infinite;
+  }
+}
+@keyframes twinkle {
+  0%,
+  60%,
+  100% {
+    opacity: 1;
+  }
+  70%,
+  90% {
+    opacity: 0.25;
+  }
 }
 .chapter + .chapter {
   border-top: 2px dashed var(--frame);

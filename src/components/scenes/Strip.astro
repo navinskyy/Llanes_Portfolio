@@ -1,0 +1,40 @@
+---
+// A full-width band of repeating scenery (hills, skylines, star fields),
+// anchored to the bottom of its scene unless `bottom` says otherwise. The
+// repeat is centred on the screen so bands stay balanced at every width.
+import type { Tile } from '../../lib/pixels';
+
+interface Props {
+  tile: Tile;
+  px?: number;
+  bottom?: string;
+  /** Shifts the repeat so stacked bands don't line up. */
+  offset?: number;
+  class?: string;
+  [attr: string]: unknown;
+}
+const { tile, px = 3, bottom = '0px', offset = 0, class: className, ...rest } = Astro.props;
+const style = [
+  `--img:${tile.url}`,
+  `--tw:${tile.w * px}px`,
+  `--th:${tile.h * px}px`,
+  `--b:${bottom}`,
+  `--off:${offset * px}px`,
+].join(';');
+---
+
+<div class:list={['strip', className]} style={style} {...rest}></div>
+
+<style>
+  .strip {
+    position: absolute;
+    inset-inline: 0;
+    bottom: var(--b);
+    height: var(--th);
+    background-image: var(--img);
+    background-size: var(--tw) var(--th);
+    background-repeat: repeat-x;
+    background-position: calc(50% + var(--off)) bottom;
+    image-rendering: pixelated;
+  }
+</style>

@@ -1,0 +1,49 @@
+---
+// One placed piece of scenery. `px` is the size of an art pixel on screen;
+// scenes keep to 3 (distance) or 4 (near) so the world shares one grain.
+// Rects whose fill is listed in `blink` get data-blink for motion.ts.
+// Any other attributes (style, data-float, data-depth…) pass through.
+import type { Pic } from '../../lib/pixels';
+
+interface Props {
+  pic: Pic;
+  px?: number;
+  class?: string;
+  blink?: string[];
+  [attr: string]: unknown;
+}
+const { pic, px = 4, class: className, blink = [], ...rest } = Astro.props;
+---
+
+<svg
+  class:list={['sprite', className]}
+  viewBox={`0 0 ${pic.w} ${pic.h}`}
+  width={pic.w * px}
+  height={pic.h * px}
+  shape-rendering="crispEdges"
+  aria-hidden="true"
+  focusable="false"
+  {...rest}
+>
+  {
+    pic.rects.map((r) => (
+      <rect
+        x={r.x}
+        y={r.y}
+        width={r.w}
+        height={r.h ?? 1}
+        fill={r.fill}
+        data-blink={blink.includes(r.fill) ? '' : undefined}
+      />
+    ))
+  }
+</svg>
+
+<!-- Global so the hundreds of rects don't each carry a scoping attribute. -->
+<style is:global>
+  .sprite {
+    position: absolute;
+    max-width: none;
+    image-rendering: pixelated;
+  }
+</style>

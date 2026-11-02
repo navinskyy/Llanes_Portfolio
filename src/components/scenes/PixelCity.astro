@@ -1,0 +1,148 @@
+---
+// Projects: the developer city. A street-plan grid underfoot, two skylines
+// with lit windows, rooftop neon and beacons, tall towers along the margins on
+// wide screens, drones drifting between them and a few windows that flicker.
+import Scene from './Scene.astro';
+import Sprite from './Sprite.astro';
+import Strip from './Strip.astro';
+import { seeded, skylineTile, tile, toPic, type PixelRect } from '../../lib/pixels';
+import { drone, world as W } from '../../lib/sprites';
+
+const streets = tile(32, 32, [
+  { x: 0, y: 0, w: 32, fill: 'rgba(127,178,255,0.05)' },
+  { x: 0, y: 0, w: 1, h: 32, fill: 'rgba(127,178,255,0.05)' },
+  { x: 15, y: 15, w: 2, h: 2, fill: 'rgba(155,123,255,0.07)' },
+]);
+const far = skylineTile({
+  seed: 21,
+  h: 48,
+  min: 16,
+  max: 44,
+  body: W.sil3,
+  edge: W.edge,
+  windows: [W.blueDim, W.violetDim],
+  lit: 0.1,
+});
+const near = skylineTile({
+  seed: 22,
+  h: 34,
+  min: 10,
+  max: 30,
+  body: W.sil,
+  edge: W.sil2,
+  windows: [W.amberDim, W.blueDim, W.violetDim],
+  lit: 0.22,
+  beacon: W.red,
+  neon: [W.violetDim, W.blueDim],
+});
+
+// A tall facade for the margin towers: a column of windows, some lit.
+const rand = seeded(23);
+const facadeRects: PixelRect[] = [{ x: 0, y: 0, w: 18, h: 30, fill: W.sil2 }];
+for (let y = 2; y < 30; y += 3) {
+  for (let x = 2; x < 17; x += 3) {
+    const r = rand();
+    facadeRects.push({ x, y, w: 1, fill: r < 0.18 ? W.amberDim : r < 0.3 ? W.blueDim : W.sil3 });
+  }
+}
+const facade = tile(18, 30, facadeRects);
+const antenna = toPic(['.a.', '.p.', '.p.', 'ppp'], { a: W.red, p: W.edge });
+
+// Windows that flicker, scattered along the near skyline (left %, bottom px).
+const flicker = Array.from({ length: 14 }, () => ({
+  x: (rand() * 96 + 2).toFixed(1),
+  y: 24 + Math.floor(rand() * 9) * 8,
+  c: [W.amber, W.blue, W.violet][Math.floor(rand() * 3)],
+}));
+---
+
+<Scene tint="rgb(127 178 255 / 0.06)" texture={streets}>
+  <div class="set">
+    <div class="tower tower--l edge" style={`--img:${facade.url}`}>
+      <Sprite pic={antenna} px={4} class="cap" blink={[W.red]} />
+      <span class="neon" data-pulse></span>
+    </div>
+    <div class="tower tower--r edge" style={`--img:${facade.url}`}>
+      <Sprite pic={antenna} px={4} class="cap" blink={[W.red]} />
+      <span class="neon neon--b" data-pulse></span>
+    </div>
+
+    <div class="lane lane--a edge" data-depth="1"><Sprite pic={drone} px={4} data-drift="72" /></div>
+    <div class="lane lane--b edge" data-depth="0.6"><Sprite pic={drone} px={3} data-drift="-56" /></div>
+    <div class="lane lane--c wide" data-depth="1.4"><Sprite pic={drone} px={3} data-drift="96" /></div>
+
+    <Strip tile={far} bottom="20px" offset={40} data-ground />
+    <Strip tile={near} px={4} />
+    {
+      flicker.map((f) => (
+        <span class="win-light wide" style={`left:${f.x}%;bottom:${f.y}px;background:${f.c}`} data-blink />
+      ))
+    }
+  </div>
+</Scene>
+
+<style>
+  .set {
+    position: absolute;
+    inset: 0;
+  }
+  .tower {
+    position: absolute;
+    bottom: 0;
+    width: 72px;
+    height: 62%;
+    background-image: var(--img);
+    background-size: 72px 120px;
+    image-rendering: pixelated;
+    border-top: 4px solid var(--violet-deep);
+  }
+  .tower--l {
+    left: var(--side);
+  }
+  .tower--r {
+    right: var(--side);
+    height: 48%;
+  }
+  .tower :global(.cap) {
+    top: -20px;
+    left: 30px;
+  }
+  .neon {
+    position: absolute;
+    top: 8%;
+    bottom: 0;
+    right: -4px;
+    width: 4px;
+    /* Dimness lives in the colour; data-pulse animates opacity. */
+    background: rgb(155 123 255 / 0.25);
+  }
+  .neon--b {
+    right: auto;
+    left: -4px;
+    background: rgb(127 178 255 / 0.25);
+  }
+  .lane {
+    position: absolute;
+  }
+  .lane--a {
+    top: 24%;
+    left: calc(var(--side) + 6px);
+  }
+  .lane--b {
+    top: 46%;
+    right: calc(var(--side) + 20px);
+  }
+  .lane--c {
+    top: 2%;
+    left: 56%;
+  }
+  .lane :global(.sprite) {
+    position: relative;
+  }
+  .win-light {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    opacity: 0.8;
+  }
+</style>

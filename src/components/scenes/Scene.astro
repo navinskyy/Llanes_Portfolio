@@ -1,0 +1,52 @@
+---
+// The backdrop behind one chapter. Every scene starts from the page colour at
+// its top edge and darkens toward its own ground at the bottom, so chapters
+// join like screens of one map. `tint` colours the air near the horizon and
+// `texture` lays a faint repeating pattern (map grid, circuit, dither…).
+// Props on the far sides use `.edge` and sit in the margins beside the content.
+import type { Tile } from '../../lib/pixels';
+
+interface Props {
+  tint: string;
+  texture?: Tile;
+  /** On-screen size of one texture pixel. */
+  texPx?: number;
+  class?: string;
+}
+const { tint, texture, texPx = 3, class: className } = Astro.props;
+const style = [
+  `--tint:${tint}`,
+  texture && `--tex:${texture.url}`,
+  texture && `--tex-size:${texture.w * texPx}px ${texture.h * texPx}px`,
+]
+  .filter(Boolean)
+  .join(';');
+---
+
+<div class:list={['scene', className]} style={style} aria-hidden="true" data-scene>
+  <slot />
+</div>
+
+<style>
+  .scene {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+    /* Side props anchor here: at the screen edge on laptops, and beside the
+       content column (not lost at the far edges) on ultrawide screens. */
+    --side: max(16px, calc(50% - var(--wrap) / 2 - 124px));
+    background: linear-gradient(180deg, transparent 0 30%, var(--tint) 100%);
+  }
+  /* Texture fades in below the chapter's top edge and out above its ground. */
+  .scene::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: var(--tex, none);
+    background-size: var(--tex-size, auto);
+    image-rendering: pixelated;
+    mask-image: linear-gradient(transparent, #000 25%, #000 75%, transparent);
+  }
+</style>

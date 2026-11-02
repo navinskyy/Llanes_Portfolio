@@ -1,0 +1,136 @@
+---
+// Journey: the world map. A faint map grid, and in the margins two regions of
+// the map: peaks, pines and landmarks joined by a dotted path with glowing
+// checkpoints, the way the timeline joins its stops. Clouds drift over the
+// top; rolling hills and a tree line close the chapter.
+import Scene from './Scene.astro';
+import Sprite from './Sprite.astro';
+import Strip from './Strip.astro';
+import { compose, line, ridgeTile, tile, type PixelRect } from '../../lib/pixels';
+import { castle, checkpoint, cloud, house, peak, pine, watchtower, world as W } from '../../lib/sprites';
+
+const grid = tile(16, 16, [
+  ...Array.from({ length: 8 }, (_, i) => ({ x: i * 2, y: 0, w: 1, fill: 'rgba(155,123,255,0.07)' })),
+  ...Array.from({ length: 8 }, (_, i) => ({ x: 0, y: i * 2, w: 1, fill: 'rgba(155,123,255,0.07)' })),
+]);
+
+const path = (pts: number[][]): PixelRect[] =>
+  pts.slice(1).flatMap(([x, y], i) => line(pts[i][0], pts[i][1], x, y, W.frame, 2));
+
+// Regions are 30×120 art pixels (120×480 on screen). Checkpoints are listed
+// separately so they can glow on their own.
+const westPath = [
+  [15, 16],
+  [10, 34],
+  [16, 54],
+  [8, 76],
+  [12, 98],
+  [20, 116],
+];
+const west = compose(
+  30,
+  120,
+  [
+    { pic: peak(8), x: 0, y: 2 },
+    { pic: peak(6), x: 14, y: 6 },
+    { pic: pine, x: 2, y: 22 },
+    { pic: pine, x: 22, y: 26 },
+    { pic: castle, x: 9, y: 40 },
+    { pic: pine, x: 1, y: 60 },
+    { pic: house, x: 2, y: 82 },
+    { pic: pine, x: 22, y: 86 },
+    { pic: pine, x: 17, y: 92 },
+  ],
+  path(westPath),
+);
+const eastPath = [
+  [6, 8],
+  [14, 26],
+  [22, 46],
+  [14, 70],
+  [18, 92],
+  [8, 114],
+];
+const east = compose(
+  30,
+  120,
+  [
+    { pic: watchtower, x: 3, y: 10 },
+    { pic: pine, x: 20, y: 12 },
+    { pic: pine, x: 24, y: 18 },
+    { pic: house, x: 18, y: 58 },
+    { pic: peak(9), x: 0, y: 78 },
+    { pic: peak(6), x: 18, y: 84 },
+    { pic: pine, x: 22, y: 104 },
+  ],
+  path(eastPath),
+);
+const westStops = [westPath[1], westPath[3], westPath[5]];
+const eastStops = [eastPath[1], eastPath[2], eastPath[4]];
+
+const hills = ridgeTile({ h: 20, base: 9, amp: 5, phase: 0.3, fill: W.sil2 });
+const nearHills = ridgeTile({ h: 12, base: 5, amp: 3, phase: 2.4, fill: W.sil });
+const treeline = tile(
+  48,
+  9,
+  [4, 13, 19, 31, 40].flatMap((x, i) =>
+    pine.rects.map((r) => ({ ...r, x: r.x + x, y: r.y + (i % 2), fill: r.fill === W.pine ? W.sil2 : r.fill === W.pineHi ? W.sil3 : W.sil })),
+  ),
+);
+---
+
+<Scene tint="rgb(90 150 160 / 0.06)" texture={grid}>
+  <div class="set">
+    <div class="region region--w edge" data-depth="0.6">
+      <Sprite pic={west} px={4} />
+      {westStops.map(([x, y]) => <Sprite pic={checkpoint} px={4} class="stop" style={`left:${(x - 2) * 4}px;top:${(y - 2) * 4}px`} data-pulse />)}
+    </div>
+    <div class="region region--e edge" data-depth="0.9">
+      <Sprite pic={east} px={4} />
+      {eastStops.map(([x, y]) => <Sprite pic={checkpoint} px={4} class="stop" style={`left:${(x - 2) * 4}px;top:${(y - 2) * 4}px`} data-pulse />)}
+    </div>
+
+    <Sprite pic={cloud} px={4} class="cloud cloud--a wide" data-drift="80" />
+    <Sprite pic={cloud} px={3} class="cloud cloud--b wide" data-drift="-64" />
+
+    <Strip tile={hills} bottom="16px" offset={12} data-ground />
+    <Strip tile={treeline} px={4} bottom="20px" class="wide" />
+    <Strip tile={nearHills} px={4} />
+  </div>
+</Scene>
+
+<style>
+  .set {
+    position: absolute;
+    inset: 0;
+  }
+  .region {
+    position: absolute;
+    top: 14%;
+    width: 120px;
+    height: 480px;
+    opacity: 0.85;
+  }
+  .region--w {
+    left: var(--side);
+  }
+  .region--e {
+    right: var(--side);
+    top: 20%;
+  }
+  .region :global(.sprite:first-child) {
+    left: 0;
+    top: 0;
+  }
+  .set :global(.cloud) {
+    opacity: 0.8;
+  }
+  .set :global(.cloud--a) {
+    top: 3%;
+    left: 30%;
+  }
+  .set :global(.cloud--b) {
+    top: 7%;
+    left: 70%;
+  }
+</style>

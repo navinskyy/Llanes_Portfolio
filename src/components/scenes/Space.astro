@@ -1,0 +1,196 @@
+---
+// The cover's backdrop, and the world's first screen: a pixel star field with
+// two faint constellations, a ringed planet, a small ship, the odd shooting
+// star and two bands of stepped hills. Generated at build time from a fixed
+// seed; motion.ts floats, drifts and fires the data-* pieces.
+import Sprite from './Sprite.astro';
+import Strip from './Strip.astro';
+import { line, ridgeTile, seeded, toPic, type PixelRect } from '../../lib/pixels';
+import { ship, streak, world } from '../../lib/sprites';
+
+const rand = seeded(1207);
+
+// Stars in a 320×180 field, kept out of the hills at the bottom.
+const stars = Array.from({ length: 64 }, (_, i) => ({
+  x: Math.floor(rand() * 320),
+  y: Math.floor(rand() * 140),
+  fill: ['var(--frame-hi)', 'var(--frame)', 'var(--violet)', 'var(--fg)'][Math.floor(rand() * 4)],
+  twinkle: i % 5 === 0,
+  delay: (rand() * 4).toFixed(2),
+}));
+// A few brighter plus-shaped stars.
+const bright = [
+  [38, 22],
+  [182, 14],
+  [264, 48],
+  [118, 96],
+  [296, 120],
+];
+// Two constellations: dotted lines between their stars.
+const constellations = [
+  [
+    [70, 30],
+    [84, 22],
+    [98, 27],
+    [106, 40],
+    [94, 48],
+  ],
+  [
+    [214, 70],
+    [226, 62],
+    [240, 66],
+    [236, 80],
+  ],
+];
+const links: PixelRect[] = constellations.flatMap((pts) =>
+  pts.slice(1).flatMap(([x, y], i) => line(pts[i][0], pts[i][1], x, y, 'var(--frame)', 3)),
+);
+const nodes = constellations.flat();
+
+const planet = toPic(
+  [
+    '.........oooooo.........',
+    '.......ooPPPPppoo.......',
+    '......oPPPPpppppqo......',
+    '.....oPPPpppppppqqo.....',
+    '....oPPpppppppppqqqo....',
+    '....oPpppppppppppqqo....',
+    '....oppppppppppppqqo....',
+    'rr..opppcppppppppqqo..rr',
+    '.rrrrrrrrrrrrrrrrrrrrrr.',
+    '..RRRRRRRRRRRRRRRRRRRR..',
+    '....oppppppppppcpqqo....',
+    '....oqpppppppppppqqo....',
+    '.....oqpppppppppqqo.....',
+    '......oqqpppppqqqo......',
+    '.......ooqqqqqqoo.......',
+    '.........oooooo.........',
+  ],
+  { o: '#1a1438', P: '#b49cff', p: '#7a5fd6', q: '#4a3a9a', c: '#5e48b8', r: world.amber, R: '#a8782a' },
+);
+
+// Drifting specks: position (%), size (px), colour, float distance (px).
+const specks = [
+  { x: 8, y: 30, s: 4, c: 'var(--violet)', f: 8 },
+  { x: 47, y: 18, s: 4, c: 'var(--amber)', f: 6 },
+  { x: 58, y: 64, s: 6, c: 'var(--frame-hi)', f: 10 },
+  { x: 21, y: 82, s: 4, c: 'var(--violet)', f: 6 },
+  { x: 91, y: 72, s: 4, c: 'var(--fg)', f: 8 },
+  { x: 74, y: 8, s: 4, c: 'var(--violet)', f: 6 },
+];
+
+const farHills = ridgeTile({ h: 16, base: 7, amp: 4, phase: 0.6, fill: '#14132a' });
+const nearHills = ridgeTile({ h: 16, base: 4, amp: 2.5, phase: 2.1, fill: '#1b1a3a' });
+---
+
+<div class="space" aria-hidden="true" data-scene>
+  <svg class="stars" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+    {links.map((r) => <rect x={r.x} y={r.y} width="1" height="1" fill={r.fill} opacity="0.6" />)}
+    {
+      stars.map((s) => (
+        <rect
+          class:list={{ tw: s.twinkle }}
+          style={s.twinkle ? `animation-delay:${s.delay}s` : undefined}
+          x={s.x}
+          y={s.y}
+          width="1"
+          height="1"
+          fill={s.fill}
+        />
+      ))
+    }
+    {nodes.map(([x, y]) => <rect class="tw" x={x} y={y} width="1" height="1" fill="var(--fg)" />)}
+    {
+      bright.map(([x, y]) => (
+        <g class="tw" fill="var(--fg)">
+          <rect x={x} y={y - 1} width="1" height="3" />
+          <rect x={x - 1} y={y} width="3" height="1" />
+        </g>
+      ))
+    }
+  </svg>
+
+  <div class="planet" data-depth="1">
+    <svg viewBox="0 0 24 16" shape-rendering="crispEdges" data-float="6">
+      {planet.rects.map((r) => <rect x={r.x} y={r.y} width={r.w} height="1" fill={r.fill} />)}
+    </svg>
+  </div>
+
+  <Sprite pic={ship} px={3} class="ship" data-drift="64" />
+  <Sprite pic={streak} px={3} class="shoot shoot--a" data-shoot />
+  <Sprite pic={streak} px={3} class="shoot shoot--b" data-shoot />
+
+  {
+    specks.map((p) => (
+      <span
+        class="speck"
+        data-float={p.f}
+        style={`left:${p.x}%;top:${p.y}%;width:${p.s}px;height:${p.s}px;background:${p.c}`}
+      />
+    ))
+  }
+
+  <Strip tile={farHills} bottom="32px" offset={21} />
+  <Strip tile={nearHills} px={2.25} bottom="32px" />
+</div>
+
+<style>
+  .space {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .stars {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    opacity: 0.85;
+  }
+
+  .planet {
+    position: absolute;
+    top: 7%;
+    right: 3%;
+    width: clamp(96px, 9vw, 144px);
+    opacity: 0.9;
+  }
+  .planet svg {
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+  }
+  .space :global(.ship) {
+    top: 9%;
+    left: 34%;
+  }
+  .space :global(.shoot--a) {
+    top: 6%;
+    left: 12%;
+  }
+  .space :global(.shoot--b) {
+    top: 30%;
+    left: 52%;
+  }
+  .speck {
+    position: absolute;
+    opacity: 0.55;
+  }
+
+  @media (max-width: 860px) {
+    .planet {
+      top: 3%;
+      opacity: 0.7;
+    }
+    .space :global(.ship) {
+      top: 1.5%;
+      left: 44%;
+    }
+    .space :global(.shoot--b) {
+      display: none;
+    }
+  }
+</style>

@@ -5,6 +5,7 @@ import { Picture } from 'astro:assets';
 import Icon from '../Icon.astro';
 import PixelIcon from '../PixelIcon.astro';
 import ChapterHead from './ChapterHead.astro';
+import PixelCity from '../scenes/PixelCity.astro';
 import { projects, type Project } from '../../data/site';
 
 const featured = projects.filter((p) => p.image);
@@ -21,6 +22,7 @@ const accent: Record<Project['icon'], string> = {
 ---
 
 <section id="projects" class="chapter" aria-labelledby="projects-title">
+  <PixelCity />
   <div class="wrap">
     <ChapterHead id="projects" />
 

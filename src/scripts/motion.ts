@@ -79,26 +79,12 @@ function typeStatus(delay: number) {
   window.setTimeout(tick, delay);
 }
 
-/** Cover ambience and hover feedback. Looping pieces pause whenever the cover
- *  is off screen, so they cost nothing while reading the chapters. */
+/** Cover-only motion: the character's idle and the PRESS START glow (paused
+ *  while the cover is off screen), plus hover feedback. The cover's scenery
+ *  is driven by initScenes like every other chapter's. */
 function initCoverMotion(root: HTMLElement) {
   const loops: JSAnimation[] = [];
 
-  root.querySelectorAll<HTMLElement>('[data-float]').forEach((el, i) => {
-    const dist = Number(el.dataset.float) || 6;
-    loops.push(
-      animate(el, {
-        y: [0, -dist],
-        duration: 2200 + i * 340,
-        ease: steps(Math.max(2, dist / 2)),
-        loop: true,
-        alternate: true,
-      }),
-    );
-  });
-  root.querySelectorAll<HTMLElement>('[data-drift]').forEach((el) => {
-    loops.push(animate(el, { x: [0, 64], y: [0, -6], duration: 9000, ease: steps(24), loop: true, alternate: true }));
-  });
   // The character idles: a one-pixel breath.
   root.querySelectorAll<HTMLElement>('[data-bob]').forEach((el) => {
     loops.push(animate(el, { y: [0, -3], duration: 1100, ease: steps(1), loop: true, alternate: true }));
@@ -146,9 +132,160 @@ function initCoverMotion(root: HTMLElement) {
         ease: steps(4),
         onComplete: () => (busy = false),
       });
-      animate(icons, { y: [{ to: -3 }, { to: 0 }], duration: 240, delay: stagger(60, { start: 80 }), ease: steps(2) });
+      animate(icons, { translateY: [{ to: -3 }, { to: 0 }], duration: 240, delay: stagger(60, { start: 80 }), ease: steps(2) });
     });
   }
+}
+
+// ---------- scenery ----------
+// Sprites are <svg> elements, which have their own x/y attributes, so motion
+// here always names translateX/translateY rather than the x/y shorthands.
+
+const rand = (min: number, max: number) => min + Math.random() * (max - min);
+
+/** The looping pieces of one scene, built the first time it comes into view. */
+function sceneLoops(scene: HTMLElement): JSAnimation[] {
+  const loops: JSAnimation[] = [];
+  const all = (sel: string) => scene.querySelectorAll<HTMLElement>(sel);
+
+  // Props bob in whole steps.
+  all('[data-float]').forEach((el, i) => {
+    const d = Number(el.dataset.float) || 6;
+    loops.push(
+      animate(el, { translateY: [0, -d], duration: 2200 + i * 340, ease: steps(Math.max(2, d / 2)), loop: true, alternate: true }),
+    );
+  });
+  // Ships, drones and clouds cross a short stretch of sky and back.
+  all('[data-drift]').forEach((el) => {
+    const d = Number(el.dataset.drift) || 64;
+    loops.push(
+      animate(el, { translateX: [0, d], duration: Math.abs(d) * 140, ease: steps(Math.round(Math.abs(d) / 4)), loop: true, alternate: true }),
+    );
+  });
+  // Windows, LEDs and beacons flicker at their own pace.
+  all('[data-blink]').forEach((el) => {
+    loops.push(
+      animate(el, {
+        opacity: [1, 0.15],
+        duration: rand(500, 1800),
+        delay: rand(0, 2000),
+        ease: steps(1),
+        loop: true,
+        alternate: true,
+      }),
+    );
+  });
+  // Lights and checkpoints breathe.
+  all('[data-pulse]').forEach((el, i) => {
+    loops.push(
+      animate(el, { opacity: [0.45, 1], duration: 1600 + i * 120, ease: 'inOutSine', loop: true, alternate: true }),
+    );
+  });
+  // Fireflies rise and fade, then start again.
+  all('[data-rise]').forEach((el) => {
+    const d = Number(el.dataset.rise) || 80;
+    loops.push(
+      animate(el, {
+        translateY: [0, -d],
+        opacity: [{ to: 0.8 }, { to: 0 }],
+        duration: rand(3600, 6200),
+        delay: rand(0, 3000),
+        ease: steps(Math.round(d / 4)),
+        loop: true,
+      }),
+    );
+  });
+  // Now and then, a shooting star.
+  all('[data-shoot]').forEach((el) => {
+    loops.push(
+      animate(el, {
+        translateX: [0, 300],
+        translateY: [0, 120],
+        opacity: [{ to: 1 }, { to: 0 }],
+        duration: 900,
+        delay: rand(1500, 5000),
+        loopDelay: rand(6000, 11000),
+        ease: 'inQuad',
+        loop: true,
+      }),
+    );
+  });
+  return loops;
+}
+
+/** Scenery behind every chapter: loops start when a scene first scrolls into
+ *  view and pause whenever it leaves; chapter scenes fade in once as you
+ *  arrive; [data-depth] layers drift with scroll on large screens with a
+ *  mouse, in whole 4px steps so they stay on the pixel grid. */
+export function initScenes() {
+  const scenes = [...document.querySelectorAll<HTMLElement>('[data-scene]')];
+  if (!scenes.length) return;
+  if (prefersReducedMotion() || !('IntersectionObserver' in window)) return markShown(scenes);
+
+  const loops = new Map<HTMLElement, JSAnimation[]>();
+  const visible = new Set<HTMLElement>();
+  const parallax = window.matchMedia('(min-width: 861px) and (pointer: fine)').matches;
+
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const vh = window.innerHeight;
+    // Read every layer first, then write, so the browser lays out once.
+    const moves: [HTMLElement, number][] = [];
+    for (const scene of visible) {
+      scene.querySelectorAll<HTMLElement>('[data-depth]').forEach((layer) => {
+        // Measured from the layer's own resting place, so it sits where it was
+        // designed when it crosses the middle of the screen; −1…1 either side.
+        const box = layer.getBoundingClientRect();
+        const rest = box.top - Number(layer.dataset.py ?? 0) + box.height / 2;
+        const p = Math.max(-1, Math.min(1, (vh / 2 - rest) / vh));
+        moves.push([layer, Math.round((p * Number(layer.dataset.depth) * 32) / 4) * 4]);
+      });
+    }
+    for (const [layer, y] of moves) {
+      layer.dataset.py = String(y);
+      layer.style.transform = `translate3d(0, ${y}px, 0)`;
+    }
+  };
+  const schedule = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  };
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        const scene = entry.target as HTMLElement;
+        if (entry.isIntersecting) {
+          if (!loops.has(scene)) {
+            loops.set(scene, sceneLoops(scene));
+            arrive(scene);
+          }
+          loops.get(scene)!.forEach((a) => a.play());
+          visible.add(scene);
+        } else {
+          loops.get(scene)?.forEach((a) => a.pause());
+          visible.delete(scene);
+        }
+      }
+      if (parallax) schedule();
+    },
+    { rootMargin: '80px 0px' },
+  );
+  scenes.forEach((s) => io.observe(s));
+  if (parallax) {
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule, { passive: true });
+  }
+}
+
+/** A chapter's scenery fades in on arrival and its ground rises into place. */
+function arrive(scene: HTMLElement) {
+  if (scene.closest('[data-intro]')) return markShown([scene]);
+  animate(scene, { opacity: [0, 1], duration: 900, ease: steps(6), onComplete: () => markShown([scene]) });
+  const ground = scene.querySelectorAll<HTMLElement>('[data-ground]');
+  if (ground.length) animate(ground, { y: [24, 0], duration: 700, ease: steps(6) });
 }
 
 /** Chapters: each block steps in once as it scrolls into view; item rows

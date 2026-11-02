@@ -1,0 +1,117 @@
+---
+// Contact: the final destination. The city from the projects chapter seen at
+// night from its far side: stars over a warm violet horizon, a moon, a full
+// skyline of lit windows and, at its edge, the tower the path has led to,
+// with a goal marker pulsing above it. A ship and clouds drift past.
+import Scene from './Scene.astro';
+import Sprite from './Sprite.astro';
+import Strip from './Strip.astro';
+import { ridgeTile, skylineTile, starTile } from '../../lib/pixels';
+import { checkpoint, cloud, moon, ship, watchtower, world as W } from '../../lib/sprites';
+
+const sky = starTile({ seed: 51, size: 192, count: 34, colors: [W.frame, W.frameHi, W.violetDim, W.cream], bright: W.frameHi });
+const far = skylineTile({
+  seed: 31,
+  h: 56,
+  min: 20,
+  max: 52,
+  body: W.sil3,
+  edge: W.edge,
+  windows: [W.violetDim, W.blueDim],
+  lit: 0.14,
+  beacon: '#6a2e2a',
+});
+const near = skylineTile({
+  seed: 32,
+  h: 40,
+  min: 12,
+  max: 36,
+  body: W.sil,
+  edge: W.sil2,
+  windows: [W.amber, W.amberDim, W.amberDim, W.violetDim, W.blueDim],
+  lit: 0.3,
+  beacon: W.red,
+  neon: [W.violet, W.blueDim],
+});
+const ground = ridgeTile({ h: 6, base: 3, amp: 1, phase: 0.4, fill: W.ground });
+---
+
+<Scene tint="rgb(155 123 255 / 0.12)" class="final">
+  <div class="set">
+    <div class="sky" style={`--img:${sky.url};--s:${sky.w * 3}px`}></div>
+    <div class="horizon" data-pulse></div>
+
+    <div class="moon wide" data-depth="1.4"><Sprite pic={moon} px={5} data-float="4" /></div>
+    <div class="drift drift--ship wide" data-depth="0.8"><Sprite pic={ship} px={3} data-drift="120" /></div>
+    <div class="drift drift--cloud edge" data-depth="0.5"><Sprite pic={cloud} px={4} data-drift="-72" /></div>
+
+    <Strip tile={far} bottom="28px" offset={30} data-ground />
+    <div class="goal wide">
+      <Sprite pic={checkpoint} px={4} class="marker" data-pulse data-float="6" />
+      <Sprite pic={watchtower} px={8} class="spire" />
+    </div>
+    <Strip tile={near} px={4} bottom="8px" />
+    <Strip tile={ground} px={4} />
+  </div>
+</Scene>
+
+<style>
+  .set {
+    position: absolute;
+    inset: 0;
+  }
+  .sky {
+    position: absolute;
+    inset: 0;
+    background-image: var(--img);
+    background-size: var(--s) var(--s);
+    image-rendering: pixelated;
+    mask-image: linear-gradient(transparent, #000 10%, #000 35%, transparent 75%);
+  }
+  .horizon {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 0;
+    height: 420px;
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 100%, rgb(242 184 75 / 0.07), transparent),
+      radial-gradient(ellipse 90% 90% at 50% 100%, rgb(155 123 255 / 0.1), transparent);
+  }
+  .moon,
+  .drift,
+  .goal {
+    position: absolute;
+  }
+  .moon :global(.sprite),
+  .drift :global(.sprite) {
+    position: relative;
+  }
+  .moon {
+    top: 48px;
+    right: max(24px, calc(50% - var(--wrap) / 2 + 120px));
+    opacity: 0.7;
+  }
+  .drift--ship {
+    top: 5%;
+    left: 40%;
+  }
+  .drift--cloud {
+    top: 34%;
+    right: var(--side);
+  }
+  /* The destination: a lit tower rising out of the skyline near the right. */
+  .goal {
+    bottom: 64px;
+    right: max(24px, calc(50% - var(--wrap) / 2 + 60px));
+    width: 56px;
+    height: 112px;
+  }
+  .goal :global(.spire) {
+    bottom: 0;
+    left: 0;
+  }
+  .goal :global(.marker) {
+    top: -36px;
+    left: 18px;
+  }
+</style>
