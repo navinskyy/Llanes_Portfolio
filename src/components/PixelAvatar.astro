@@ -1,79 +1,122 @@
 ---
-// Navin as a 24×24 pixel bust: backwards cap, round glasses, black tee with a
-// white print, silver chain, backpack straps. Drawn from the portrait in
-// src/assets/photos/navin-selfie.jpg. Each character is one art pixel.
-// The eyelid layer is shown briefly by CSS to blink.
+// Navin as a 48×48 pixel bust, drawn from src/assets/photos/navin-selfie.jpg:
+// olive cap worn backwards with its logo patch, short black hair under the
+// cap, large round gunmetal glasses, white earbuds, an oval face with a clean
+// jaw, black tee with a white print, silver chain with a cross, backpack
+// straps. The face is drawn as one half and mirrored, so it is symmetric; the
+// glints, patch and print are the deliberate asymmetries. Each character is
+// one art pixel. The eyelid layer is shown briefly by CSS to blink.
+import { toRects } from '../lib/pixels';
+
 interface Props {
   class?: string;
   /** Accessible name; omit for a decorative copy. */
   label?: string;
+  /** `bust` is the whole 48×48 portrait; `head` crops to a 34×34 head shot
+   *  for small sizes. Show either at whole multiples of its grid. */
+  crop?: 'bust' | 'head';
 }
-const { class: className, label } = Astro.props;
+const { class: className, label, crop = 'bust' } = Astro.props;
 
 const art = [
-  '........................',
-  '........KKKKKKKK........',
-  '......KKCCCCCCCCKK......',
-  '.....KCCCCCCCCCCCCK.....',
-  '....KCCCCCCLLCCCCCCK....',
-  '....KCCCCCCLLCCCCCCK....',
-  '...KcCCCCCCCCCCCCCCcK...',
-  '...KccccccccccccccccK...',
-  '...KHHHHHHHHHHHHHHHHK...',
-  '...KHSSSSSSSSSSSSSSHK...',
-  '...KSGGGGGGSSGGGGGGSK...',
-  '..sKSGSEESGGGGSEESGSKs..',
-  '..sKSGWEESGSSGSEEWGSKs..',
-  '...KSSGGGGSSSSGGGGSSK...',
-  '...KSSSSSSSssSSSSSSSK...',
-  '...KSSSSSSSssSSSSSSSK...',
-  '...KsSSSSSSSSSSSSSSsK...',
-  '....KSSSSMMMMMMSSSSK....',
-  '....KsSSSSSSSSSSSSsK....',
-  '.....KKsSSSSSSSSsKK.....',
-  '........KsSSSSsK........',
-  '...KTTTTTTsVSsTTTTTTK...',
-  '..KTBBTTTTTTVTTTTTBBTK..',
-  '.KTTBBTTTPPTTTTTTTBBTTK.',
+  '................................................',
+  '...................qqqqqqqqqq...................',
+  '..................qccCCCCCCccq..................',
+  '...............qqqddCCCCCCCCddqqq...............',
+  '..............qqddddCCCCCCCCddddqq..............',
+  '.............qqdddCCCCLLLLCCCCdddqq.............',
+  '............qqddCCCCCLQLLQLCCCCCddqq............',
+  '............qccCCCCCCLQQLLLCCCCCCccq............',
+  '...........qqcCCCCCCCLQQQLLCCCCCCCcqq...........',
+  '...........qccCCCCCCCCLLLLCCCCCCCCccq...........',
+  '...........qccCCCCCCCCCCCCCCCCCCCCccq...........',
+  '...........qccCCCCCCCCCCCCCCCCCCCCccq...........',
+  '...........qccccccccccccccccccccccccq...........',
+  '...........qccccccccccccccccccccccccq...........',
+  '...........qcHHHHHHHHHHHHHHHHHHHHHHcq...........',
+  '............HHHsssssssssssHHsssssHHH............',
+  '............HHHSSeeeeelllleeeeeSSHHH............',
+  '............HHSSeSSSSSSSSSSSSSSeSSHH............',
+  '............HHSGGGGGGGSSSSGGGGGGGSHH............',
+  '............HHSGgSSSSGSSSSGgSSSSGSHH............',
+  '............GGGgSeeeSSGGGGgSeeeSSGGG............',
+  '...........ossGSegiieSGSSGSegiieSGsso...........',
+  '...........ossGSwipiwSGllGSwipiwSGsso...........',
+  '...........AAsGSSsssSSGllGSSsssSSGsAA...........',
+  '...........aAsSGSSSSSGSllSGSSSSSGSsAa...........',
+  '............aosSGGGGGSSllSSGGGGGSsoa............',
+  '.............osSSSSSSSsSSsSSSSSSSso.............',
+  '.............oslllSSSssllssSSSlllso.............',
+  '.............oossSSSSSrssrSSSSSssoo.............',
+  '..............ossSSSSSSssSSSSSSsso..............',
+  '..............oossSSsmmmmmmsSSssoo..............',
+  '...............oossSSMMMMMMSSssoo...............',
+  '................oossssssssssssoo................',
+  '.................ooossssssssooo.................',
+  '...............KKKoVooooooooVoKKK...............',
+  '...........KKKKKttksVSSSSSSVskttKKKKK...........',
+  '.......KBBBKttttTTksSVSSSSVSskTTttttKBBBK.......',
+  '....KKKbBBbtTTTTTTkkkSVSSVSkkkTTTTTTtbBBbKKK....',
+  '..KKKttbBBbTTTTTTTTTkkkVVkkkTTTTTTTTTbBBbttKKK..',
+  '.KKttTTbBBbTTTTTTTTTTTTVVTTTTTTTTTTTTbBBbTTttKK.',
+  'KTkTTTTbBBbTTTTTTTTTTTVVVVTTTTTTTTTTTbBBbTTTTkTK',
+  'KTkTTTTbBBbTTTTTTTTTTTTVVTTTTTTTTTTTTbBBbTTTTkTK',
+  'KTkTTTTbBBbTTTTTTTTTTTTVVTTTTTTTTTTTTbBBbTTTTkTK',
+  'KTkPTPTbXXXTTTTTTTTTTTTTTTTTTTTTTTTTTXXXbTTTTkTK',
+  'KTkPPPTBBBBTTTTTTTTTTTTTTTTTTTTTTTTTTBBBBTTTTkTK',
+  'KTPTPTPbBBbTTTTTTTTTTTTTTTTTTTTTTTTTTbBBbTTTTkTK',
+  'KTkPPPTbBBbTTTTTTTTTTTTTTTTTTTTTTTTTTbBBbTTTTkTK',
+  'KTkTPTTbBBbTTTTTTTTTTTTTTTTTTTTTTTTTTbBBbTTTTkTK',
 ];
 
 const palette: Record<string, string> = {
-  K: '#14141c', // outline
-  G: '#3c3d4a', // glasses frames
-  C: '#6e7366', // cap
-  c: '#535849', // cap shade
-  L: '#b3b7a6', // cap patch
-  H: '#18161a', // hair
-  S: '#c98f66', // skin
-  s: '#a87250', // skin shade
-  E: '#18161a', // eyes
-  W: '#dfe9f2', // lens glint
-  M: '#9a5546', // mouth
-  T: '#202027', // tee
-  B: '#0b0b10', // straps
-  P: '#efe6d2', // print
-  V: '#cfd3d8', // chain
+  q: '#2b2e25', // cap outline
+  C: '#6d7262', // cap
+  c: '#565b4c', // cap shade
+  d: '#878c79', // cap light
+  L: '#b4b7a6', // logo patch
+  Q: '#7f8373', // patch emblem
+  H: '#17151b', // hair
+  o: '#4a3329', // skin outline
+  S: '#c69a7c', // skin
+  s: '#a97c62', // skin shade
+  r: '#8a6049', // deep shade
+  l: '#d8b296', // skin light
+  G: '#4f5260', // gunmetal frames
+  g: '#e4ecf4', // lens glint, catch-light
+  e: '#231916', // brows, lash line
+  w: '#ddd3ca', // eye white
+  i: '#3b2a22', // iris
+  p: '#140e0c', // pupil
+  m: '#9c5e55', // upper lip
+  M: '#b9786c', // lower lip
+  A: '#eef0f2', // earbuds
+  a: '#b7bcc4', // earbud shade
+  K: '#0c0c12', // tee outline
+  T: '#272730', // tee
+  t: '#32323d', // tee light
+  k: '#17171d', // tee shade, collar
+  B: '#0b0b0f', // straps
+  b: '#2b2b35', // strap edge
+  X: '#555866', // buckles
+  V: '#c9ced4', // chain and cross
+  P: '#ece4d4', // print
 };
 
-// Merge horizontal runs of one colour into single rects.
-const rects: { x: number; y: number; w: number; fill: string }[] = [];
-art.forEach((row, y) => {
-  let x = 0;
-  while (x < row.length) {
-    const ch = row[x];
-    let w = 1;
-    while (row[x + w] === ch) w++;
-    if (palette[ch]) rects.push({ x, y, w, fill: palette[ch] });
-    x += w;
-  }
-});
-// Closed eyes: skin over the top row of each eye leaves a lash line.
-const lids = [7, 15].map((x) => ({ x, y: 11, w: 2, fill: palette.S }));
+const rects = toRects(art, palette);
+// Closed eyes: skin over each eye, a lash line where the lids meet.
+const lids = [16, 27].flatMap((x) => [
+  { x, y: 20, w: 5, fill: palette.S },
+  { x, y: 21, w: 5, fill: palette.S },
+  { x, y: 22, w: 5, fill: palette.s },
+  { x: x + 1, y: 22, w: 3, fill: palette.e },
+]);
+const viewBox = crop === 'head' ? '7 0 34 34' : '0 0 48 48';
 ---
 
 <svg
   class:list={['pixel-avatar', className]}
-  viewBox="0 0 24 24"
+  viewBox={viewBox}
   shape-rendering="crispEdges"
   role={label ? 'img' : undefined}
   aria-label={label}

@@ -64,7 +64,7 @@ import { person, socials } from '../../data/site';
       <div class="terminal win" aria-label="Closing message">
         <p class="win-bar tag"><span>Save file</span><span>Slot 01</span></p>
         <div class="screen mono">
-          <PixelAvatar class="mini" />
+          <PixelAvatar class="mini" crop="head" />
           <p><span class="dim">&gt;</span> Thanks for reading the guide.</p>
           <p><span class="dim">&gt;</span> Progress saved.</p>
           <p><span class="dim">&gt;</span> Open to internships and junior front-end roles.</p>
@@ -169,8 +169,8 @@ import { person, socials } from '../../data/site';
     background-image: repeating-linear-gradient(0deg, rgb(255 255 255 / 0.02) 0 1px, transparent 1px 3px);
   }
   .screen :global(.mini) {
-    width: 64px;
-    height: 64px;
+    width: 68px;
+    height: 68px;
     margin-bottom: var(--s-3);
   }
   .dim {

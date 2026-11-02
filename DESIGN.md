@@ -15,6 +15,8 @@ colors:
   green: "#7fd68f"
   red: "#e86f5f"
   blue: "#7fb2ff"
+  violet: "#9b7bff"
+  violet-deep: "#2c2260"
 typography:
   pixel: "Pixelify Sans, ui-monospace, monospace"
   sans: "Geist, system-ui, sans-serif"
@@ -43,6 +45,7 @@ One continuous page read like a game's printed guide: a cover (title, player sta
   - **green**: live / cleared, the terminal text.
   - **red**: in progress.
   - **blue**: links and research.
+  - **violet / violet-deep**: the cover only: the space scene's planet, the character stage's glow and floor, hard pixel shadows on the title.
 
 ## Typography
 
@@ -56,7 +59,8 @@ One continuous page read like a game's printed guide: a cover (title, player sta
 - **Window** (`.win`): 2px frame with its four corner pixels removed (a 16-bit menu box), optional `.win-bar` title row. It's the only boxed element on the page.
 - **Key** (`.key`): notched pixel button, pixel label, presses down 2px. `.key--primary` is amber.
 - **Status** (`.status`): an 8px square lamp plus a pixel label; the colour comes from the state.
-- **Pixel art**: `PixelAvatar` (24×24 bust drawn from Navin's photo, blinks every ~5 s) and `PixelIcon` (12×12 item icons). Both are SVG grids; edit the character rows to redraw.
+- **Pixel art**: `PixelAvatar` (48×48 bust drawn from Navin's photo with a mirrored, symmetric face, blinks every ~5 s; `crop="head"` gives a 34×34 head shot for small spots; show either at whole multiples of its grid), `PixelIcon` (12×12 item and stat icons) and `SpaceScene` (the cover's stars, planet, ship and hills, generated from a fixed seed). All are SVG grids built with `toRects` in `src/lib/pixels.ts`; edit the character rows to redraw.
+- **Cover**: a character select screen. Title letters step in one by one; the menu puts PRESS START on its own row with a soft amber pulse, the other options show a pixel selection cursor on hover/focus. The character panel has a name plate, a stage (corner brackets, sparkles, scanlines, violet glow) where the sprite is drawn in top to bottom and idles with a 1px breath, five stat rows with icons, and a status line that types through `person.status`.
 - **Header**: chapter index with numbers matching the chapter page numbers, sound switch (labelled, default off), and a 25-cell amber meter that fills in whole cells as you read.
 
 ## Layout
@@ -68,7 +72,7 @@ One continuous page read like a game's printed guide: a cover (title, player sta
 
 ## Motion and sound
 
-- Anime.js with stepped easing: the cover steps in and the status line types once; each chapter block steps in once; item rows follow in sequence.
+- Anime.js with stepped easing: the cover steps in (title letter by letter, portrait wiped in), the status line cycles through its lines, the cover's floats, drift, breath and PRESS START glow loop only while the cover is on screen; each chapter block steps in once; item rows follow in sequence.
 - CSS: blinking cursor and PRESS START triangle, avatar blink, stepped hover changes.
 - Reduced motion: no smooth scroll, no reveals, no typing, no blinking.
 - Sound: Web Audio chiptune blips (select, open/close, coin on copy, start). Off until the visitor turns it on; the choice is saved.

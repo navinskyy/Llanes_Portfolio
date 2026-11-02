@@ -19,6 +19,8 @@
   --green: #7fd68f;        /* live / cleared */
   --red: #e86f5f;          /* in progress */
   --blue: #7fb2ff;         /* links */
+  --violet: #9b7bff;       /* cover glow, planet, character stage */
+  --violet-deep: #2c2260;  /* hard pixel shadows, stage floor */
   --scrim: rgb(6 6 14 / 0.7);
 
   /* type */
@@ -302,8 +304,12 @@ ol[role='list'] {
 
 /* Elements revealed by script stay visible unless <html class="motion-ok">
    (set only when JS runs and reduced motion is off). */
-.motion-ok [data-reveal]:not([data-shown]) {
+.motion-ok [data-reveal]:not([data-shown]),
+.motion-ok [data-letter]:not([data-shown]) {
   opacity: 0;
+}
+.motion-ok [data-portrait]:not([data-shown]) {
+  clip-path: inset(100% 0 0 0);
 }
 
 @media (prefers-reduced-motion: reduce) {

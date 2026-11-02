@@ -1,0 +1,235 @@
+---
+// The cover's backdrop: a pixel star field, a ringed planet, a small ship and
+// two bands of stepped hills. Everything is generated here at build time from
+// a fixed seed, so it is static SVG; motion.ts only floats the [data-float] and
+// [data-drift] pieces. Purely decorative.
+import { seeded, toRects } from '../lib/pixels';
+
+const rand = seeded(1207);
+
+// Stars in a 320×180 field, kept out of the hills at the bottom.
+const stars = Array.from({ length: 64 }, (_, i) => ({
+  x: Math.floor(rand() * 320),
+  y: Math.floor(rand() * 140),
+  fill: ['var(--frame-hi)', 'var(--frame)', 'var(--violet)', 'var(--fg)'][Math.floor(rand() * 4)],
+  twinkle: i % 5 === 0,
+  delay: (rand() * 4).toFixed(2),
+}));
+// A few brighter plus-shaped stars.
+const bright = [
+  [38, 22],
+  [182, 14],
+  [264, 48],
+  [118, 96],
+  [296, 120],
+];
+
+const planet = toRects(
+  [
+    '.........oooooo.........',
+    '.......ooPPPPppoo.......',
+    '......oPPPPpppppqo......',
+    '.....oPPPpppppppqqo.....',
+    '....oPPpppppppppqqqo....',
+    '....oPpppppppppppqqo....',
+    '....oppppppppppppqqo....',
+    'rr..opppcppppppppqqo..rr',
+    '.rrrrrrrrrrrrrrrrrrrrrr.',
+    '..RRRRRRRRRRRRRRRRRRRR..',
+    '....oppppppppppcpqqo....',
+    '....oqpppppppppppqqo....',
+    '.....oqpppppppppqqo.....',
+    '......oqqpppppqqqo......',
+    '.......ooqqqqqqoo.......',
+    '.........oooooo.........',
+  ],
+  {
+    o: '#1a1438',
+    P: '#b49cff',
+    p: '#7a5fd6',
+    q: '#4a3a9a',
+    c: '#5e48b8',
+    r: '#f2b84b',
+    R: '#a8782a',
+  },
+);
+
+const ship = toRects(
+  [
+    '....oo........',
+    '....owoo......',
+    '.ooooswwoooo..',
+    'eaowwwwwwvvwo.',
+    'eaoswwwwwwwwwo',
+    '.ooooswwoooo..',
+    '....owoo......',
+    '....oo........',
+  ],
+  { o: '#0a0b17', w: '#cfd3e8', s: '#8b8fb0', v: '#7fb2ff', a: '#f2b84b', e: '#e86f5f' },
+);
+
+// Drifting specks: position (%), size (px), colour, float distance (px).
+const specks = [
+  { x: 8, y: 30, s: 4, c: 'var(--violet)', f: 8 },
+  { x: 47, y: 18, s: 4, c: 'var(--amber)', f: 6 },
+  { x: 58, y: 64, s: 6, c: 'var(--frame-hi)', f: 10 },
+  { x: 21, y: 82, s: 4, c: 'var(--violet)', f: 6 },
+  { x: 91, y: 72, s: 4, c: 'var(--fg)', f: 8 },
+  { x: 74, y: 8, s: 4, c: 'var(--violet)', f: 6 },
+];
+
+// A 64-column tile of stepped hills that repeats seamlessly.
+function hills(base: number, amp: number, phase: number, fill: string) {
+  const cols = Array.from({ length: 64 }, (_, x) => {
+    const t = (x / 64) * Math.PI * 2;
+    return Math.round(base + amp * Math.sin(t + phase) + (amp / 2) * Math.sin(3 * t + phase * 2));
+  });
+  const rects = cols.map((h, x) => `<rect x='${x}' y='${16 - h}' width='1' height='${h}'/>`).join('');
+  const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='64' height='16' shape-rendering='crispEdges' fill='${fill}'>${rects}</svg>`;
+  return `url("data:image/svg+xml,${encodeURIComponent(svg)}")`;
+}
+const farHills = hills(7, 4, 0.6, '#14132a');
+const nearHills = hills(4, 2.5, 2.1, '#1b1a3a');
+---
+
+<div class="space" aria-hidden="true" style={`--far:${farHills};--near:${nearHills}`}>
+  <svg class="stars" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" shape-rendering="crispEdges">
+    {
+      stars.map((s) => (
+        <rect
+          class:list={{ tw: s.twinkle }}
+          style={s.twinkle ? `animation-delay:${s.delay}s` : undefined}
+          x={s.x}
+          y={s.y}
+          width="1"
+          height="1"
+          fill={s.fill}
+        />
+      ))
+    }
+    {
+      bright.map(([x, y]) => (
+        <g class="tw" fill="var(--fg)">
+          <rect x={x} y={y - 1} width="1" height="3" />
+          <rect x={x - 1} y={y} width="3" height="1" />
+        </g>
+      ))
+    }
+  </svg>
+
+  <div class="planet" data-float="6">
+    <svg viewBox="0 0 24 16" shape-rendering="crispEdges">
+      {planet.map((r) => <rect x={r.x} y={r.y} width={r.w} height="1" fill={r.fill} />)}
+    </svg>
+  </div>
+
+  <div class="ship" data-drift>
+    <svg viewBox="0 0 14 8" shape-rendering="crispEdges">
+      {ship.map((r) => <rect x={r.x} y={r.y} width={r.w} height="1" fill={r.fill} />)}
+    </svg>
+  </div>
+
+  {
+    specks.map((p) => (
+      <span
+        class="speck"
+        data-float={p.f}
+        style={`left:${p.x}%;top:${p.y}%;width:${p.s}px;height:${p.s}px;background:${p.c}`}
+      />
+    ))
+  }
+
+  <div class="hills hills--far"></div>
+  <div class="hills hills--near"></div>
+</div>
+
+<style>
+  .space {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .stars {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    opacity: 0.85;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .tw {
+      animation: twinkle 4s steps(1) infinite;
+    }
+  }
+  @keyframes twinkle {
+    0%,
+    60%,
+    100% {
+      opacity: 1;
+    }
+    70%,
+    90% {
+      opacity: 0.25;
+    }
+  }
+
+  .planet {
+    position: absolute;
+    top: 7%;
+    right: 3%;
+    width: clamp(96px, 9vw, 144px);
+    opacity: 0.9;
+  }
+  .ship {
+    position: absolute;
+    top: 9%;
+    left: 34%;
+    width: 42px;
+  }
+  .planet svg,
+  .ship svg {
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+  }
+  .speck {
+    position: absolute;
+    opacity: 0.55;
+  }
+
+  /* Two rows of stepped hills over the ground ledge, each art pixel 3px. */
+  .hills {
+    position: absolute;
+    inset-inline: 0;
+    bottom: 32px;
+    height: 48px;
+    background-repeat: repeat-x;
+    background-position: bottom left;
+    background-size: 192px 48px;
+    image-rendering: pixelated;
+  }
+  .hills--far {
+    background-image: var(--far);
+    background-position-x: 64px;
+  }
+  .hills--near {
+    height: 36px;
+    background-image: var(--near);
+    background-size: 144px 36px;
+  }
+
+  @media (max-width: 860px) {
+    .planet {
+      top: 3%;
+      opacity: 0.7;
+    }
+    .ship {
+      top: 1.5%;
+      left: 44%;
+      width: 34px;
+    }
+  }
+</style>

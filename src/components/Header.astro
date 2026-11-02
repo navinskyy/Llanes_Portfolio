@@ -15,7 +15,7 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
 <header class="header" data-header>
   <div class="wrap bar">
     <a class="brand" href={home ? '#top' : '/'}>
-      <PixelAvatar class="brand-face" />
+      <PixelAvatar class="brand-face" crop="head" />
       <span class="pixel">{person.displayName}</span>
     </a>
 
@@ -76,8 +76,8 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
     white-space: nowrap;
   }
   .brand :global(.brand-face) {
-    width: 28px;
-    height: 28px;
+    width: 34px;
+    height: 34px;
   }
   .nav {
     margin-left: auto;

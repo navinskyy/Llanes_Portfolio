@@ -1,16 +1,17 @@
 ---
-// 12×12 inventory icons. `o` is the outline, `f` the fill, `a` the item's
-// accent (passed in, so each item keeps one colour).
-import type { ItemIcon } from '../data/site';
+// 12×12 inventory and stat icons. `o` is the outline, `f` the fill, `a` the
+// item's accent (passed in, so each item keeps one colour).
+import type { PixelIconName } from '../data/site';
+import { toRects } from '../lib/pixels';
 
 interface Props {
-  name: ItemIcon;
+  name: PixelIconName;
   accent?: string;
   class?: string;
 }
 const { name, accent = 'var(--amber)', class: className } = Astro.props;
 
-const art: Record<ItemIcon, string[]> = {
+const art: Record<PixelIconName, string[]> = {
   cross: [
     '............',
     '....oooo....',
@@ -95,20 +96,52 @@ const art: Record<ItemIcon, string[]> = {
     '..ofofofoo..',
     '..o.o.o.o...',
   ],
+  player: [
+    '............',
+    '....oooo....',
+    '...oaaaao...',
+    '...oaaaao...',
+    '...oaaaao...',
+    '....oooo....',
+    '..oooooooo..',
+    '.oaaaaaaaao.',
+    '.oaaaaaaaao.',
+    '.oaaaaaaaao.',
+    '.oooooooooo.',
+    '............',
+  ],
+  hammer: [
+    '............',
+    '.oooooooooo.',
+    '.oaaaaaaaao.',
+    '.oaaaaaaaao.',
+    '.ooooffoooo.',
+    '....offo....',
+    '....offo....',
+    '....offo....',
+    '....offo....',
+    '....offo....',
+    '....oooo....',
+    '............',
+  ],
+  spark: [
+    '.....oo.....',
+    '....oaao....',
+    '....oaao....',
+    '...oaaaao...',
+    '.ooaaaaaaoo.',
+    'oaaaaaaaaaao',
+    'oaaaaaaaaaao',
+    '.ooaaaaaaoo.',
+    '...oaaaao...',
+    '....oaao....',
+    '....oaao....',
+    '.....oo.....',
+  ],
 };
 
 const colors: Record<string, string> = { o: 'var(--fg)', f: 'var(--panel)', a: accent };
-const rects: { x: number; y: number; w: number; fill: string }[] = [];
-art[name].forEach((row, y) => {
-  let x = 0;
-  while (x < row.length) {
-    const ch = row[x];
-    let w = 1;
-    while (row[x + w] === ch) w++;
-    if (colors[ch]) rects.push({ x, y, w, fill: colors[ch] });
-    x += w;
-  }
-});
+const rects = toRects(art[name], colors);
 ---
 
 <svg class={className} viewBox="0 0 12 12" shape-rendering="crispEdges" aria-hidden="true" focusable="false">

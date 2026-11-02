@@ -27,8 +27,8 @@ export const person = {
   headline: 'I build practical software, and I’m levelling up in AI and cybersecurity.',
   statement:
     "I'm a computer science student and developer interested in building useful software, exploring AI-powered applications, and learning cybersecurity.",
-  /** The line the cover's status window types out. Keep it short and true. */
-  status: 'Building a dental clinic website',
+  /** Lines the cover's status window types out in turn. Keep them short and true. */
+  status: ['Building a better tomorrow.', 'Now building: a dental clinic website', 'Levelling up: AI and cybersecurity'],
   /** Put the file in public/ (e.g. public/resume.pdf) and set this to '/resume.pdf'. */
   resume: undefined as string | undefined,
 };
@@ -57,6 +57,8 @@ export type SectionId = (typeof sections)[number]['id'];
 export type ProjectStatus = 'Live' | 'In progress' | 'Early stage' | 'Research';
 /** Drawn pixel icons for the inventory slots (src/components/PixelIcon.astro). */
 export type ItemIcon = 'cross' | 'book' | 'tooth' | 'shield' | 'cup' | 'receipt';
+/** Every icon PixelIcon can draw: the item icons plus the cover's stat icons. */
+export type PixelIconName = ItemIcon | 'player' | 'hammer' | 'spark';
 
 export interface Project {
   name: string;
