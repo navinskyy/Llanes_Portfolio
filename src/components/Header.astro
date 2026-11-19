@@ -1,6 +1,8 @@
 ---
-// Sticky header: the guide's chapter index, the sound switch, and a stepped
-// progress meter along the bottom edge. Behaviour: src/scripts/header.ts.
+// Sticky header, drawn as the game's HUD: the player plate (portrait, name,
+// a status lamp), the chapter menu with a pixel cursor and a sliding marker
+// under the chapter in view, the sound switch, and a stepped progress meter
+// along the bottom edge. Behaviour: src/scripts/header.ts.
 import Icon from './Icon.astro';
 import PixelAvatar from './PixelAvatar.astro';
 import { person, sections } from '../data/site';
@@ -10,21 +12,35 @@ interface Props {
 }
 const { home = true } = Astro.props;
 const href = (id: string) => (home ? `#${id}` : `/#${id}`);
+
+// The menu cursor: a 4×7 pixel arrow.
+const cursor = [1, 2, 3, 4, 3, 2, 1];
 ---
 
 <header class="header" data-header>
   <div class="wrap bar">
-    <a class="brand" href={home ? '#top' : '/'}>
-      <PixelAvatar class="brand-face" crop="head" />
-      <span class="pixel">{person.displayName}</span>
+    <a class="brand" href={home ? '#top' : '/'} data-brand>
+      <span class="slot" aria-hidden="true">
+        <PixelAvatar class="brand-face" crop="head" />
+        <span class="spark"></span>
+      </span>
+      <span class="plate">
+        <span class="name pixel">{person.displayName}</span>
+        <span class="state mono"><span class="lamp" aria-hidden="true"></span>Open to opportunities</span>
+      </span>
     </a>
 
     <nav class="nav" id="site-nav" aria-label="Chapters" data-nav>
       <ol role="list">
         {
           sections.map((s, i) => (
-            <li>
+            <li style={`--i:${i}`}>
               <a href={href(s.id)} data-nav-link={s.id}>
+                <svg class="cur" viewBox="0 0 4 7" width="4" height="7" shape-rendering="crispEdges" aria-hidden="true">
+                  {cursor.map((w, y) => (
+                    <rect x="0" y={y} width={w} height="1" />
+                  ))}
+                </svg>
                 <span class="nav-num mono" aria-hidden="true">
                   {String(i + 1).padStart(2, '0')}
                 </span>
@@ -34,13 +50,15 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
           ))
         }
       </ol>
+      <span class="marker" aria-hidden="true" data-nav-marker></span>
     </nav>
 
     <div class="actions">
       <button class="sound tag" type="button" data-sound-toggle aria-pressed="false">
         <Icon name="volume-off" class="i-off" />
         <Icon name="volume" class="i-on" />
-        <span>Sound <span data-sound-state>off</span></span>
+        <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="sound-label">Sound <span data-sound-state>off</span></span>
       </button>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="site-nav" data-menu-toggle>
         <Icon name="menu" class="i-menu" />
@@ -60,26 +78,119 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
     top: 0;
     z-index: 40;
     background: var(--bg-deep);
+    transition: background-color var(--t-base) steps(4);
   }
+  /* Past the cover the HUD turns to glass: the world shows through, softly,
+     and a lit 2px edge separates it from the page. Same height, no jump. */
+  .header[data-past-hero] {
+    background: rgb(10 11 23 / 0.8);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--frame) 0 6px, transparent 6px 8px);
+    opacity: 0;
+    transition: opacity var(--t-base) steps(3);
+  }
+  .header[data-past-hero]::after {
+    opacity: 1;
+  }
+
   .bar {
     display: flex;
     align-items: center;
     gap: var(--s-6);
     height: calc(var(--header) - 6px);
   }
+
+  /* ---------- player plate ---------- */
   .brand {
     display: inline-flex;
     align-items: center;
     gap: var(--s-3);
-    font-size: var(--fs-lg);
     text-decoration: none;
     white-space: nowrap;
+  }
+  /* The portrait sits in a slot with pixel corner brackets. */
+  .slot {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    background:
+      linear-gradient(var(--frame-hi), var(--frame-hi)) top left / 6px 2px,
+      linear-gradient(var(--frame-hi), var(--frame-hi)) top left / 2px 6px,
+      linear-gradient(var(--frame-hi), var(--frame-hi)) top right / 6px 2px,
+      linear-gradient(var(--frame-hi), var(--frame-hi)) top right / 2px 6px,
+      linear-gradient(var(--frame-hi), var(--frame-hi)) bottom left / 6px 2px,
+      linear-gradient(var(--frame-hi), var(--frame-hi)) bottom left / 2px 6px,
+      linear-gradient(var(--frame-hi), var(--frame-hi)) bottom right / 6px 2px,
+      linear-gradient(var(--frame-hi), var(--frame-hi)) bottom right / 2px 6px,
+      var(--panel);
+    background-repeat: no-repeat;
+    transition: background-color var(--t-fast) steps(2);
   }
   .brand :global(.brand-face) {
     width: 34px;
     height: 34px;
   }
+  /* A one-pixel sparkle that answers the hover in the slot's corner. */
+  .spark {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    width: 4px;
+    height: 4px;
+    background: var(--amber);
+    box-shadow:
+      -4px 0 0 rgb(242 184 75 / 0.45),
+      4px 0 0 rgb(242 184 75 / 0.45),
+      0 -4px 0 rgb(242 184 75 / 0.45),
+      0 4px 0 rgb(242 184 75 / 0.45);
+    opacity: 0;
+  }
+  .plate {
+    display: grid;
+    gap: 3px;
+    line-height: 1;
+  }
+  .name {
+    font-size: var(--fs-lg);
+    color: var(--fg);
+    transition: color var(--t-fast) steps(2);
+  }
+  .state {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.6875rem;
+    letter-spacing: 0.02em;
+    color: var(--faint);
+  }
+  /* A square status lamp with a hard one-pixel halo, not a soft glow. */
+  .lamp {
+    width: 6px;
+    height: 6px;
+    background: var(--green);
+    box-shadow: 0 0 0 2px rgb(127 214 143 / 0.18);
+  }
+  .brand:hover .slot,
+  .brand:focus-visible .slot {
+    background-color: var(--panel-2);
+  }
+  .brand:hover .name,
+  .brand:focus-visible .name {
+    color: var(--amber);
+  }
+
+  /* ---------- chapter menu ---------- */
   .nav {
+    position: relative;
     margin-left: auto;
   }
   .nav ol {
@@ -87,23 +198,49 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
     gap: var(--s-1);
   }
   .nav a {
+    position: relative;
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 6px;
     padding: var(--s-2) var(--s-3);
     font-size: var(--fs-sm);
     color: var(--muted);
     text-decoration: none;
-    transition: color var(--t-fast) steps(2);
+    transition:
+      color var(--t-fast) steps(2),
+      background-color var(--t-fast) steps(2);
   }
   .nav-num {
     font-size: 0.6875rem;
     color: var(--faint);
+    transition: color var(--t-fast) steps(2);
   }
-  .nav a:hover {
+  /* The cursor is hidden until hover or the current chapter calls it. */
+  .cur {
+    position: absolute;
+    left: -2px;
+    top: 50%;
+    width: 4px;
+    height: 7px;
+    margin-top: -3.5px;
+    fill: var(--amber);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity var(--t-fast) steps(2),
+      transform var(--t-fast) steps(2);
+  }
+  .nav a:hover,
+  .nav a:focus-visible {
     color: var(--fg);
+    background: var(--panel);
   }
-  /* The current chapter gets the menu cursor. */
+  .nav a:hover .cur,
+  .nav a:focus-visible .cur {
+    opacity: 1;
+    transform: none;
+  }
+  /* The current chapter: amber print, a lit slot and the cursor parked. */
   .nav a[aria-current] {
     color: var(--amber);
     background: var(--panel);
@@ -111,31 +248,88 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
   .nav a[aria-current] .nav-num {
     color: var(--amber);
   }
+  .nav a[aria-current] .cur {
+    opacity: 1;
+    transform: none;
+  }
+  /* Selecting a chapter: the item flashes twice, the way a menu confirms. */
+  .nav a[data-picked] {
+    animation: pick 360ms steps(1);
+  }
+  @keyframes pick {
+    0%,
+    50% {
+      color: var(--bg-deep);
+      background: var(--amber);
+    }
+    25%,
+    75% {
+      color: var(--amber);
+      background: var(--panel-2);
+    }
+  }
+
+  /* A segmented bar that slides under the chapter in view. */
+  .marker {
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: var(--w, 0);
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--amber) 0 6px, transparent 6px 8px);
+    transform: translateX(var(--x, 0));
+    opacity: 0;
+    transition:
+      transform var(--t-base) steps(6),
+      width var(--t-base) steps(6),
+      opacity var(--t-fast) steps(2);
+  }
+  .marker[data-on] {
+    opacity: 1;
+  }
+
+  /* ---------- actions ---------- */
   .actions {
     display: flex;
     align-items: center;
     gap: var(--s-2);
   }
+  /* The sound switch is a key: it sits on a 2px ledge and presses into it. */
   .sound {
     display: inline-flex;
     align-items: center;
     gap: var(--s-2);
+    justify-content: center;
     min-height: 36px;
+    /* Wide enough for "Sound on" plus the meter, so toggling never nudges the nav. */
+    min-width: 8.25rem;
     padding: 0 var(--s-3);
     border: 2px solid var(--frame);
-    background: transparent;
+    background: var(--bg-deep);
     color: var(--muted);
+    box-shadow: 0 2px 0 var(--frame);
     transition:
       color var(--t-fast) steps(2),
-      border-color var(--t-fast) steps(2);
+      border-color var(--t-fast) steps(2),
+      background-color var(--t-fast) steps(2),
+      box-shadow var(--t-fast) steps(1),
+      transform var(--t-fast) steps(1);
   }
-  .sound:hover {
+  .sound:hover,
+  .sound:focus-visible {
     color: var(--fg);
     border-color: var(--frame-hi);
+    background: var(--panel);
+    box-shadow: 0 2px 0 var(--frame-hi);
+  }
+  .sound:active {
+    transform: translateY(2px);
+    box-shadow: 0 0 0 var(--frame);
   }
   .sound[aria-pressed='true'] {
     color: var(--green);
     border-color: var(--green);
+    box-shadow: 0 2px 0 rgb(127 214 143 / 0.45);
   }
   .sound :global(svg) {
     width: 14px;
@@ -148,6 +342,22 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
   .sound[aria-pressed='true'] :global(.i-on) {
     display: block;
   }
+  /* Three pixel bars that dance only while sound is on. */
+  .eq {
+    display: none;
+    align-items: flex-end;
+    gap: 2px;
+    height: 10px;
+  }
+  .eq i {
+    width: 2px;
+    height: 4px;
+    background: currentColor;
+  }
+  .sound[aria-pressed='true'] .eq {
+    display: inline-flex;
+  }
+
   .menu-btn {
     display: none;
   }
@@ -174,6 +384,72 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
     background: repeating-linear-gradient(90deg, var(--amber) 0 14px, transparent 14px 16px);
   }
 
+  /* ---------- motion (none of it under reduced motion) ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .lamp {
+      animation: lamp 2.4s steps(1) infinite;
+    }
+    .brand:hover :global(.brand-face) {
+      animation: hop 420ms steps(4);
+    }
+    .brand:hover .spark {
+      animation: spark 600ms steps(3);
+    }
+    .nav a[aria-current] .cur {
+      animation: nudge 1s steps(1) infinite;
+    }
+    .sound[aria-pressed='true'] .eq i {
+      animation: eq 600ms steps(3) infinite alternate;
+    }
+    .sound[aria-pressed='true'] .eq i:nth-child(2) {
+      animation-duration: 450ms;
+    }
+    .sound[aria-pressed='true'] .eq i:nth-child(3) {
+      animation-duration: 750ms;
+    }
+  }
+  @keyframes lamp {
+    0%,
+    70% {
+      opacity: 1;
+    }
+    80%,
+    90% {
+      opacity: 0.35;
+    }
+  }
+  @keyframes hop {
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+  @keyframes spark {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.5);
+    }
+  }
+  @keyframes nudge {
+    50% {
+      transform: translateX(-2px);
+    }
+  }
+  @keyframes eq {
+    to {
+      height: 10px;
+    }
+  }
+
+  /* ---------- smaller screens ---------- */
+  @media (max-width: 1100px) {
+    .state {
+      display: none;
+    }
+  }
   @media (max-width: 980px) {
     .nav-num {
       display: none;
@@ -183,6 +459,9 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
     }
   }
   @media (max-width: 860px) {
+    .state {
+      display: inline-flex;
+    }
     .menu-btn {
       display: grid;
       place-items: center;
@@ -191,6 +470,13 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
       margin-right: -8px;
       border: 0;
       background: transparent;
+      color: var(--fg);
+    }
+    .menu-btn:active {
+      transform: translateY(2px);
+    }
+    .menu-btn[aria-expanded='true'] {
+      color: var(--amber);
     }
     .menu-btn :global(svg) {
       width: 22px;
@@ -199,6 +485,11 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
     .actions {
       margin-left: auto;
     }
+    .marker {
+      display: none;
+    }
+    /* The menu unrolls downward in pixel steps; closing plays it backward.
+       It stays in the layout so it can animate, hidden from AT when closed. */
     .nav {
       position: absolute;
       top: 100%;
@@ -208,19 +499,43 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
       padding: var(--s-2) var(--gutter) var(--s-6);
       background: var(--bg-deep);
       border-bottom: 2px solid var(--frame);
-      display: none;
+      visibility: hidden;
+      clip-path: inset(0 0 100% 0);
+      transition:
+        clip-path var(--t-base) steps(6),
+        visibility 0s linear var(--t-base);
     }
     .nav[data-open] {
-      display: block;
+      visibility: visible;
+      clip-path: inset(0 0 0 0);
+      transition: clip-path var(--t-base) steps(6);
     }
     .nav ol {
       flex-direction: column;
       gap: 2px;
     }
+    .nav li {
+      opacity: 0;
+      transform: translateX(-8px);
+      transition:
+        opacity var(--t-fast) steps(2),
+        transform var(--t-fast) steps(2);
+    }
+    .nav[data-open] li {
+      opacity: 1;
+      transform: none;
+      transition-delay: calc(var(--i) * 30ms + 80ms);
+    }
     .nav a {
-      padding: var(--s-3);
+      padding: var(--s-3) var(--s-3) var(--s-3) var(--s-6);
       font-family: var(--ff-pixel);
       font-size: var(--fs-lg);
+    }
+    .nav a[aria-current] {
+      box-shadow: inset 2px 0 0 var(--amber);
+    }
+    .cur {
+      left: var(--s-2);
     }
     .nav-num {
       display: inline;
@@ -228,10 +543,10 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
     }
   }
   @media (max-width: 420px) {
-    .brand .pixel {
+    .name {
       font-size: var(--fs-md);
     }
-    .sound > span {
+    .sound-label {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -240,8 +555,16 @@ const href = (id: string) => (home ? `#${id}` : `/#${id}`);
     }
     .sound {
       width: 40px;
-      justify-content: center;
+      min-width: 0;
       padding: 0;
+    }
+    .sound[aria-pressed='true'] :global(.i-on) {
+      display: none;
+    }
+  }
+  @media (max-width: 359px) {
+    .state {
+      display: none;
     }
   }
 </style>

@@ -1,5 +1,6 @@
 // Sticky header behaviour: mobile menu, sound switch, the stepped reading
-// meter, and highlighting the chapter in view.
+// meter, the glass state past the cover, and highlighting the chapter in view
+// (with a marker that slides under it and a confirm flash on selection).
 import { isSoundOn, play, setSound, type Sfx } from '../lib/sound';
 
 function initMenu(signal: AbortSignal) {
@@ -89,7 +90,7 @@ function initProgress(signal: AbortSignal) {
   window.addEventListener('resize', onScroll, { passive: true, signal });
 }
 
-function initActiveSection(signal: AbortSignal) {
+function initActiveSection(signal: AbortSignal, onChange: (link: HTMLAnchorElement | null) => void) {
   const links = new Map(
     [...document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]')].map((a) => [a.dataset.navLink!, a]),
   );
@@ -103,6 +104,7 @@ function initActiveSection(signal: AbortSignal) {
       // The first chapter (in page order) that crosses the reading line wins.
       const current = targets.find((t) => visible.has(t.id))?.id;
       links.forEach((a, id) => (id === current ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current')));
+      onChange(current ? links.get(current)! : null);
     },
     // A thin band a third of the way down the viewport.
     { rootMargin: '-33% 0px -66% 0px' },
@@ -111,11 +113,63 @@ function initActiveSection(signal: AbortSignal) {
   signal.addEventListener('abort', () => io.disconnect());
 }
 
+/** The segmented marker slides (in steps) under the chapter in view. */
+function initMarker(signal: AbortSignal) {
+  const marker = document.querySelector<HTMLElement>('[data-nav-marker]');
+  let current: HTMLAnchorElement | null = null;
+  const place = () => {
+    if (!marker) return;
+    marker.toggleAttribute('data-on', !!current);
+    if (!current) return;
+    marker.style.setProperty('--x', `${current.offsetLeft}px`);
+    marker.style.setProperty('--w', `${current.offsetWidth}px`);
+  };
+  window.addEventListener('resize', place, { passive: true, signal });
+  // Pixel fonts change link widths when they arrive.
+  document.fonts?.ready.then(place);
+  return (link: HTMLAnchorElement | null) => {
+    current = link;
+    place();
+  };
+}
+
+/** Choosing a chapter flashes its menu item twice, like a game menu confirming. */
+function initPick(signal: AbortSignal) {
+  document.querySelector('[data-nav]')?.addEventListener(
+    'click',
+    (e) => {
+      const a = (e.target as Element).closest<HTMLElement>('[data-nav-link]');
+      if (!a) return;
+      a.removeAttribute('data-picked');
+      void a.offsetWidth; // restart the animation on a repeat click
+      a.setAttribute('data-picked', '');
+      a.addEventListener('animationend', () => a.removeAttribute('data-picked'), { once: true });
+    },
+    { signal },
+  );
+}
+
+/** Once the cover has scrolled under the header, the header turns to glass. */
+function initHeroState(signal: AbortSignal) {
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const hero = document.getElementById('top');
+  if (!header) return;
+  if (!hero || !('IntersectionObserver' in window)) return header.setAttribute('data-past-hero', '');
+  const io = new IntersectionObserver(([e]) => header.toggleAttribute('data-past-hero', !e.isIntersecting), {
+    // The cover counts as gone once its last 80px slide under the header.
+    rootMargin: `-${header.offsetHeight + 80}px 0px 0px 0px`,
+  });
+  io.observe(hero);
+  signal.addEventListener('abort', () => io.disconnect());
+}
+
 export function initHeader(): () => void {
   const ac = new AbortController();
   initMenu(ac.signal);
   initSound(ac.signal);
   initProgress(ac.signal);
-  initActiveSection(ac.signal);
+  initActiveSection(ac.signal, initMarker(ac.signal));
+  initPick(ac.signal);
+  initHeroState(ac.signal);
   return () => ac.abort();
 }
