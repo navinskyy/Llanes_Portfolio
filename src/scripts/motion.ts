@@ -277,7 +277,43 @@ export function initScenes() {
   if (parallax) {
     window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', schedule, { passive: true });
+    initLean(visible);
   }
+}
+
+/** Depth layers lean a few pixels away from the mouse, deeper layers more.
+ *  Horizontal only, and on the `translate` property, so the scroll parallax
+ *  (on `transform`, measured vertically) is untouched. The lean eases toward
+ *  the pointer but is drawn in whole 2px steps to stay on the pixel grid;
+ *  the loop runs only while it is still catching up. */
+function initLean(visible: Set<HTMLElement>) {
+  const MAX = 8;
+  let target = 0;
+  let current = 0;
+  let raf = 0;
+  const shown = new WeakMap<HTMLElement, number>();
+
+  const frame = () => {
+    current += (target - current) * 0.08;
+    const settled = Math.abs(target - current) < 0.005;
+    if (settled) current = target;
+    for (const scene of visible) {
+      scene.querySelectorAll<HTMLElement>('[data-depth]').forEach((layer) => {
+        const x = Math.round((-current * Number(layer.dataset.depth) * MAX) / 2) * 2;
+        if (shown.get(layer) === x) return;
+        shown.set(layer, x);
+        layer.style.translate = `${x}px 0`;
+      });
+    }
+    raf = settled ? 0 : requestAnimationFrame(frame);
+  };
+  const follow = (x: number) => {
+    target = x;
+    if (!raf) raf = requestAnimationFrame(frame);
+  };
+
+  window.addEventListener('pointermove', (e) => follow((e.clientX / window.innerWidth) * 2 - 1), { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => follow(0));
 }
 
 /** A chapter's scenery fades in on arrival and its ground rises into place. */

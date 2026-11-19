@@ -1,0 +1,52 @@
+---
+// The air of the whole guide: stars, dust and drifting motes drawn by
+// src/scripts/ambient.ts on one fixed canvas.
+//
+// It is mounted inside the cover on purpose. The cover paints an opaque sky,
+// and every chapter is its own stacking context; a fixed layer inside the
+// cover sits in front of that sky, while each later chapter (and the footer)
+// paints over it, so the particles show through the open air behind content
+// and behind the chapter scenery, never over text.
+---
+
+<canvas class="ambient" aria-hidden="true" data-ambient></canvas>
+
+<style>
+  .ambient {
+    position: fixed;
+    inset: 0 auto auto 0;
+    z-index: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100lvh;
+    pointer-events: none;
+    image-rendering: pixelated;
+    opacity: 0;
+    transition: opacity 1.2s steps(6);
+  }
+  .ambient[data-on] {
+    opacity: 1;
+  }
+  /* Content stays the main character: the air is full in the margins and
+     thins over the reading column (and over the whole screen on phones,
+     where the column is the screen). */
+  .ambient {
+    mask-image: linear-gradient(
+      90deg,
+      #000 0,
+      #000 calc(50% - var(--wrap) / 2 - 40px),
+      rgb(0 0 0 / 0.4) calc(50% - var(--wrap) / 2 + 160px),
+      rgb(0 0 0 / 0.4) calc(50% + var(--wrap) / 2 - 160px),
+      #000 calc(50% + var(--wrap) / 2 + 40px),
+      #000 100%
+    );
+  }
+  @media (max-width: 860px) {
+    .ambient {
+      mask-image: none;
+    }
+    .ambient[data-on] {
+      opacity: 0.45;
+    }
+  }
+</style>

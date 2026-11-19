@@ -1,4 +1,5 @@
 // Client entry point, loaded on every page.
+import { initAmbient } from './ambient';
 import { initCopyEmail } from './contact';
 import { initHeader } from './header';
 import { initReveals, initScenes, playIntro } from './motion';
@@ -9,5 +10,6 @@ export function boot() {
   playIntro();
   initReveals();
   initScenes();
+  initAmbient();
   (window as Window & { __motionReady?: boolean }).__motionReady = true;
 }
