@@ -19,16 +19,16 @@ export const person = {
   role: 'Computer Science student',
   school: 'Lyceum of the Philippines University – Manila',
   schoolShort: 'LPU Manila',
-  location: 'Caloocan City, Metro Manila',
+  location: 'Caloocan City, Philippines',
   email: 'navinbyronllanes@gmail.com',
   phone: '0915 980 1407',
   phoneHref: 'tel:+639159801407',
   /** The cover headline. */
-  headline: 'I build practical software, and I’m levelling up in AI and cybersecurity.',
+  headline: 'I build practical software, explore AI-powered applications, and learn how technology works beneath the surface.',
   statement:
-    "I'm a computer science student and developer interested in building useful software, exploring AI-powered applications, and learning cybersecurity.",
+    "I'm Navin, a Computer Science student interested in software engineering, artificial intelligence, cybersecurity, and the systems behind modern technology. I enjoy experimenting with different technologies, building practical projects, and continuously expanding my technical knowledge.",
   /** Lines the cover's status window types out in turn. Keep them short and true. */
-  status: ['Building a better tomorrow.', 'Now building: a dental clinic website', 'Levelling up: AI and cybersecurity'],
+  status: ['Building a better tomorrow.', 'Now: IT trainee at RivanCyber', 'Levelling up: AI and cybersecurity'],
   /** Put the file in public/ (e.g. public/resume.pdf) and set this to '/resume.pdf'. */
   resume: undefined as string | undefined,
 };
@@ -84,35 +84,36 @@ export interface Project {
 export const projects: Project[] = [
   {
     name: 'NursePrep',
-    kind: 'Web app for nursing students',
+    kind: 'AI-assisted review app for nursing students',
     status: 'Live',
     icon: 'cross',
     problem: 'Reviewing for the Philippine Nurse Licensure Examination means a lot of practice with little feedback on weak subjects.',
     description:
-      'A personalized PNLE review platform with adaptive quizzes, spaced-repetition flashcards, progress tracking and AI-powered explanations.',
-    tech: ['JavaScript', 'Vite', 'Firebase', 'Anime.js'],
+      'An AI-assisted review platform for the Philippine Nurse Licensure Examination (PNLE), with adaptive quizzes, spaced-repetition flashcards, progress tracking and AI-powered explanations.',
+    tech: ['JavaScript', 'Vite', 'Firebase', 'Node.js', 'Express', 'AI integration', 'Anime.js'],
     image: { src: nurseprepShot, alt: 'NursePrep home page: a practice question with its rationale beside the headline "Study smarter. Pass the PNLE with confidence."' },
     url: 'https://github.com/navinskyy/NursePrep',
     demo: 'https://nurse-prep-pi.vercel.app',
   },
   {
     name: 'LIBR-A.I-RY',
-    kind: 'Library management system',
+    kind: 'Academic e-library',
     icon: 'book',
-    problem: 'Cataloguing, lending and returns are slow when a library runs them by hand.',
+    problem: 'Finding the right book, and running a library by hand, are both slow.',
     description:
-      'A web-based library system for cataloguing books, borrowing and returns, and managing user accounts. A React front end talks to a Flask API, and the whole stack runs in Docker.',
+      'An academic e-library with natural-language search, AI-assisted book discovery and recommendations, plus library management for cataloguing, borrowing, returns and user accounts. A React front end talks to a Flask API, and the whole stack runs in Docker.',
     tech: ['React', 'Flask', 'SQLAlchemy', 'Docker'],
     role: 'Co-developer, team of three',
     url: 'https://github.com/navinskyy/LIBR-A.I-RY',
   },
   {
     name: 'Dental Clinic Website',
-    kind: 'Website for a dental and braces clinic',
+    kind: 'AI-integrated website for a dental and braces clinic',
     status: 'In progress',
     icon: 'tooth',
-    problem: 'Patients need one clear place to learn about the clinic and its appointments.',
-    description: 'A website for a dental and braces clinic, with appointment-related functionality. Integration work is ongoing.',
+    problem: 'Patients need one clear place to learn about the clinic and book appointments.',
+    description:
+      'A clinic website with appointment booking, an AI-assisted booking flow, admin tools and a database behind them. I presented it to the clinic’s CEO during a site visit and it was accepted. Integrations, including Google Calendar, are still in progress.',
     tech: [],
     // The repository is private for now; add the URL here once it is public.
     url: undefined,
@@ -155,9 +156,9 @@ export const projects: Project[] = [
 
 /** Player profile, one paragraph per entry. */
 export const story = [
-  "I'm a computer science student at Lyceum of the Philippines University – Manila, learning through coursework and through projects that people can actually use.",
-  'Most of my work sits on the front end, where I care about interfaces that feel clear and quick. I’m also interested in software engineering as a whole, in putting AI to practical use, and in cybersecurity, which my IoT intrusion detection research got me into.',
-  "I'm also a working student: alongside classes I work as a sales advisor at H&M and serve on the vice presidential committee of the Lyceum Pirate Esports Organization.",
+  "I'm an incoming fourth-year BS Computer Science student at Lyceum of the Philippines University – Manila, working toward a career as a software engineer. I learn through coursework and through projects that people can actually use.",
+  'I explore more than one corner of computing: building software end to end, integrating AI into real applications, and digging into cybersecurity and the technical systems underneath, from networks and Linux to how attacks actually work. My IoT intrusion detection research is where the security side started.',
+  "Right now I'm an IT trainee at RivanCyber Training Institute. Along the way I've made the Dean's List twice, and I serve on the vice presidential committee of the Lyceum Pirate Esports Organization.",
 ];
 
 /** The character sheet beside the story. Real facts only. */
@@ -165,53 +166,80 @@ export const profile = [
   { key: 'Class', value: 'Computer Science student' },
   { key: 'Guild', value: 'LPU Manila' },
   { key: 'Home', value: 'Caloocan City' },
-  { key: 'Side job', value: 'Sales Advisor, H&M' },
   { key: 'Best GWA', value: "1.45 · Dean's List" },
-  { key: 'Interests', value: 'Front-end, AI, cybersecurity' },
+  { key: 'Interests', value: 'Software engineering, AI, cybersecurity, networking, cloud computing' },
+  { key: 'Mode', value: 'Building' },
+  { key: 'Status', value: 'Learning and exploring' },
 ];
 
-export type RoleKind = 'Employment' | 'Organization' | 'Academic';
+export type RoleKind = 'Employment' | 'Internship' | 'Organization' | 'Academic';
 
 export interface Role {
   start: string;
   end: string;
   title: string;
   org: string;
-  place: string;
+  place?: string;
   kind: RoleKind;
+  /** Ongoing roles are lit on the map; every other role reads as completed. */
+  current?: boolean;
+  /** One or two short sentences; omit when there is nothing to add. */
+  summary?: string;
 }
 
 export const experience: Role[] = [
-  { start: 'May 2026', end: 'Present', title: 'Sales Advisor', org: 'H&M', place: 'Quezon City', kind: 'Employment' },
-  { start: 'Nov 2025', end: 'Present', title: 'Vice Presidential Committee', org: 'Lyceum Pirate Esports Organization', place: 'Manila', kind: 'Organization' },
+  {
+    start: 'Aug 25, 2026',
+    end: 'Dec 12, 2026',
+    title: 'IT Trainee (OJT)',
+    org: 'RivanCyber Training Institute Inc.',
+    kind: 'Internship',
+    current: true,
+    summary:
+      'Technical support for students; Security+-aligned research on SQL injection and XXE; honeypot labs; Kali Linux and penetration testing fundamentals; Linux Mint, SSH and virtual machines; Cisco Meraki networking; AI-assisted security research. Also building an AI-integrated dental clinic website.',
+  },
+  {
+    start: 'May 2026',
+    end: 'Aug 2026',
+    title: 'Sales Advisor',
+    org: 'H&M',
+    place: 'Quezon City',
+    kind: 'Employment',
+    summary: 'Customer service and sales on the floor, working with the team on day-to-day store operations.',
+  },
+  { start: 'Nov 2025', end: 'Present', title: 'Vice Presidential Committee', org: 'Lyceum Pirate Esports Organization', place: 'Manila', kind: 'Organization', current: true },
   { start: 'Oct 2023', end: 'May 2024', title: 'Membership Committee', org: 'Lyceum Pirate Esports Organization', place: 'Manila', kind: 'Organization' },
   { start: 'Apr 2023', end: 'May 2023', title: 'Leader, Work Immersion', org: 'Work immersion', place: 'Caloocan City', kind: 'Academic' },
 ];
 
 export const education = {
   school: 'Lyceum of the Philippines University – Manila',
-  program: 'Computer Science',
-  status: 'Current student',
+  program: 'BS Computer Science',
+  status: 'Incoming 4th year',
 };
 
 /** No proficiency scores: a group is a list, nothing more. `training` marks a
  *  group that is being learned rather than used in shipped work. */
 export const skills: { group: string; items: string[]; training?: boolean }[] = [
-  { group: 'Languages', items: ['JavaScript', 'Java', 'Python', 'PHP', 'SQL', 'HTML', 'CSS'] },
-  { group: 'Front end & web', items: ['React', 'Next.js', 'Vite', 'Tailwind CSS', 'Node.js'] },
-  { group: 'Data & backend', items: ['MySQL', 'MongoDB', 'Firebase'] },
-  { group: 'AI-assisted development', items: ['OpenAI', 'Claude Code', 'Codex'] },
-  { group: 'Cybersecurity & networking', items: ['Networking fundamentals', 'Security fundamentals', 'ML intrusion detection (research)'], training: true },
-  { group: 'Developer tools', items: ['Git', 'GitHub', 'VS Code', 'Linux', 'Prettier', 'Trello', 'Discord'] },
+  { group: 'Programming languages', items: ['JavaScript', 'TypeScript', 'Python', 'Java', 'SQL'] },
+  { group: 'Development & frameworks', items: ['React', 'React Native', 'Next.js', 'Node.js', 'Vite'] },
+  { group: 'Databases & backend', items: ['MySQL', 'MongoDB', 'Firebase', 'Supabase', 'XAMPP'] },
+  { group: 'AI & development tools', items: ['OpenAI API', 'Claude Code', 'Codex'] },
+  {
+    group: 'Cybersecurity & networking',
+    items: ['Kali Linux', 'Linux Mint', 'Networking fundamentals', 'Cisco Meraki', 'SSH', 'Security fundamentals', 'Penetration testing fundamentals'],
+    training: true,
+  },
+  { group: 'Developer tools', items: ['Git', 'GitHub', 'Visual Studio Code', 'Trello', 'Discord'] },
   { group: 'Design & media', items: ['Adobe Photoshop', 'Adobe Premiere Pro', 'Canva'] },
 ];
 
 /** Side quests: what Navin is exploring now. Edit freely; keep it honest. */
 export const quests: { title: string; note: string; state: 'Active' | 'In progress' }[] = [
-  { title: 'Ship the dental clinic website', note: 'Appointment features and integration work are under way.', state: 'In progress' },
-  { title: 'Computer networking', note: 'How traffic actually moves: addressing, routing, and the protocols under the apps I build.', state: 'Active' },
-  { title: 'Cybersecurity fundamentals', note: 'Common attacks and defences, building on what my intrusion detection research taught me.', state: 'Active' },
-  { title: 'AI-powered applications', note: 'Putting language models to practical use, like the explanations in NursePrep.', state: 'Active' },
+  { title: 'Software engineering', note: 'Getting better at designing, building and maintaining practical software applications.', state: 'Active' },
+  { title: 'Artificial intelligence', note: 'Exploring LLM integrations, AI-powered applications and practical AI development workflows.', state: 'Active' },
+  { title: 'Cybersecurity', note: 'Strengthening my grasp of vulnerabilities, attack techniques, security testing and defensive concepts.', state: 'Active' },
+  { title: 'Networking & cloud computing', note: 'Exploring networking fundamentals, Linux environments, infrastructure and cloud technologies.', state: 'Active' },
 ];
 
 export interface Certificate {

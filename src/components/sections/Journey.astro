@@ -27,7 +27,7 @@ const certItems = linked.slice(honors.length);
       <ol class="path" role="list" aria-label="Experience, newest first" data-reveal>
         {
           experience.map((r) => {
-            const current = r.end === 'Present';
+            const current = Boolean(r.current);
             return (
               <li class:list={['stop', { current }]}>
                 <span class="node" aria-hidden="true" />
@@ -36,11 +36,13 @@ const certItems = linked.slice(honors.length);
                 </p>
                 <h3 class="pixel">{r.title}</h3>
                 <p class="org">
-                  {r.org} · {r.place}
+                  {r.org}
+                  {r.place && ` · ${r.place}`}
                 </p>
+                {r.summary && <p class="summary">{r.summary}</p>}
                 <p class="status tag" data-status={current ? 'Active' : 'Cleared'}>
                   {r.kind}
-                  {current ? ' · current' : ' · cleared'}
+                  {current ? ' · ongoing' : ' · completed'}
                 </p>
               </li>
             );
@@ -147,6 +149,12 @@ const certItems = linked.slice(honors.length);
   .org {
     margin-top: var(--s-1);
     color: var(--muted);
+  }
+  .summary {
+    margin-top: var(--s-2);
+    max-width: 60ch;
+    color: var(--muted);
+    font-size: var(--fs-sm);
   }
   .stop .status {
     margin-top: var(--s-3);

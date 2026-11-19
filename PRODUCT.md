@@ -7,13 +7,13 @@
 web
 
 ## Users
-Recruiters and hiring managers screening Navin Byron Llanes for internships and junior front-end / UI roles. They skim quickly, usually on a laptop between other candidates, sometimes on a phone from a LinkedIn or résumé link. Their job: judge skills and proof of work in under a minute, then find a way to make contact.
+Recruiters and hiring managers screening Navin Byron Llanes for software engineering internships, junior roles and collaborations. They skim quickly, usually on a laptop between other candidates, sometimes on a phone from a LinkedIn or résumé link. Their job: judge skills and proof of work in under a minute, then find a way to make contact.
 
 ## Product Purpose
 Personal portfolio of Navin Byron Llanes, Computer Science student at Lyceum of the Philippines University – Manila and working student. Success = a recruiter understands who Navin is, what he builds, and how to reach him, and leaves with a memorable impression.
 
 ## Positioning
-A front-end/UI-minded CS student who builds practical software, is exploring AI and cybersecurity, works retail and serves in a student esports org. The site is a single page styled as a retro game's player's guide (pixel art, midnight stock) that still reads like a professional portfolio; proof comes from real projects, screenshots and certificates.
+An aspiring software engineer and incoming fourth-year CS student who builds practical software, explores AI, cybersecurity and networking, is an IT trainee at RivanCyber and serves in a student esports org. The site is a single page styled as a retro game's player's guide (pixel art, midnight stock) that still reads like a professional portfolio; proof comes from real projects, screenshots and certificates.
 
 ## Operating Context
 Static site, deployed to Vercel or Netlify (domain not yet chosen). Linked from GitHub, LinkedIn and résumés.
@@ -30,7 +30,7 @@ Static site, deployed to Vercel or Netlify (domain not yet chosen). Linked from 
 
 ## Evidence on Hand
 - Projects: NursePrep (live), LIBR-A.I-RY, Dental Clinic Website (in progress, private repo), CoffeeQuest, IoT Intrusion Detection (Random Forest 98.42% accuracy on IoT-23), Red Warriors Ordering & POS.
-- Experience: H&M Sales Advisor; Lyceum Pirate Esports Organization committees; work immersion leader.
+- Experience: RivanCyber IT Trainee/OJT (Aug–Dec 2026, ongoing); H&M Sales Advisor (May–Aug 2026, completed); Lyceum Pirate Esports Organization committees; work immersion leader.
 - Certificate images in `src/assets/certs/`.
 - No testimonials, metrics beyond the above, or employer endorsements exist; do not invent any.
 
